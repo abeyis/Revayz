@@ -1,0 +1,37 @@
+{
+  "name": "revayz_api",
+  "version": "1.0.0",
+  "description": "api test",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abeyis/Revayz.git"
+  },
+  "keywords": [
+    "api",
+    "cucumber",
+    "revayz"
+  ],
+  "author": "ali",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abeyis/Revayz/issues"
+  },
+  "homepage": "https://github.com/abeyis/Revayz#readme",
+  "devDependencies": {
+    "cypress": "^13.2.0",
+    "cypress-cucumber-preprocessor": "^4.3.1",
+    "cypress-localstorage-commands": "^2.2.4",
+    "install": "^0.13.0"
+  },
+  "dependencies": {
+    "D": "^1.0.0"
+  },
+  "cypress-cucumber-preprocessor": {
+    "nonGlobalStepDefinitions": true,
+    "step_definitions": "cypress/integration"
+  }
+}

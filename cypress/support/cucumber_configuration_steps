@@ -1,0 +1,39 @@
+
+/*
+1) npm init
+
+2) npm install cypress --save-dev
+
+3) a) npm i -D install cypress cypress-cucumber-preprocessor
+   b) npm install --save-dev cypress-cucumber-preprocessor
+
+4) npx cypress open (to odd cypress.config.js)
+
+5) add below lines in cypress.config.js
+
+        const cucumber = require('cypress-cucumber-preprocessor').default
+
+        module.exports = (on, config) => {
+        on('file:preprocessor', cucumber())
+        },
+        */
+ //       specPattern: "cypress/e2e/*.feature"     or    specPattern: "**/*.feature"
+
+/*
+ 6) add below lines in package.json
+
+        "cypress-cucumber-preprocessor": {
+        "nonGlobalStepDefinitions": true,
+        "step_definition": "cypress/e2e"  (path for step definition)
+        }
+
+7) create a file under e2e as .feature
+
+8)create a folder under e2e and then create a folder as for step definition as .js 
+
+
+
+
+cucumber configration for cypress
+https://www.youtube.com/watch?v=TGLQN3xEnaU&t=6s
+*/
