@@ -9,7 +9,7 @@ module.exports = defineConfig({
       require("cypress-localstorage-commands/plugin")(on, config);
       return config;
     },
-    specPattern: "**/*.feature"
+    specPattern: "cypress/e2e/features/**/*.feature"
   },
 });
 
