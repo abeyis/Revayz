@@ -44,4 +44,3 @@ Cypress.Commands.add('contentCreation', (url, headers, body) => {
    })      
 
 });
-
