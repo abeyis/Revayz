@@ -11,6 +11,20 @@ module.exports = defineConfig({
     },
     specPattern: "cypress/e2e/features/**/*.feature"
   },
+
+  env:{ 
+    RevayzEndPoint:"https://rmzwitktjd.execute-api.us-east-1.amazonaws.com/Prod/"
+
+
+
+
+
+  }
+
+
+
+
+
 });
 
 
