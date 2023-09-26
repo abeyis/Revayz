@@ -6,29 +6,15 @@ import {And, Given, Then, When } from "cypress-cucumber-preprocessor/steps";
 
    
 Given('User should get refresh_token and create authToken', ()=>{
-
-  cy.fixture('refresh_token.json').then((data) => {
-    const   refresh_token = data.refresh_token;
     
-    cy.generateToken(Cypress.env('revayz_endpoint') + 'token_generate', 
-    {
-      refresh_token: refresh_token          
-     })
-    
-     .then((Response) =>{
-      authToken = Response.body.idToken;
-    })
-  }); 
-  return authToken;
-})
+    cy.generateToken()
+     }); 
 
 
 When('User should verify usersubscription info', ()=> {
      
-    cy.userSubscription(Cypress.env('revayz_endpoint') + 'usersubscription', 
-    {
-      Authorization: 'Bearer ' + authToken
-    })
+    cy.userSubscription() 
+   
         .then((Response)=>{
         expect(Response.status).to.eq(200);
         expect(Response.body.character_count_of_each_revayz).to.eq('400');
@@ -43,33 +29,26 @@ When('User should verify usersubscription info', ()=> {
         expect(Response.body.email).to.eq('abdullatif.aksu@abeyis.com');
         expect(Response.body.package_code).to.eq('tier_1');
 
-    cy.log(Response.body.character_count_of_each_revayz);
-
       })
    })
 
 
 And('User should verify 3 subscription type is exist', () =>{
 
-    cy.subscription(Cypress.env('revayz_endpoint') + 'subscription', 
-    {
-      Authorization: 'Bearer ' + authToken
-    })
+    cy.subscription()
       .then((Response)=>{
       expect(Response.status).to.eq(200);
       expect(Response.body).to.have.length(3);
+    
       })
     })
 
 
-Then('User should create some content and write the response on the console', () => {
+Then('User sends contens as {string}', (content) => {
     
-    cy.contentCreation(Cypress.env('revayz_endpoint') + 'contentcreation', 
+    cy.contentCreation(
     {
-      Authorization: 'Bearer ' + authToken
-    },
-    {
-      content: 'I am learning Cypress'
+      content: content
     })
     
       .then((Response)=>{
