@@ -3,9 +3,7 @@
 let authToken = null;
     
 Cypress.Commands.add('generateToken', (url, body) => {
-     
-    
-     
+          
      cy.fixture('refresh_token.json').then((data) => {
       const   refresh_token = data.refresh_token;
 
@@ -15,20 +13,12 @@ Cypress.Commands.add('generateToken', (url, body) => {
         body:  {
           refresh_token: refresh_token          
          }
-       }) 
-            
+       })             
        .then((Response) =>{
         authToken = Response.body.idToken;
       })
-    }); 
-       
-     
-
-
-
-     
+    });        
 });
-
 
 
 Cypress.Commands.add('userSubscription', () => {
@@ -51,8 +41,7 @@ Cypress.Commands.add('subscription', () => {
     headers: {
       Authorization: 'Bearer ' + authToken
     }
-   })      
-
+   })    
 });
 
 
