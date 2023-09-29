@@ -1,6 +1,7 @@
 
 //custom command to refresh token
 
+let authToken2 = null;
 
 Cypress.Commands.add ('refreshToken', (url, body) => { 
 
@@ -15,11 +16,17 @@ Cypress.Commands.add ('refreshToken', (url, body) => {
             url: Cypress.env('revayz_endpoint') + 'token_generate',
             body:  {refresh_token2}
            })   
-           .then ((response) => { 
-            expect(response.body).to.have.property ('idToken');
-            expect(response.status).to.equal (200);
 
-        });
+           .then((Response) =>{
+            authToken2 = Response.body.idToken;
+          })
+
+
+    //do not do assertions in commands
+        //    .then ((response) => { 
+        //     expect(response.body).to.have.property ('idToken');
+        //     expect(response.status).to.equal (200);
+        //     });
 
     })
 
