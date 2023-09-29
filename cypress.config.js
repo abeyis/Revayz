@@ -13,7 +13,7 @@ module.exports = defineConfig({
   },
   env:{
     revayz_endpoint: 'https://rmzwitktjd.execute-api.us-east-1.amazonaws.com/Prod/'
-  }
+  },
 });
 
 
