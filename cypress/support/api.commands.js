@@ -57,3 +57,34 @@ Cypress.Commands.add('contentCreation', (body) => {
    })      
 
 });
+
+
+//custom command to refresh token
+
+let authToken2 = null;
+
+Cypress.Commands.add ('refreshToken', () => { 
+
+    cy.fixture ('refresh_token2.json').as('refresh_token_data');
+
+    cy.get('@refresh_token_data').then((refresh_token_data) => {
+        const refresh_token2 = refresh_token_data.refresh_token;
+        cy.log(refresh_token2);
+      
+        cy.request({
+            method: 'POST',
+            url: Cypress.env('revayz_endpoint') + 'token_generate',
+            body:  {
+              refresh_token: refresh_token2
+            }
+           })   
+
+           .then((Response) =>{
+            authToken2 = Response.body.idToken;
+          });
+
+    });
+
+
+});
+
