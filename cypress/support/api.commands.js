@@ -57,3 +57,25 @@ Cypress.Commands.add('contentCreation', (body) => {
    })      
 
 });
+
+Cypress.Commands.add('getUserSubscription', () => {
+
+  cy.request({
+
+    method: 'GET',
+    url: 'https://rmzwitktjd.execute-api.us-east-1.amazonaws.com/Prod/usersubscription',
+    headers: {
+
+        Authorization: 'Bearer ' + authToken
+        
+    }
+})
+
+
+
+
+
+
+
+})
+
