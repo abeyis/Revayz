@@ -62,7 +62,7 @@ Cypress.Commands.add('upGradeDownGradeUsersubscription', (tier_type) => {
   let new_package_id = null;
   let new_subscription_id = null;
 
-  cy.fixture('refresh_token.json').then((data) => {
+  cy.fixture('package_ids.json').then((data) => {
     if (tier_type === 'tier_1') {
       new_package_id = data.tier_1_package_id; 
     } else if (tier_type ==='tier_2'){
