@@ -1,5 +1,5 @@
-const cucumber = require('cypress-cucumber-preprocessor').default
-const { defineConfig } = require("cypress");
+const cucumber = require('cypress-cucumber-preprocessor').default;
+const { defineConfig } = require('cypress');
 
 module.exports = defineConfig({
   e2e: {
@@ -9,8 +9,10 @@ module.exports = defineConfig({
       require("cypress-localstorage-commands/plugin")(on, config);
       return config;
     },
-    specPattern: "cypress/e2e/features/**/*.feature"
+    specPattern:  "cypress/e2e/features/**/*.feature"
   },
+  env:{
+    baseUrl: 'https://rmzwitktjd.execute-api.us-east-1.amazonaws.com/Prod/'
+  }
 });
-
 
