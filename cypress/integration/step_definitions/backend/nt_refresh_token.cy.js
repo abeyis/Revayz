@@ -17,8 +17,6 @@ Given ('a valid refresh token is provided', () => {
 
 
 //Step definitions for Scenario: User refreshes their access token 
-
-
 Then ('a new access token is generated', () => {
     
     cy.refreshToken().then((response) => { 

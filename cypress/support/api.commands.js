@@ -59,7 +59,7 @@ Cypress.Commands.add('contentCreation', (body) => {
 });
 
 
-//custom command to refresh token
+//custom command to refresh token -nursena
 
 let authToken2 = null;
 
@@ -87,4 +87,22 @@ Cypress.Commands.add ('refreshToken', () => {
 
 
 });
+
+
+//custom command for content creation api request -nursena
+
+Cypress.Commands.add('contentCreation2', (body) => {
+     
+  cy.request({
+    method: 'POST',
+    url: Cypress.env('revayz_endpoint') + 'contentcreation', 
+    headers:  {
+      Authorization: 'Bearer ' + authToken2
+    },
+    body, //insert some text to body 
+   })      
+
+});
+
+
 
