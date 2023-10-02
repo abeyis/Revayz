@@ -31,5 +31,13 @@ When ('the user verifies that he gets a successful response' , () => {
 
 })
 
+Then ('the user verifies that the response is paraphrased version of the text' , () => {
+
+    cy.contentCreation2().then((response) => { 
+           
+        
+      });
+
+})
 
     
