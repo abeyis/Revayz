@@ -63,15 +63,20 @@ Cypress.Commands.add('upGradeDownGradeUsersubscription', (tier_type) => {
   let new_subscription_id = null;
 
   cy.fixture('package_ids.json').then((data) => {
-    if (tier_type === 'tier_1') {
-      new_package_id = data.tier_1_package_id; 
-    } else if (tier_type ==='tier_2'){
-      new_package_id = data.tier_2_package_id; 
-    } else if (tier_type ==='tier_free'){
-      new_package_id = data.tier_free_package_id; 
-    } else {
-     new_package_id = tier_type;
-    cy.log('No such tier_type like that! Please try "tier_1, Tier_2 or tier_free') 
+    switch (tier_type) {
+    case 'tier_1': 
+        new_package_id = data.tier_1_package_id; 
+        break;
+    case 'tier_2': 
+        new_package_id = data.tier_2_package_id; 
+        break;
+    case 'tier_free': 
+        new_package_id = data.tier_free_package_id; 
+        break;
+      default:
+        new_package_id = tier_type; 
+        throw new Error(`Invalid tier_type: ${tier_type}`);
+    
     }
       
   cy.userSubscription().then((Response)=>{
