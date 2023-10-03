@@ -23,3 +23,21 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('convertDatatableToJson', (dataTable) => {
+
+    const headers = dataTable.rawTable[0];
+    const rows = dataTable.rawTable.slice(1);
+  
+    const jsonData = rows.map(row => {
+      const rowData = {};
+      headers.forEach((header, index) => {
+        rowData[header] = row[index];
+      });
+      return rowData;
+    });
+  
+    return jsonData;
+ 
+});
+
