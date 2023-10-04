@@ -3,13 +3,10 @@ import {And, Given, Then, When } from "cypress-cucumber-preprocessor/steps";
 
      let authToken = null;
     
-
-   
 Given('User should get refresh_token and create authToken', ()=>{
     
     cy.generateToken()
      }); 
-
 
 When('User verify usersubscription info', (dataTable)=> {
   

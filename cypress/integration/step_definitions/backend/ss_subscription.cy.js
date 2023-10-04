@@ -1,22 +1,18 @@
 import { Given, When, Then } from "cypress-cucumber-preprocessor/steps";
 
-Given("User should get token", () => {
-  cy.generateToken();
-});
+let res;
 
-When("I send a GET request to {string}", () => {
-  cy.getSubscription();
-});
-
-Then("the response status code should be {int}", (statusCode) => {
+When("I send a GET request to subscription", () => {
   cy.getSubscription().then((response) => {
-    expect(response.status).to.eq(statusCode);
-  });
-  
+    expect(response.status).to.eq(200);
+    res = response
+  })
 });
+
 
 
 And("the response body should be correct", () => {
+//expect(res.body)
   
-  cy.wait(1000); 
+ 
 });

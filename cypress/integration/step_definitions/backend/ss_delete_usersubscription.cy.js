@@ -1,18 +1,16 @@
 import { Given, When, Then } from "cypress-cucumber-preprocessor/steps";
 
-Given("I have a valid bearer token", () => {
+let res;
 
-cy.generateToken()
+When("I send a POST request to delete_usersubscription", () => {
+ cy.deleteUserSubscription().then((response) => {
+  expect(response.status).to.eq(400);
+  res = response
+
+});
 });
 
-
-When("I send a DELETE request to {string}", () => {
- cy.deleteUserSubscription()
+Then("I verify error message {string}", (error_message) => {
+expect(res.body).to.include(error_message);
 });
 
-Then("the response status code should be {int}", (statusCode) => {
-  cy.deleteUserSubscription().then((response) => {
-    expect(response.status).to.eq(statusCode);
-  });
-  
-});

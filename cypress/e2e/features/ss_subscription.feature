@@ -2,9 +2,8 @@
 
 
 Feature: Subscription Testing with Token
-Background: User gets token
+Background: User gets refresh_token
+Given User should get refresh_token and create authToken
   Scenario: Send a GET request to the subscription API
-    Given User should get token
-    When I send a GET request to "/subscription"
-    Then the response status code should be 200
-    And the response body should be correct 
+    When I send a GET request to subscription
+    Then the response body should be correct
