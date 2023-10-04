@@ -12,7 +12,7 @@ module.exports = defineConfig({
     specPattern: "cypress/e2e/features/**/*.feature"
   },
   env:{
-    baseUrl: 'https://rmzwitktjd.execute-api.us-east-1.amazonaws.com/Prod/'
+    revayz_endpoint: 'https://rmzwitktjd.execute-api.us-east-1.amazonaws.com/Prod/'
   }
 });
 

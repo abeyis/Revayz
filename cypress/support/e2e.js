@@ -15,8 +15,7 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands'
-import 'cypress-cucumber-preprocessor/steps'
-
+import './api.commands';
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
