@@ -1,7 +1,4 @@
 
-
-
-
 let authToken = null;
 
 Cypress.Commands.add('generateToken', () => {
