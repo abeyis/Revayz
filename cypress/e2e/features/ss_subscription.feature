@@ -7,3 +7,4 @@ Background: User gets token
     Given User should get token
     When I send a GET request to "/subscription"
     Then the response status code should be 200
+    And the response body should be correct 
