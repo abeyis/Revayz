@@ -9,10 +9,8 @@ When("I send a GET request to subscription", () => {
   })
 });
 
-
-
 And("the response body should be correct", () => {
 //expect(res.body)
   
- 
+
 });
