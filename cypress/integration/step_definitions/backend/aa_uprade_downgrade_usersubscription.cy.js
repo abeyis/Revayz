@@ -5,12 +5,13 @@ import {When, Then} from "cypress-cucumber-preprocessor/steps";
  When('User send request to upgrade or downgrade usersubscription to {string}', (tier_type)=>{
       cy.upGradeDownGradeUsersubscription(tier_type).then((Response)=>{ 
         expect(Response.body).to.eq('Succesfully updated')
+
    });  
             
 });
 
 Then('User verify credits with the new plan {string}', (tier_type)=> {
-
+  cy.wait(1000);
   cy.userSubscription() .then((Response)=>{
     expect(Response.status).to.eq(200);
     const remindRevayzCount= (Response.body.remind_revayz_count); 
