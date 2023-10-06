@@ -1,8 +1,8 @@
 
-
 // Other Cypress custom commands for API requests go here...
 // Other Cypress custom commands for API requests go here...
 // Example command to send a GET request with the bearer token
+
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
