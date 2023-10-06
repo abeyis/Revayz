@@ -11,7 +11,7 @@ import {When, Then} from "cypress-cucumber-preprocessor/steps";
 });
 
 Then('User verify credits with the new plan {string}', (tier_type)=> {
-  cy.wait(1000);
+  cy.wait(2000);
   cy.userSubscription() .then((Response)=>{
     expect(Response.status).to.eq(200);
     const remindRevayzCount= (Response.body.remind_revayz_count); 
