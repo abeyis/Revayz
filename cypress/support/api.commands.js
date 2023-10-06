@@ -21,6 +21,18 @@ Cypress.Commands.add('generateToken', () => {
 });
 
 
+Cypress.Commands.add('subscription', () => {
+     
+  cy.request({
+   method: 'GET',
+   url: Cypress.env('revayz_endpoint') + 'subscription',
+   headers: {
+     Authorization: 'Bearer ' + authToken
+   }
+  })    
+});
+
+
 Cypress.Commands.add('userSubscription', () => {
         
   cy.request({
