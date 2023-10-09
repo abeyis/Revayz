@@ -1,5 +1,4 @@
 
-
 let authToken = null;
     
 Cypress.Commands.add('generateToken', (url, body) => {
@@ -33,11 +32,12 @@ Cypress.Commands.add('userSubscription', () => {
 });
 
 
-Cypress.Commands.add('subscription', () => {
+
+Cypress.Commands.add('usersubscription', () => {
      
    cy.request({
     method: 'GET',
-    url: Cypress.env('revayz_endpoint') + 'subscription',
+    url: Cypress.env('revayz_endpoint') + 'usersubscription',
     headers: {
       Authorization: 'Bearer ' + authToken
     }
