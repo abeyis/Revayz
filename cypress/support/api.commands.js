@@ -66,21 +66,33 @@ Cypress.Commands.add('upGradeDownGradeUsersubscription', (tier_type) => {
         throw new Error(`Invalid tier_type: ${tier_type}`);
     
     }
+
       
   cy.userSubscription().then((Response)=>{
     new_subscription_id = Response.body.subscription_id; 
+  });
 
-    cy.request({
+   
+  
+ //custom command for content creation api request -nursena
+
+Cypress.Commands.add('contentCreation2', (body) => {
+
+  cy.request({
     method: 'POST',
     url: Cypress.env('revayz_endpoint') + 'contentcreation', 
     headers:  {
-      Authorization: 'Bearer ' + authToken
+      Authorization: 'Bearer ' + authToken2
     },
-    body,
+    body, //insert some text to body 
+    
    })      
 
-})
 
   })
 
 })
+
+})
+
+
