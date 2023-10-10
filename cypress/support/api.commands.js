@@ -70,14 +70,6 @@ Cypress.Commands.add('upGradeDownGradeUsersubscription', (tier_type) => {
   cy.userSubscription().then((Response)=>{
     new_subscription_id = Response.body.subscription_id; 
 
-});
-Cypress.Commands.add('getSubscription', () => {
-  cy.request({
-    method: 'GET',
-    url: Cypress.env('revayz_endpoint') + 'subscription',
-    headers: {
-      Authorization: 'Bearer ' + authToken
-    }
   });
 });
 Cypress.Commands.add("deleteUserSubscription", () => {
@@ -111,5 +103,5 @@ Cypress.Commands.add("deleteUserSubscription", () => {
         },  
       }); 
     }); 
-  });
+  
   
