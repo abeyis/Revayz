@@ -69,13 +69,6 @@ Cypress.Commands.add('upGradeDownGradeUsersubscription', (tier_type) => {
   })
 })
       
-
-  cy.userSubscription().then((Response)=>{
-    new_subscription_id = Response.body.subscription_id; 
-  });
-
-   
-  
  
  
   //custom command for content creation api request -nursena
@@ -83,11 +76,9 @@ Cypress.Commands.add('upGradeDownGradeUsersubscription', (tier_type) => {
 
   Cypress.Commands.add('contentCreation2', (body) => {
 
-
-    cy.fixture('content_nt.json').as('content_data');
   
-    cy.get('@content_data'). then ((content_data) => {
-    let  content2 = content_data. content2;
+    cy.fixture('content_nt.json'). then ((content_data) => {
+    let content2 = content_data.content;
 
 
       cy.request({

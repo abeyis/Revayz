@@ -1,3 +1,7 @@
 {
-	"content":"I am cooking everyday"
+	"content":"I am cooking everyday" ,
+
+	"expectedResponse": "I cook every day."
+	
 }
+
