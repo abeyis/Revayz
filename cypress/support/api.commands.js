@@ -79,4 +79,6 @@ Cypress.Commands.add('upGradeDownGradeUsersubscription', (tier_type) => {
     body,
    })      
 
-});
+})
+})
+})
