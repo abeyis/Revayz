@@ -16,25 +16,28 @@ let refreshTokenResponse; // Define a global variable to hold the response
 
 Given ('a valid refresh token is provided', () => {
     
-    cy.refreshToken().then((response) => {
-        refreshTokenResponse = response; // Store the response in the global variable
-    });
-});
+    cy.refreshToken(). then((response) => { 
+           refreshTokenResponse = response; //store the reponse in the global variable
+        
+      });
+})
 
 
 //Step definitions for Scenario: User refreshes their access token 
 
 Then ('a new access token is generated', () => {
     
-    // Check if refreshTokenResponse exists and has the required properties
-    if (refreshTokenResponse) {
-        expect(refreshTokenResponse.body).to.have.property('idToken');
-        expect(refreshTokenResponse.status).to.equal(200);
-    } else {
-        throw new Error('No valid response found in refreshTokenResponse');
-    }
+        // Check if refreshTokenResponse exists and has the required properties
 
-});
+        if (refreshTokenResponse) {
+            expect(refreshTokenResponse.body).to.have.property('idToken');
+            expect(refreshTokenResponse.status).to.equal(200);
+        } else {
+            throw new Error('No valid response found in refreshTokenResponse');
+        }
+
+    });
+
 
 
 
