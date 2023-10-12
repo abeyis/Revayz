@@ -12,7 +12,6 @@ When("I send a GET request to subscription", () => {
 
 And("the response body should be correct", () => {
   const responseBody = res.body;
-
   expect(responseBody[0].name).to.equal("Free Tier");
   expect(responseBody[0].package_code).to.equal("free");
   expect(responseBody[0].price).to.equal("0");

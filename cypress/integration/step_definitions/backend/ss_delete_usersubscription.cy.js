@@ -28,10 +28,8 @@ When("I send a POST request to {string}", () => {
     if (deleteResponse.status === 200) {
       // Silme başarılı
       cy.log(`Subscription ID ${subscriptionID} successfully deleted.`);
-    } else if (deleteResponse.status === 404) {
-      // Subscription ID bulunamadı
-      cy.log(`Error: Subscription ID ${subscriptionID} not found.`);
-    } else {
+    } 
+     else {
       // Diğer durumlar için hata işleme
       cy.log(`An unknown error has occurred: ${deleteResponse.status}`);
     }
