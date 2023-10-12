@@ -9,11 +9,20 @@ module.exports = defineConfig({
       require("cypress-localstorage-commands/plugin")(on, config);
       return config;
     },
-    specPattern: "cypress/e2e/features/**/*.feature"
+    specPattern: "cypress/e2e/features/**/*.feature",
   },
   env:{
     revayz_endpoint: 'https://rmzwitktjd.execute-api.us-east-1.amazonaws.com/Prod/'
   },
+  
+    reporter: "mochawesome",
+    reporterOptions: {
+      reportDir: "cypress/reports", // Directory to store the reports
+      overwrite: false, // Set to true to overwrite existing reports
+      html: true // Generate an HTML report
+    }
+  
+  
 });
 
 
