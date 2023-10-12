@@ -44,7 +44,18 @@ Cypress.Commands.add('userSubscription', () => {
    })     
 });
 
+Cypress.Commands.add('contentCreation', (body) => {
+     
+  cy.request({
+    method: 'POST',
+    url: Cypress.env('revayz_endpoint') + 'contentcreation', 
+    headers:  {
+      Authorization: 'Bearer ' + authToken
+    },
+    body,
+   })     
 
+  });
 
 Cypress.Commands.add('upGradeDownGradeUsersubscription', (tier_type) => {
   let new_package_id = null;

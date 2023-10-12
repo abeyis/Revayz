@@ -2,9 +2,10 @@ import { And, Given, Then, When } from "cypress-cucumber-preprocessor/steps";
 
 let response
 
-Given('User should get refresh_token and create authToken', () => {
+Given('user should get refresh_token and create authToken', () => {
 
-  cy.generateToken()
+ cy.generateToken()
+
 });
 
 
