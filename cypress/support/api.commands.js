@@ -52,7 +52,9 @@ Cypress.Commands.add('contentCreation', (body) => {
     headers:  {
       Authorization: 'Bearer ' + authToken
     },
-    body,
+    body: {
+      "content": body
+    },
    })     
 
   });

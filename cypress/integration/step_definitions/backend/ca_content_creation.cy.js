@@ -15,3 +15,15 @@ And('the API response should contain generated content and not be empty', () =>{
 expect(response.body).not.to.be.empty
 })
 
+When ('the application processes the {string} with misspelled grammar', (userInput) =>{
+    cy.contentCreation(userInput)
+    .then((outcome) => {
+        response = outcome
+    
+      })
+    })
+    
+    
+    Then ('API response should be grammatically {string} and understandable',(userOutput) =>{
+    expect(response.body).to.equal(userOutput)
+    })

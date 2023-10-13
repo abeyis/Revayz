@@ -2,7 +2,7 @@ Feature: Subscription Tiers API
 As a scrum team member, when I send a Subscription GET request, I should be able to retrieve all tiers information
 
   Scenario: Successful Subscription GET request
-    Given user should get refresh_token and create authToken
+    Given User should get refresh_token and create authToken
     When user sends GET Subscription request
     Then user should receive a response with status code 200
     And response should contain following data:
