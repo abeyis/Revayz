@@ -10,8 +10,19 @@ When("I send a GET request to subscription", () => {
 
 });
 
-And("the response body should be correct", () => {
-  const responseBody = res.body;
+Then("the response body should be correct with following data:", (table) => {
+  
+  
+  const jsonData= cy.datatableToJson(table).then((jsonData) => {
+
+    jsonData.forEach((jsonItem) => {
+      expect(res.body).to.deep.include(jsonItem);
+    });
+
+  })
+  
+  
+  /*const responseBody = res.body;
   expect(responseBody[0].name).to.equal("Free Tier");
   expect(responseBody[0].package_code).to.equal("free");
   expect(responseBody[0].price).to.equal("0");
@@ -22,10 +33,6 @@ And("the response body should be correct", () => {
 
   expect(responseBody[2].name).to.equal("Tier 2");
   expect(responseBody[2].package_code).to.equal("tier_2");
-  expect(responseBody[2].price).to.equal("9.99");
-});
+  expect(responseBody[2].price).to.equal("9.99");*/
+})
   
-
-
-
-

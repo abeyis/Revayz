@@ -44,3 +44,18 @@ Cypress.Commands.add('convertDatatableToJson', (dataTable) => {
 
   return jsonData;
 });
+Cypress.Commands.add('datatableToJson', (table) => {
+
+  const headers_1 = table.rawTable[0];
+  const rows_1 = table.rawTable.slice(1);
+
+  const jsonData_1 = rows_1.map(row => {
+    const rowData_1 = {};
+    headers_1.forEach((header, index) => {
+      rowData_1[header] = row[index];
+    });
+    return rowData_1;
+  });
+
+  return jsonData_1;
+});

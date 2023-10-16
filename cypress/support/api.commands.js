@@ -45,6 +45,25 @@ Cypress.Commands.add('userSubscription', () => {
 });
 
 
+Cypress.Commands.add('delete_UserSubscription', () => {
+  
+  cy.fixture('deleteUsersubscription.json').then((data) => {
+    const subscriptionId = data.subscription_id;
+    console.log(subscriptionId)
+    cy.request({
+      method: "POST",
+      url: Cypress.env("revayz_endpoint") + "delete_usersubscription",
+      headers: {
+        Authorization: "Bearer " + authToken,
+      },
+      failOnStatusCode: false,
+      body:{ 
+        "subscription_id": subscriptionId,
+      },
+    });
+  });
+});
+
 
 Cypress.Commands.add('upGradeDownGradeUsersubscription', (tier_type) => {
   let new_package_id = null;
@@ -67,29 +86,12 @@ Cypress.Commands.add('upGradeDownGradeUsersubscription', (tier_type) => {
     
     }
       
-  cy.userSubscription().then((Response)=>{
-    new_subscription_id = Response.body.subscription_id; 
-
-  });
-});
-Cypress.Commands.add("deleteUserSubscription", () => {
+    cy.userSubscription().then((Response)=>{
+      new_subscription_id = Response.body.subscription_id; 
   
-  cy.fixture("deleteUsersubscription").then((data) => {
-  const subscriptionId = data.subscription_id;
-  console.log(subscriptionId)
-    cy.request({
-      method: "POST",
-      url: Cypress.env("revayz_endpoint") + "delete_usersubscription",
-      headers: {
-        Authorization: "Bearer " + authToken,
-      },
-      failOnStatusCode: false,
-      body:{ 
-        "subscription_id": subscriptionId
-      }
     });
   });
-});
+
 
     cy.request({
     method: 'POST',
