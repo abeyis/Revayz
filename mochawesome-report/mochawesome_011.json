@@ -1,0 +1,155 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 3,
+    "passes": 0,
+    "pending": 0,
+    "failures": 3,
+    "start": "2023-10-14T22:49:46.996Z",
+    "end": "2023-10-14T22:49:50.023Z",
+    "duration": 3027,
+    "testsRegistered": 3,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "00f4f676-9611-457d-8534-f70df7b80e43",
+      "title": "",
+      "fullFile": "cypress\\e2e\\features\\backend\\aa_upgrade_downgrade_usersubscription.feature",
+      "file": "cypress\\e2e\\features\\backend\\aa_upgrade_downgrade_usersubscription.feature",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "e260e520-a928-4c1b-be63-bd9025f6064f",
+          "title": "Upgrade or downgrade usersubscription",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Upgrade or downgrade usersubscription to any tier (example #1)",
+              "fullTitle": "Upgrade or downgrade usersubscription Upgrade or downgrade usersubscription to any tier (example #1)",
+              "timedOut": null,
+              "duration": 1321,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "const state = window.testState;\nreturn cy\n  .then(() => state.onStartScenario(scenario, indexedSteps))\n  .then(() =>\n    resolveAndRunBeforeHooks.call(this, scenario.tags, state.feature.name)\n  )\n  .then(() =>\n    indexedSteps.forEach((step) =>\n      stepTest.call(this, state, step, rowData)\n    )\n  )\n  .then(() => state.onFinishScenario(scenario));",
+              "err": {
+                "message": "CypressError: `cy.request()` failed on:\n\nhttps://rmzwitktjd.execute-api.us-east-1.amazonaws.com/Prod/upgrade_downgrade_usersubscription\n\nThe response we received from your web server was:\n\n  > 400: Bad Request\n\nThis was considered a failure because the status code was not `2xx` or `3xx`.\n\nIf you do not want status codes to cause failures pass the option: `failOnStatusCode: false`\n\n-----------------------------------------------------------\n\nThe request we sent was:\n\nMethod: POST\nURL: https://rmzwitktjd.execute-api.us-east-1.amazonaws.com/Prod/upgrade_downgrade_usersubscription\nHeaders: {\n  \"Connection\": \"keep-alive\",\n  \"Authorization\": \"Bearer eyJraWQiOiJ6ZG0yZ2NvUkltVXBmODFNWk54QnlEN2tRMGpMUXpucnpLVjNpaUd0bTk0PSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI0NGI4YzQxOC0yMGExLTcwZTAtZGVmYi0wMmRlZjUzZjkxOGMiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLnVzLWVhc3QtMS5hbWF6b25hd3MuY29tXC91cy1lYXN0LTFfVWJDN0p0R2xZIiwiY29nbml0bzp1c2VybmFtZSI6IjQ0YjhjNDE4LTIwYTEtNzBlMC1kZWZiLTAyZGVmNTNmOTE4YyIsIm9yaWdpbl9qdGkiOiI1MGVmZDQ2ZS02ODI0LTQ3NjEtYWI5Ny1lYzJiOWFiMjY1YzAiLCJhdWQiOiI2MGh0Nms0azA2OW9pNjk2bWMza2ZscGloOSIsImV2ZW50X2lkIjoiYWM3YWNjMDgtNTVkOC00YTI5LTkwY2YtZjg2MzA2MTllZmM2IiwidG9rZW5fdXNlIjoiaWQiLCJhdXRoX3RpbWUiOjE2OTY5NzE5OTIsImV4cCI6MTY5NzQxMDE4NywiaWF0IjoxNjk3MzIzNzg3LCJqdGkiOiIyNGYyMWNmOS02MzJlLTQ5YTktYjQ2Yi1jMzAxZDk4MzdiYTEiLCJlbWFpbCI6ImFiZHVsbGF0aWYuYWtzdUBhYmV5aXMuY29tIn0.emrFBamGutB1mvFQE6RLMtwWVWBxEyWInf8IpdeNExf__aA3osAekaSAatYkqGfz6aFYk5w9b6oVMu-hsyNILTbMvp5BQpNW_5-8JnRlODxJ8ScUT22x6UZ93e9P6Qc2-QG9o3Bwb5vRx8TbWKy1UhWcpvQDRICTowvHK7mcCca8AZH3vxjUbPtr2J6oTfYfcrEtORPEtb8dfiUU7p_gA2u7ufdPCXD59NUdohN5MP8F_zoHufKZb_UxcS8awEFkHTnbh6X2osVhOqCJSWUs1zsrkglcPv0G-n_Xz2nzhGm9gjofwBq3TVn9OCjiC7Vk05w7b7_0z_2FJrBVSi4VrQ\",\n  \"user-agent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Cypress/13.3.1 Chrome/114.0.5735.289 Electron/25.8.4 Safari/537.36\",\n  \"accept\": \"*/*\",\n  \"accept-encoding\": \"gzip, deflate\",\n  \"content-type\": \"application/json\",\n  \"content-length\": 51\n}\nBody: {\"new_package_id\":\"price_1NyveXGRkOBpNhaCKR23bLoD\"}\n\n-----------------------------------------------------------\n\nThe response we got was:\n\nStatus: 400 - Bad Request\nHeaders: {\n  \"content-type\": \"application/json\",\n  \"content-length\": \"149\",\n  \"connection\": \"keep-alive\",\n  \"date\": \"Sat, 14 Oct 2023 22:49:47 GMT\",\n  \"x-amzn-requestid\": \"9a3618d5-36a3-4ece-a8e8-7b6fc2eb4e13\",\n  \"x-amz-apigw-id\": \"M0Ep6GYjoAMFmVA=\",\n  \"x-amzn-trace-id\": \"Root=1-652b1b0b-1c056b37793446f13b442add;Sampled=0;lineage=d08050fe:0\",\n  \"x-cache\": \"Error from cloudfront\",\n  \"via\": \"1.1 42cdf90926c91454b0e8865bb13f3962.cloudfront.net (CloudFront)\",\n  \"x-amz-cf-pop\": \"JFK50-P6\",\n  \"x-amz-cf-id\": \"NRaqQKn2EIcRYgZiOgKfnVskHY7qB80CrTULfS_PqOcfFuioMnuY0A==\"\n}\nBody: Could not determine which URL to request: Subscription instance has invalid ID: None, <class 'NoneType'>. ID should be of type `str` (or `unicode`)\n\n\nhttps://on.cypress.io/request",
+                "estack": "CypressError: `cy.request()` failed on:\n\nhttps://rmzwitktjd.execute-api.us-east-1.amazonaws.com/Prod/upgrade_downgrade_usersubscription\n\nThe response we received from your web server was:\n\n  > 400: Bad Request\n\nThis was considered a failure because the status code was not `2xx` or `3xx`.\n\nIf you do not want status codes to cause failures pass the option: `failOnStatusCode: false`\n\n-----------------------------------------------------------\n\nThe request we sent was:\n\nMethod: POST\nURL: https://rmzwitktjd.execute-api.us-east-1.amazonaws.com/Prod/upgrade_downgrade_usersubscription\nHeaders: {\n  \"Connection\": \"keep-alive\",\n  \"Authorization\": \"Bearer eyJraWQiOiJ6ZG0yZ2NvUkltVXBmODFNWk54QnlEN2tRMGpMUXpucnpLVjNpaUd0bTk0PSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI0NGI4YzQxOC0yMGExLTcwZTAtZGVmYi0wMmRlZjUzZjkxOGMiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLnVzLWVhc3QtMS5hbWF6b25hd3MuY29tXC91cy1lYXN0LTFfVWJDN0p0R2xZIiwiY29nbml0bzp1c2VybmFtZSI6IjQ0YjhjNDE4LTIwYTEtNzBlMC1kZWZiLTAyZGVmNTNmOTE4YyIsIm9yaWdpbl9qdGkiOiI1MGVmZDQ2ZS02ODI0LTQ3NjEtYWI5Ny1lYzJiOWFiMjY1YzAiLCJhdWQiOiI2MGh0Nms0azA2OW9pNjk2bWMza2ZscGloOSIsImV2ZW50X2lkIjoiYWM3YWNjMDgtNTVkOC00YTI5LTkwY2YtZjg2MzA2MTllZmM2IiwidG9rZW5fdXNlIjoiaWQiLCJhdXRoX3RpbWUiOjE2OTY5NzE5OTIsImV4cCI6MTY5NzQxMDE4NywiaWF0IjoxNjk3MzIzNzg3LCJqdGkiOiIyNGYyMWNmOS02MzJlLTQ5YTktYjQ2Yi1jMzAxZDk4MzdiYTEiLCJlbWFpbCI6ImFiZHVsbGF0aWYuYWtzdUBhYmV5aXMuY29tIn0.emrFBamGutB1mvFQE6RLMtwWVWBxEyWInf8IpdeNExf__aA3osAekaSAatYkqGfz6aFYk5w9b6oVMu-hsyNILTbMvp5BQpNW_5-8JnRlODxJ8ScUT22x6UZ93e9P6Qc2-QG9o3Bwb5vRx8TbWKy1UhWcpvQDRICTowvHK7mcCca8AZH3vxjUbPtr2J6oTfYfcrEtORPEtb8dfiUU7p_gA2u7ufdPCXD59NUdohN5MP8F_zoHufKZb_UxcS8awEFkHTnbh6X2osVhOqCJSWUs1zsrkglcPv0G-n_Xz2nzhGm9gjofwBq3TVn9OCjiC7Vk05w7b7_0z_2FJrBVSi4VrQ\",\n  \"user-agent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Cypress/13.3.1 Chrome/114.0.5735.289 Electron/25.8.4 Safari/537.36\",\n  \"accept\": \"*/*\",\n  \"accept-encoding\": \"gzip, deflate\",\n  \"content-type\": \"application/json\",\n  \"content-length\": 51\n}\nBody: {\"new_package_id\":\"price_1NyveXGRkOBpNhaCKR23bLoD\"}\n\n-----------------------------------------------------------\n\nThe response we got was:\n\nStatus: 400 - Bad Request\nHeaders: {\n  \"content-type\": \"application/json\",\n  \"content-length\": \"149\",\n  \"connection\": \"keep-alive\",\n  \"date\": \"Sat, 14 Oct 2023 22:49:47 GMT\",\n  \"x-amzn-requestid\": \"9a3618d5-36a3-4ece-a8e8-7b6fc2eb4e13\",\n  \"x-amz-apigw-id\": \"M0Ep6GYjoAMFmVA=\",\n  \"x-amzn-trace-id\": \"Root=1-652b1b0b-1c056b37793446f13b442add;Sampled=0;lineage=d08050fe:0\",\n  \"x-cache\": \"Error from cloudfront\",\n  \"via\": \"1.1 42cdf90926c91454b0e8865bb13f3962.cloudfront.net (CloudFront)\",\n  \"x-amz-cf-pop\": \"JFK50-P6\",\n  \"x-amz-cf-id\": \"NRaqQKn2EIcRYgZiOgKfnVskHY7qB80CrTULfS_PqOcfFuioMnuY0A==\"\n}\nBody: Could not determine which URL to request: Subscription instance has invalid ID: None, <class 'NoneType'>. ID should be of type `str` (or `unicode`)\n\n\nhttps://on.cypress.io/request\n    at <unknown> (http://localhost:59430/__cypress/runner/cypress_runner.js:133251:72)\n    at tryCatcher (http://localhost:59430/__cypress/runner/cypress_runner.js:1807:23)\n    at Promise._settlePromiseFromHandler (http://localhost:59430/__cypress/runner/cypress_runner.js:1519:31)\n    at Promise._settlePromise (http://localhost:59430/__cypress/runner/cypress_runner.js:1576:18)\n    at Promise._settlePromise0 (http://localhost:59430/__cypress/runner/cypress_runner.js:1621:10)\n    at Promise._settlePromises (http://localhost:59430/__cypress/runner/cypress_runner.js:1701:18)\n    at _drainQueueStep (http://localhost:59430/__cypress/runner/cypress_runner.js:2407:12)\n    at _drainQueue (http://localhost:59430/__cypress/runner/cypress_runner.js:2400:9)\n    at Async._drainQueues (http://localhost:59430/__cypress/runner/cypress_runner.js:2416:5)\n    at Async.drainQueues (http://localhost:59430/__cypress/runner/cypress_runner.js:2286:14)\nFrom Your Spec Code:\n    at Context.eval (cypress/integration/step_definitions/backend/aa_token_generate.cy.js:8:16)",
+                "diff": null
+              },
+              "uuid": "cc4c8e26-9041-4547-b9a0-e739a834d75e",
+              "parentUUID": "e260e520-a928-4c1b-be63-bd9025f6064f",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Upgrade or downgrade usersubscription to any tier (example #2)",
+              "fullTitle": "Upgrade or downgrade usersubscription Upgrade or downgrade usersubscription to any tier (example #2)",
+              "timedOut": null,
+              "duration": 718,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "const state = window.testState;\nreturn cy\n  .then(() => state.onStartScenario(scenario, indexedSteps))\n  .then(() =>\n    resolveAndRunBeforeHooks.call(this, scenario.tags, state.feature.name)\n  )\n  .then(() =>\n    indexedSteps.forEach((step) =>\n      stepTest.call(this, state, step, rowData)\n    )\n  )\n  .then(() => state.onFinishScenario(scenario));",
+              "err": {
+                "message": "CypressError: `cy.request()` failed on:\n\nhttps://rmzwitktjd.execute-api.us-east-1.amazonaws.com/Prod/upgrade_downgrade_usersubscription\n\nThe response we received from your web server was:\n\n  > 400: Bad Request\n\nThis was considered a failure because the status code was not `2xx` or `3xx`.\n\nIf you do not want status codes to cause failures pass the option: `failOnStatusCode: false`\n\n-----------------------------------------------------------\n\nThe request we sent was:\n\nMethod: POST\nURL: https://rmzwitktjd.execute-api.us-east-1.amazonaws.com/Prod/upgrade_downgrade_usersubscription\nHeaders: {\n  \"Connection\": \"keep-alive\",\n  \"Authorization\": \"Bearer eyJraWQiOiJ6ZG0yZ2NvUkltVXBmODFNWk54QnlEN2tRMGpMUXpucnpLVjNpaUd0bTk0PSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI0NGI4YzQxOC0yMGExLTcwZTAtZGVmYi0wMmRlZjUzZjkxOGMiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLnVzLWVhc3QtMS5hbWF6b25hd3MuY29tXC91cy1lYXN0LTFfVWJDN0p0R2xZIiwiY29nbml0bzp1c2VybmFtZSI6IjQ0YjhjNDE4LTIwYTEtNzBlMC1kZWZiLTAyZGVmNTNmOTE4YyIsIm9yaWdpbl9qdGkiOiI1MGVmZDQ2ZS02ODI0LTQ3NjEtYWI5Ny1lYzJiOWFiMjY1YzAiLCJhdWQiOiI2MGh0Nms0azA2OW9pNjk2bWMza2ZscGloOSIsImV2ZW50X2lkIjoiYWM3YWNjMDgtNTVkOC00YTI5LTkwY2YtZjg2MzA2MTllZmM2IiwidG9rZW5fdXNlIjoiaWQiLCJhdXRoX3RpbWUiOjE2OTY5NzE5OTIsImV4cCI6MTY5NzQxMDE4OCwiaWF0IjoxNjk3MzIzNzg4LCJqdGkiOiI0YmU2NGRjZS03Mjc1LTRkMWMtOWY3MS0xYWRjNTA4ZDU5NTMiLCJlbWFpbCI6ImFiZHVsbGF0aWYuYWtzdUBhYmV5aXMuY29tIn0.huHaka8ofrNvbqA2JDMtIsD7Thc5Xt1yjJIOEaXX7Ig31QbgfQ3o2nmZzjO0Nluvjif6t2YPECBGGdnJW_JE5lV7DedqVrhzaMYnF-Wz7bY74zttTxG_h_U3iFmXZwXXSFyzVMTQskaIWCkA1mYA6AuUH179ofgxFP2jjMZBRPk4V7NaeOCYeimczX6_ifbt7Yz5_dUgjMiGUFZaM9fmjNXcPCqcwcB7FXXB2c_qqsfd4zps7Rwm3-I1u6ScNEKoK9kEWV-oqZT9szH0v_n_FTzhGOG_0M36yW5I8hupi4esRIOTrcc3w8Bfup4mu-eqDGza0L0mbVx0Ql7OMUFfOw\",\n  \"user-agent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Cypress/13.3.1 Chrome/114.0.5735.289 Electron/25.8.4 Safari/537.36\",\n  \"accept\": \"*/*\",\n  \"accept-encoding\": \"gzip, deflate\",\n  \"content-type\": \"application/json\",\n  \"content-length\": 51\n}\nBody: {\"new_package_id\":\"price_1NyvhhGRkOBpNhaCbeUTjqoE\"}\n\n-----------------------------------------------------------\n\nThe response we got was:\n\nStatus: 400 - Bad Request\nHeaders: {\n  \"content-type\": \"application/json\",\n  \"content-length\": \"149\",\n  \"connection\": \"keep-alive\",\n  \"date\": \"Sat, 14 Oct 2023 22:49:48 GMT\",\n  \"x-amzn-requestid\": \"6e8d6e22-3486-4c55-9134-736581043a3c\",\n  \"x-amz-apigw-id\": \"M0EqDFUpoAMFiMA=\",\n  \"x-amzn-trace-id\": \"Root=1-652b1b0c-041e3dab63b07d6772d112f6;Sampled=0;lineage=d08050fe:0\",\n  \"x-cache\": \"Error from cloudfront\",\n  \"via\": \"1.1 42cdf90926c91454b0e8865bb13f3962.cloudfront.net (CloudFront)\",\n  \"x-amz-cf-pop\": \"JFK50-P6\",\n  \"x-amz-cf-id\": \"qmHbdtuZ2xM0WIObCxs2b6EulncGRlvMMTpcf6FQE6wII7dz4wwHHQ==\"\n}\nBody: Could not determine which URL to request: Subscription instance has invalid ID: None, <class 'NoneType'>. ID should be of type `str` (or `unicode`)\n\n\nhttps://on.cypress.io/request",
+                "estack": "CypressError: `cy.request()` failed on:\n\nhttps://rmzwitktjd.execute-api.us-east-1.amazonaws.com/Prod/upgrade_downgrade_usersubscription\n\nThe response we received from your web server was:\n\n  > 400: Bad Request\n\nThis was considered a failure because the status code was not `2xx` or `3xx`.\n\nIf you do not want status codes to cause failures pass the option: `failOnStatusCode: false`\n\n-----------------------------------------------------------\n\nThe request we sent was:\n\nMethod: POST\nURL: https://rmzwitktjd.execute-api.us-east-1.amazonaws.com/Prod/upgrade_downgrade_usersubscription\nHeaders: {\n  \"Connection\": \"keep-alive\",\n  \"Authorization\": \"Bearer eyJraWQiOiJ6ZG0yZ2NvUkltVXBmODFNWk54QnlEN2tRMGpMUXpucnpLVjNpaUd0bTk0PSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI0NGI4YzQxOC0yMGExLTcwZTAtZGVmYi0wMmRlZjUzZjkxOGMiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLnVzLWVhc3QtMS5hbWF6b25hd3MuY29tXC91cy1lYXN0LTFfVWJDN0p0R2xZIiwiY29nbml0bzp1c2VybmFtZSI6IjQ0YjhjNDE4LTIwYTEtNzBlMC1kZWZiLTAyZGVmNTNmOTE4YyIsIm9yaWdpbl9qdGkiOiI1MGVmZDQ2ZS02ODI0LTQ3NjEtYWI5Ny1lYzJiOWFiMjY1YzAiLCJhdWQiOiI2MGh0Nms0azA2OW9pNjk2bWMza2ZscGloOSIsImV2ZW50X2lkIjoiYWM3YWNjMDgtNTVkOC00YTI5LTkwY2YtZjg2MzA2MTllZmM2IiwidG9rZW5fdXNlIjoiaWQiLCJhdXRoX3RpbWUiOjE2OTY5NzE5OTIsImV4cCI6MTY5NzQxMDE4OCwiaWF0IjoxNjk3MzIzNzg4LCJqdGkiOiI0YmU2NGRjZS03Mjc1LTRkMWMtOWY3MS0xYWRjNTA4ZDU5NTMiLCJlbWFpbCI6ImFiZHVsbGF0aWYuYWtzdUBhYmV5aXMuY29tIn0.huHaka8ofrNvbqA2JDMtIsD7Thc5Xt1yjJIOEaXX7Ig31QbgfQ3o2nmZzjO0Nluvjif6t2YPECBGGdnJW_JE5lV7DedqVrhzaMYnF-Wz7bY74zttTxG_h_U3iFmXZwXXSFyzVMTQskaIWCkA1mYA6AuUH179ofgxFP2jjMZBRPk4V7NaeOCYeimczX6_ifbt7Yz5_dUgjMiGUFZaM9fmjNXcPCqcwcB7FXXB2c_qqsfd4zps7Rwm3-I1u6ScNEKoK9kEWV-oqZT9szH0v_n_FTzhGOG_0M36yW5I8hupi4esRIOTrcc3w8Bfup4mu-eqDGza0L0mbVx0Ql7OMUFfOw\",\n  \"user-agent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Cypress/13.3.1 Chrome/114.0.5735.289 Electron/25.8.4 Safari/537.36\",\n  \"accept\": \"*/*\",\n  \"accept-encoding\": \"gzip, deflate\",\n  \"content-type\": \"application/json\",\n  \"content-length\": 51\n}\nBody: {\"new_package_id\":\"price_1NyvhhGRkOBpNhaCbeUTjqoE\"}\n\n-----------------------------------------------------------\n\nThe response we got was:\n\nStatus: 400 - Bad Request\nHeaders: {\n  \"content-type\": \"application/json\",\n  \"content-length\": \"149\",\n  \"connection\": \"keep-alive\",\n  \"date\": \"Sat, 14 Oct 2023 22:49:48 GMT\",\n  \"x-amzn-requestid\": \"6e8d6e22-3486-4c55-9134-736581043a3c\",\n  \"x-amz-apigw-id\": \"M0EqDFUpoAMFiMA=\",\n  \"x-amzn-trace-id\": \"Root=1-652b1b0c-041e3dab63b07d6772d112f6;Sampled=0;lineage=d08050fe:0\",\n  \"x-cache\": \"Error from cloudfront\",\n  \"via\": \"1.1 42cdf90926c91454b0e8865bb13f3962.cloudfront.net (CloudFront)\",\n  \"x-amz-cf-pop\": \"JFK50-P6\",\n  \"x-amz-cf-id\": \"qmHbdtuZ2xM0WIObCxs2b6EulncGRlvMMTpcf6FQE6wII7dz4wwHHQ==\"\n}\nBody: Could not determine which URL to request: Subscription instance has invalid ID: None, <class 'NoneType'>. ID should be of type `str` (or `unicode`)\n\n\nhttps://on.cypress.io/request\n    at <unknown> (http://localhost:59430/__cypress/runner/cypress_runner.js:133251:72)\n    at tryCatcher (http://localhost:59430/__cypress/runner/cypress_runner.js:1807:23)\n    at Promise._settlePromiseFromHandler (http://localhost:59430/__cypress/runner/cypress_runner.js:1519:31)\n    at Promise._settlePromise (http://localhost:59430/__cypress/runner/cypress_runner.js:1576:18)\n    at Promise._settlePromise0 (http://localhost:59430/__cypress/runner/cypress_runner.js:1621:10)\n    at Promise._settlePromises (http://localhost:59430/__cypress/runner/cypress_runner.js:1701:18)\n    at _drainQueueStep (http://localhost:59430/__cypress/runner/cypress_runner.js:2407:12)\n    at _drainQueue (http://localhost:59430/__cypress/runner/cypress_runner.js:2400:9)\n    at Async._drainQueues (http://localhost:59430/__cypress/runner/cypress_runner.js:2416:5)\n    at Async.drainQueues (http://localhost:59430/__cypress/runner/cypress_runner.js:2286:14)\nFrom Your Spec Code:\n    at Context.eval (cypress/integration/step_definitions/backend/aa_token_generate.cy.js:8:16)",
+                "diff": null
+              },
+              "uuid": "c515c17b-006d-4f48-9130-456929204cc2",
+              "parentUUID": "e260e520-a928-4c1b-be63-bd9025f6064f",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Upgrade or downgrade usersubscription to any tier (example #3)",
+              "fullTitle": "Upgrade or downgrade usersubscription Upgrade or downgrade usersubscription to any tier (example #3)",
+              "timedOut": null,
+              "duration": 775,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "const state = window.testState;\nreturn cy\n  .then(() => state.onStartScenario(scenario, indexedSteps))\n  .then(() =>\n    resolveAndRunBeforeHooks.call(this, scenario.tags, state.feature.name)\n  )\n  .then(() =>\n    indexedSteps.forEach((step) =>\n      stepTest.call(this, state, step, rowData)\n    )\n  )\n  .then(() => state.onFinishScenario(scenario));",
+              "err": {
+                "message": "CypressError: `cy.request()` failed on:\n\nhttps://rmzwitktjd.execute-api.us-east-1.amazonaws.com/Prod/upgrade_downgrade_usersubscription\n\nThe response we received from your web server was:\n\n  > 400: Bad Request\n\nThis was considered a failure because the status code was not `2xx` or `3xx`.\n\nIf you do not want status codes to cause failures pass the option: `failOnStatusCode: false`\n\n-----------------------------------------------------------\n\nThe request we sent was:\n\nMethod: POST\nURL: https://rmzwitktjd.execute-api.us-east-1.amazonaws.com/Prod/upgrade_downgrade_usersubscription\nHeaders: {\n  \"Connection\": \"keep-alive\",\n  \"Authorization\": \"Bearer eyJraWQiOiJ6ZG0yZ2NvUkltVXBmODFNWk54QnlEN2tRMGpMUXpucnpLVjNpaUd0bTk0PSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI0NGI4YzQxOC0yMGExLTcwZTAtZGVmYi0wMmRlZjUzZjkxOGMiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLnVzLWVhc3QtMS5hbWF6b25hd3MuY29tXC91cy1lYXN0LTFfVWJDN0p0R2xZIiwiY29nbml0bzp1c2VybmFtZSI6IjQ0YjhjNDE4LTIwYTEtNzBlMC1kZWZiLTAyZGVmNTNmOTE4YyIsIm9yaWdpbl9qdGkiOiI1MGVmZDQ2ZS02ODI0LTQ3NjEtYWI5Ny1lYzJiOWFiMjY1YzAiLCJhdWQiOiI2MGh0Nms0azA2OW9pNjk2bWMza2ZscGloOSIsImV2ZW50X2lkIjoiYWM3YWNjMDgtNTVkOC00YTI5LTkwY2YtZjg2MzA2MTllZmM2IiwidG9rZW5fdXNlIjoiaWQiLCJhdXRoX3RpbWUiOjE2OTY5NzE5OTIsImV4cCI6MTY5NzQxMDE4OSwiaWF0IjoxNjk3MzIzNzg5LCJqdGkiOiJiMWVmNGY4Yy1lNGYxLTQ4MDEtODcyYy1hYjNmYWJkMDEwMzciLCJlbWFpbCI6ImFiZHVsbGF0aWYuYWtzdUBhYmV5aXMuY29tIn0.BxMbvfrq8h3PWOv2oWHRVjmNyOVx_wwMv9vdKsSERMp1n-nZ1g1j4EYOFZzD0aKjE81TPgQeOjAt9PCdpVbNUIGXVXbRKofkPPuw6dun1-Jm84xo28I3rDA0FZWQlXczQfqIxBj4o2cHxddCUnINb8452GVfbNCPpUQXTGMMxjb7Wn_q8p3ejzMBOKKJ8k7Pw_hOlWz6ncLqNRQLd3LHzE8d3W5kGllTyvNCLnx2BG-TuVa4Ywj3ILGtQaLdM0bBfi-S2zjSQIUrbVRVOf25oPODvvcLQ8yBuDEuTRMOjtc8441B0CwOBL9CgCa6g2aC-uOSnEVTtRvZUkr8aJv7fw\",\n  \"user-agent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Cypress/13.3.1 Chrome/114.0.5735.289 Electron/25.8.4 Safari/537.36\",\n  \"accept\": \"*/*\",\n  \"accept-encoding\": \"gzip, deflate\",\n  \"content-type\": \"application/json\",\n  \"content-length\": 51\n}\nBody: {\"new_package_id\":\"price_1NyveXGRkOBpNhaCKR23bLoD\"}\n\n-----------------------------------------------------------\n\nThe response we got was:\n\nStatus: 400 - Bad Request\nHeaders: {\n  \"content-type\": \"application/json\",\n  \"content-length\": \"149\",\n  \"connection\": \"keep-alive\",\n  \"date\": \"Sat, 14 Oct 2023 22:49:49 GMT\",\n  \"x-amzn-requestid\": \"453e9525-4ca9-48df-9b1e-1be7f2a32fb7\",\n  \"x-amz-apigw-id\": \"M0EqLE5GoAMF4qQ=\",\n  \"x-amzn-trace-id\": \"Root=1-652b1b0d-365aaa4f5a2576692003a343;Sampled=0;lineage=d08050fe:0\",\n  \"x-cache\": \"Error from cloudfront\",\n  \"via\": \"1.1 42cdf90926c91454b0e8865bb13f3962.cloudfront.net (CloudFront)\",\n  \"x-amz-cf-pop\": \"JFK50-P6\",\n  \"x-amz-cf-id\": \"9-hX6QgRSf6zKe-dI5N3Kr2oR1CJyFacLIZRoL01jD9p9J9DgqISkQ==\"\n}\nBody: Could not determine which URL to request: Subscription instance has invalid ID: None, <class 'NoneType'>. ID should be of type `str` (or `unicode`)\n\n\nhttps://on.cypress.io/request",
+                "estack": "CypressError: `cy.request()` failed on:\n\nhttps://rmzwitktjd.execute-api.us-east-1.amazonaws.com/Prod/upgrade_downgrade_usersubscription\n\nThe response we received from your web server was:\n\n  > 400: Bad Request\n\nThis was considered a failure because the status code was not `2xx` or `3xx`.\n\nIf you do not want status codes to cause failures pass the option: `failOnStatusCode: false`\n\n-----------------------------------------------------------\n\nThe request we sent was:\n\nMethod: POST\nURL: https://rmzwitktjd.execute-api.us-east-1.amazonaws.com/Prod/upgrade_downgrade_usersubscription\nHeaders: {\n  \"Connection\": \"keep-alive\",\n  \"Authorization\": \"Bearer eyJraWQiOiJ6ZG0yZ2NvUkltVXBmODFNWk54QnlEN2tRMGpMUXpucnpLVjNpaUd0bTk0PSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI0NGI4YzQxOC0yMGExLTcwZTAtZGVmYi0wMmRlZjUzZjkxOGMiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLnVzLWVhc3QtMS5hbWF6b25hd3MuY29tXC91cy1lYXN0LTFfVWJDN0p0R2xZIiwiY29nbml0bzp1c2VybmFtZSI6IjQ0YjhjNDE4LTIwYTEtNzBlMC1kZWZiLTAyZGVmNTNmOTE4YyIsIm9yaWdpbl9qdGkiOiI1MGVmZDQ2ZS02ODI0LTQ3NjEtYWI5Ny1lYzJiOWFiMjY1YzAiLCJhdWQiOiI2MGh0Nms0azA2OW9pNjk2bWMza2ZscGloOSIsImV2ZW50X2lkIjoiYWM3YWNjMDgtNTVkOC00YTI5LTkwY2YtZjg2MzA2MTllZmM2IiwidG9rZW5fdXNlIjoiaWQiLCJhdXRoX3RpbWUiOjE2OTY5NzE5OTIsImV4cCI6MTY5NzQxMDE4OSwiaWF0IjoxNjk3MzIzNzg5LCJqdGkiOiJiMWVmNGY4Yy1lNGYxLTQ4MDEtODcyYy1hYjNmYWJkMDEwMzciLCJlbWFpbCI6ImFiZHVsbGF0aWYuYWtzdUBhYmV5aXMuY29tIn0.BxMbvfrq8h3PWOv2oWHRVjmNyOVx_wwMv9vdKsSERMp1n-nZ1g1j4EYOFZzD0aKjE81TPgQeOjAt9PCdpVbNUIGXVXbRKofkPPuw6dun1-Jm84xo28I3rDA0FZWQlXczQfqIxBj4o2cHxddCUnINb8452GVfbNCPpUQXTGMMxjb7Wn_q8p3ejzMBOKKJ8k7Pw_hOlWz6ncLqNRQLd3LHzE8d3W5kGllTyvNCLnx2BG-TuVa4Ywj3ILGtQaLdM0bBfi-S2zjSQIUrbVRVOf25oPODvvcLQ8yBuDEuTRMOjtc8441B0CwOBL9CgCa6g2aC-uOSnEVTtRvZUkr8aJv7fw\",\n  \"user-agent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Cypress/13.3.1 Chrome/114.0.5735.289 Electron/25.8.4 Safari/537.36\",\n  \"accept\": \"*/*\",\n  \"accept-encoding\": \"gzip, deflate\",\n  \"content-type\": \"application/json\",\n  \"content-length\": 51\n}\nBody: {\"new_package_id\":\"price_1NyveXGRkOBpNhaCKR23bLoD\"}\n\n-----------------------------------------------------------\n\nThe response we got was:\n\nStatus: 400 - Bad Request\nHeaders: {\n  \"content-type\": \"application/json\",\n  \"content-length\": \"149\",\n  \"connection\": \"keep-alive\",\n  \"date\": \"Sat, 14 Oct 2023 22:49:49 GMT\",\n  \"x-amzn-requestid\": \"453e9525-4ca9-48df-9b1e-1be7f2a32fb7\",\n  \"x-amz-apigw-id\": \"M0EqLE5GoAMF4qQ=\",\n  \"x-amzn-trace-id\": \"Root=1-652b1b0d-365aaa4f5a2576692003a343;Sampled=0;lineage=d08050fe:0\",\n  \"x-cache\": \"Error from cloudfront\",\n  \"via\": \"1.1 42cdf90926c91454b0e8865bb13f3962.cloudfront.net (CloudFront)\",\n  \"x-amz-cf-pop\": \"JFK50-P6\",\n  \"x-amz-cf-id\": \"9-hX6QgRSf6zKe-dI5N3Kr2oR1CJyFacLIZRoL01jD9p9J9DgqISkQ==\"\n}\nBody: Could not determine which URL to request: Subscription instance has invalid ID: None, <class 'NoneType'>. ID should be of type `str` (or `unicode`)\n\n\nhttps://on.cypress.io/request\n    at <unknown> (http://localhost:59430/__cypress/runner/cypress_runner.js:133251:72)\n    at tryCatcher (http://localhost:59430/__cypress/runner/cypress_runner.js:1807:23)\n    at Promise._settlePromiseFromHandler (http://localhost:59430/__cypress/runner/cypress_runner.js:1519:31)\n    at Promise._settlePromise (http://localhost:59430/__cypress/runner/cypress_runner.js:1576:18)\n    at Promise._settlePromise0 (http://localhost:59430/__cypress/runner/cypress_runner.js:1621:10)\n    at Promise._settlePromises (http://localhost:59430/__cypress/runner/cypress_runner.js:1701:18)\n    at _drainQueueStep (http://localhost:59430/__cypress/runner/cypress_runner.js:2407:12)\n    at _drainQueue (http://localhost:59430/__cypress/runner/cypress_runner.js:2400:9)\n    at Async._drainQueues (http://localhost:59430/__cypress/runner/cypress_runner.js:2416:5)\n    at Async.drainQueues (http://localhost:59430/__cypress/runner/cypress_runner.js:2286:14)\nFrom Your Spec Code:\n    at Context.eval (cypress/integration/step_definitions/backend/aa_token_generate.cy.js:8:16)",
+                "diff": null
+              },
+              "uuid": "307e9120-d72a-4f16-8bb8-82d5437a021e",
+              "parentUUID": "e260e520-a928-4c1b-be63-bd9025f6064f",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "cc4c8e26-9041-4547-b9a0-e739a834d75e",
+            "c515c17b-006d-4f48-9130-456929204cc2",
+            "307e9120-d72a-4f16-8bb8-82d5437a021e"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 2814,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": true,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "jsonDir": "cypress/reports/mochawesome.json",
+        "overwrite": false,
+        "html": true,
+        "quiet": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}

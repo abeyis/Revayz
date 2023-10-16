@@ -1,0 +1,105 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 1,
+    "pending": 0,
+    "failures": 0,
+    "start": "2023-10-13T04:00:48.865Z",
+    "end": "2023-10-13T04:00:50.755Z",
+    "duration": 1890,
+    "testsRegistered": 1,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "2c75c16e-e619-4051-9453-3fa9f3f61cfa",
+      "title": "",
+      "fullFile": "cypress\\e2e\\features\\backend\\aa_token_generate.feature",
+      "file": "cypress\\e2e\\features\\backend\\aa_token_generate.feature",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "9efe20d2-619b-4c6c-80e5-bba337212358",
+          "title": "User should get refresh_token and create an authToken",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "User gets create authToken",
+              "fullTitle": "User should get refresh_token and create an authToken User gets create authToken",
+              "timedOut": null,
+              "duration": 1847,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const state = window.testState;\nreturn cy\n  .then(() => state.onStartScenario(scenario, indexedSteps))\n  .then(() =>\n    resolveAndRunBeforeHooks.call(this, scenario.tags, state.feature.name)\n  )\n  .then(() =>\n    indexedSteps.forEach((step) =>\n      stepTest.call(this, state, step, rowData)\n    )\n  )\n  .then(() => state.onFinishScenario(scenario));",
+              "err": {},
+              "uuid": "6b8dbd17-7928-4c3c-9108-56016a029763",
+              "parentUUID": "9efe20d2-619b-4c6c-80e5-bba337212358",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "6b8dbd17-7928-4c3c-9108-56016a029763"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 1847,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": true,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "jsonDir": "cypress/reports/mochawesome.json",
+        "overwrite": false,
+        "html": true,
+        "quiet": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}

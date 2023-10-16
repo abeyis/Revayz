@@ -1,0 +1,109 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 0,
+    "pending": 0,
+    "failures": 1,
+    "start": "2023-10-14T22:49:53.754Z",
+    "end": "2023-10-14T22:49:54.563Z",
+    "duration": 809,
+    "testsRegistered": 1,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "ed6fe0b1-8385-4122-b77c-49642526f229",
+      "title": "",
+      "fullFile": "cypress\\e2e\\features\\backend\\subscription.feature",
+      "file": "cypress\\e2e\\features\\backend\\subscription.feature",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "cccb9238-705f-41c1-bd9d-a92692651d2a",
+          "title": "Subscription Tiers API",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Successful Subscription GET request",
+              "fullTitle": "Subscription Tiers API Successful Subscription GET request",
+              "timedOut": null,
+              "duration": 732,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "const state = window.testState;\nreturn cy\n  .then(() => state.onStartScenario(scenario, indexedSteps))\n  .then(() =>\n    resolveAndRunBeforeHooks.call(this, scenario.tags, state.feature.name)\n  )\n  .then(() =>\n    indexedSteps.forEach((step) =>\n      stepTest.call(this, state, step, rowData)\n    )\n  )\n  .then(() => state.onFinishScenario(scenario));",
+              "err": {
+                "message": "AssertionError: expected [ Array(3) ] to deep include { name: 'Free Tier',\n  character_count_of_each_revayz: '400',\n  package_id: '837871',\n  currency: '$',\n  revayz_count: '20',\n  price: '0',\n  package_code: 'free' }",
+                "estack": "AssertionError: expected [ Array(3) ] to deep include { name: 'Free Tier',\n  character_count_of_each_revayz: '400',\n  package_id: '837871',\n  currency: '$',\n  revayz_count: '20',\n  price: '0',\n  package_code: 'free' }\n    at eval (cypress/integration/step_definitions/backend/subscription.cy.js:31:36)\nat Array.forEach (<anonymous>)\n    at Context.eval (cypress/integration/step_definitions/backend/subscription.cy.js:30:13)",
+                "diff": null
+              },
+              "uuid": "2249fcdd-582b-4997-b1af-9c2bf72eecc1",
+              "parentUUID": "cccb9238-705f-41c1-bd9d-a92692651d2a",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "2249fcdd-582b-4997-b1af-9c2bf72eecc1"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 732,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": true,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "jsonDir": "cypress/reports/mochawesome.json",
+        "overwrite": false,
+        "html": true,
+        "quiet": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}

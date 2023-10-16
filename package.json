@@ -4,7 +4,11 @@
   "description": "api test",
   "main": "index.js",
   "scripts": {
-    "cypress:report": "multiple-cucumber-html-reporter -p ./report -o ./report"
+    "generate-report": "node ./generate-report.js",
+    "generate:report": "node generate-cucumber-report.js",
+    "generate-html-report": "marge cypress/reports/mochawesome.json --reportDir cypress/reports/mochawesome-html-reports",
+    "cypress:report": "cypress run && node_modules/.bin/cypress-cucumber-html-report",
+    "generate:cucumber-report": "npx cucumber-html-reporter -o cypress/reports/cucumber-html-report.html -p ./cypress/cucumber.json"
   },
   "repository": {
     "type": "git",
@@ -23,10 +27,16 @@
   "homepage": "https://github.com/abeyis/Revayz#readme",
   "devDependencies": {
     "cucumber": "^6.0.7",
+    "cucumber-html-reporter": "^7.1.1",
     "cypress": "^13.3.1",
+    "cypress-cucumber-preprocessor": "^4.3.1",
     "cypress-localstorage-commands": "^2.2.4",
+    "cypress-multi-reporters": "^1.6.3",
     "install": "^0.13.0",
-    "mochawesome": "^7.1.3"
+    "mochawesome": "^7.1.3",
+    "mochawesome-merge": "^4.3.0",
+    "mochawesome-report-generator": "^6.2.0",
+    "multiple-cucumber-html-reporter": "^3.5.0"
   },
   "dependencies": {
     "D": "^1.0.0"
