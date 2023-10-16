@@ -44,6 +44,19 @@ Cypress.Commands.add('userSubscription', () => {
    })     
 });
 
+Cypress.Commands.add('contentCreation', (body) => {
+     
+  cy.request({
+    method: 'POST',
+    url: Cypress.env('revayz_endpoint') + 'contentcreation', 
+    headers:  {
+      Authorization: 'Bearer ' + authToken
+    },
+    body: {
+      "content": body
+    },
+   })     
+
 
 Cypress.Commands.add('delete_UserSubscription', () => {
   
@@ -63,6 +76,9 @@ Cypress.Commands.add('delete_UserSubscription', () => {
     });
   });
 });
+
+
+  });
 
 
 Cypress.Commands.add('upGradeDownGradeUsersubscription', (tier_type) => {
@@ -85,6 +101,26 @@ Cypress.Commands.add('upGradeDownGradeUsersubscription', (tier_type) => {
         throw new Error(`Invalid tier_type: ${tier_type}`);
     
     }
+
+
+    cy.userSubscription().then((Response)=>{
+      new_subscription_id = Response.body.subscription_id; 
+  
+      cy.request({
+      method: 'POST',
+      url: Cypress.env('revayz_endpoint') + 'upgrade_downgrade_usersubscription', 
+      headers: {
+        Authorization: 'Bearer ' + authToken,
+        },
+      body:  {
+        subscription_id: new_subscription_id,
+        new_package_id: new_package_id,               
+          },  
+        }); 
+      }); 
+  })
+})
+
       
     cy.userSubscription().then((Response)=>{
       new_subscription_id = Response.body.subscription_id; 
