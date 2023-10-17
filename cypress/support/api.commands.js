@@ -157,5 +157,23 @@ Cypress.Commands.add('upGradeDownGradeUsersubscription', (tier_type) => {
 
 })
 
-
+Cypress.Commands.add('delete_UserSubscription', () => {
+  
+  cy.fixture('deleteUsersubscription.json').then((data) => {
+    const subscriptionId = data.subscription_id;
+    console.log(subscriptionId)
+    cy.request({
+      method: "POST",
+      url: Cypress.env("revayz_endpoint") + "delete_usersubscription",
+      headers: {
+        Authorization: "Bearer " + authToken,
+      },
+      failOnStatusCode: false,
+      body:{ 
+        "subscription_id": subscriptionId,
+      },
+    });
+  });
+});     
+  
 
