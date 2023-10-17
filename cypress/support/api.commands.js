@@ -1,5 +1,4 @@
 
-
 let authToken = null;
     
 Cypress.Commands.add('generateToken', () => {
@@ -97,6 +96,21 @@ Cypress.Commands.add('upGradeDownGradeUsersubscription', (tier_type) => {
   })
 })
       
+
+
+  
+   
+   Cypress.Commands.add('usersubscription', () => {
+     
+    cy.request({
+     method: 'GET',
+     url: Cypress.env('revayz_endpoint') + 'usersubscription',
+     headers: {
+       Authorization: 'Bearer ' + authToken
+     }
+    })
+  })
+
  
  
   //custom command for content creation api request -nursena
@@ -125,5 +139,6 @@ Cypress.Commands.add('upGradeDownGradeUsersubscription', (tier_type) => {
     })
 
 })
+
 
 
