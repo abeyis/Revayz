@@ -121,25 +121,26 @@ Cypress.Commands.add('upGradeDownGradeUsersubscription', (tier_type) => {
   })
 })
 
-      
-    cy.userSubscription().then((Response)=>{
-      new_subscription_id = Response.body.subscription_id; 
+Cypress.Commands.add('delete_UserSubscription', () => {
   
+  cy.fixture('deleteUsersubscription.json').then((data) => {
+    const subscriptionId = data.subscription_id;
+    console.log(subscriptionId)
+    cy.request({
+      method: "POST",
+      url: Cypress.env("revayz_endpoint") + "delete_usersubscription",
+      headers: {
+        Authorization: "Bearer " + authToken,
+      },
+      failOnStatusCode: false,
+      body:{ 
+        "subscription_id": subscriptionId,
+      },
     });
   });
+});     
+  
 
 
-    cy.request({
-    method: 'POST',
-    url: Cypress.env('revayz_endpoint') + 'upgrade_downgrade_usersubscription', 
-    headers: {
-      Authorization: 'Bearer ' + authToken,
-      },
-    body:  {
-      subscription_id: new_subscription_id,
-      new_package_id: new_package_id,               
-        },  
-      }); 
-    }); 
   
   
