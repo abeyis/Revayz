@@ -1,5 +1,4 @@
 
-
 let authToken = null;
     
 Cypress.Commands.add('generateToken', () => {
@@ -120,6 +119,47 @@ Cypress.Commands.add('upGradeDownGradeUsersubscription', (tier_type) => {
       }); 
   })
 })
+        
+   
+   Cypress.Commands.add('usersubscription', () => {
+     
+    cy.request({
+     method: 'GET',
+     url: Cypress.env('revayz_endpoint') + 'usersubscription',
+     headers: {
+       Authorization: 'Bearer ' + authToken
+     }
+    })
+  })
+
+ 
+ 
+  //custom command for content creation api request -nursena
+
+
+ Cypress.Commands.add('contentCreation2', (body) => {
+
+  
+    cy.fixture('content_nt.json'). then ((content_data) => {
+    let content2 = content_data.content;
+
+
+      cy.request({
+          method: 'POST',
+          url: Cypress.env('revayz_endpoint') + 'contentcreation', 
+          headers:  {
+            Authorization: 'Bearer ' + authToken2
+          },
+          body: {
+            content: content2
+          }
+
+      })      
+
+
+    })
+
+})
 
 Cypress.Commands.add('delete_UserSubscription', () => {
   
@@ -141,6 +181,3 @@ Cypress.Commands.add('delete_UserSubscription', () => {
 });     
   
 
-
-  
-  

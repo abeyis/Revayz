@@ -44,6 +44,7 @@ Cypress.Commands.add('convertDatatableToJson', (dataTable) => {
 
   return jsonData;
 });
+
 Cypress.Commands.add('datatableToJson', (table) => {
 
   const headers_1 = table.rawTable[0];
@@ -59,3 +60,21 @@ Cypress.Commands.add('datatableToJson', (table) => {
 
   return jsonData_1;
 });
+
+
+Cypress.Commands.add('findPackageName',(tier_type)=>{
+let package_name
+switch(tier_type){
+  case "tier_1":
+    package_name = "Tier 1"
+    break;
+    case "tier_2":
+      package_name = "Tier 2"
+      break;
+      case "free":
+        package_name = "Free Tier"
+        break;
+}
+return package_name
+})
+
