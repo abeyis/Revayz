@@ -55,8 +55,28 @@ Cypress.Commands.add('contentCreation', (body) => {
       "content": body
     },
    })     
+ })
 
-  });
+//custom command to refresh token -nt
+
+Cypress.Commands.add ('refreshToken', () => { 
+
+  cy.fixture('refresh_token2').then((refresh_token_data) => {
+      var refresh_token2 = refresh_token_data.refresh_token;
+      
+
+      cy.request({
+          method: 'POST',
+          url: Cypress.env('revayz_endpoint') + 'token_generate',
+          body:  {
+            refresh_token: refresh_token2
+          }
+         })    
+
+  })
+ })
+
+
 
 Cypress.Commands.add('upGradeDownGradeUsersubscription', (tier_type) => {
   let new_package_id = null;
@@ -95,11 +115,8 @@ Cypress.Commands.add('upGradeDownGradeUsersubscription', (tier_type) => {
       }); 
   })
 })
-      
 
-
-  
-   
+        
    Cypress.Commands.add('usersubscription', () => {
      
     cy.request({
@@ -112,9 +129,9 @@ Cypress.Commands.add('upGradeDownGradeUsersubscription', (tier_type) => {
   })
 
  
+
  
   //custom command for content creation api request -nursena
-
 
   Cypress.Commands.add('contentCreation2', (body) => {
 
