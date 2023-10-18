@@ -1,0 +1,4588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../assets/js/darkmode.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Cache-control" content="public">
+    <title>Multiple Cucumber HTML Reporter</title>
+
+    
+            <!-- Bootstrap -->
+            <link rel="stylesheet" href="../assets/css/bootstrap.min.css" >
+
+            <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+            <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+
+            <!--[if lt IE 9]>
+            <script src="../assets/js/html5shiv.min.js"></script>
+            <script src="../assets/js/respond.min.js"></script>
+            <![endif]-->
+
+            <link href="../assets/css/font-awesome.min.css" rel="stylesheet">
+    
+
+    <!-- Custom Theme Style -->
+    <style type="text/css">
+        body {
+    color: #73879C;
+    background: #F7F7F7;
+    font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.471;
+}
+
+.main_container {
+    padding: 10px 20px 0;
+}
+
+i span {
+    display: none;
+}
+
+/* Navigation */
+nav.navbar {
+    background: #EDEDED;
+    border-bottom: 1px solid #D9DEE4;
+    margin-bottom: 0;
+}
+
+nav .navbar-brand {
+    border-right: 1px solid #D9DEE4;
+    color: #5A738E;
+}
+
+nav .navbar-text {
+    font-size: 18px;
+    height: 50px;
+    margin-bottom: 0;
+    margin-top: 0;
+    padding: 15px 0;
+    float: right;
+}
+
+/* Table */
+table {
+    width: 100%;
+}
+
+table.chart tr th:first-of-type {
+    width: 33.333%;
+}
+
+.table > thead > tr > th {
+    background: #F5F7FA;
+}
+
+table.tile h3, table.tile h4, table.tile span {
+    font-weight: bold;
+    vertical-align: middle !important;
+}
+
+table.tile th, table.tile td {
+    text-align: center;
+}
+
+table.tile th {
+    border-bottom: 1px solid #E6ECEE;
+}
+
+table.tile td {
+    padding: 5px 0;
+}
+
+table.tile td ul {
+    text-align: left;
+    padding-left: 0;
+}
+
+table.tile td ul li {
+    list-style: none;
+    width: 100%;
+}
+
+table.tile td ul li a {
+    width: 100%;
+}
+
+table.tile td ul li a big {
+    right: 0;
+    float: right;
+    margin-right: 13px;
+}
+
+table.tile_info {
+    width: 100%;
+}
+
+table.tile_info td {
+    text-align: left;
+    padding: 1px;
+    font-size: 15px;
+}
+
+table.tile_info td p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+    line-height: 28px;
+}
+
+table.tile_info td i {
+    display: inline-block;
+    margin-right: 8px;
+    font-size: 17px;
+    float: left;
+    width: 18px;
+    line-height: 28px;
+    text-align: center;
+}
+
+table.tile_info td:first-child {
+    width: 65%;
+}
+
+td span {
+    line-height: 28px;
+}
+
+table.tile_info td.percentage {
+    text-align: right;
+
+}
+
+/* chart in table */
+table td.chart {
+    display: inline-block;
+    position: relative;
+}
+
+table td.chart #feature-chart,
+table td.chart #scenario-chart,
+table td.chart .total {
+    height: 140px;
+    margin: 15px 10px 10px 0;
+    width: 140px;
+}
+
+table td.chart .total {
+    display: inline-block;
+    position: absolute;
+    font-size: 2em;
+    height: 50px;
+    line-height: 50px;
+    top: 45px;
+    left: 45px;
+    text-align: center;
+    vertical-align: middle;
+    width: 50px;
+}
+
+/* colors */
+.ambiguous-color {
+    color: #E74C3C !important;
+}
+
+.failed-color {
+    color: #E74C3C !important;
+}
+
+.not-defined-color {
+    color: #F39C12 !important;
+}
+
+.passed-color {
+    color: #1ABB9C !important;
+}
+
+.pending-color {
+    color: #FFD119 !important;
+}
+
+.skipped-color {
+    color: #3498DB !important;
+}
+
+/* backgrounds */
+.ambiguous-background {
+    background: #b73122 !important;
+}
+
+.failed-background {
+    background: #E74C3C !important;
+}
+
+.not-defined-background {
+    background: #F39C12 !important;
+}
+
+.passed-background {
+    background: #1ABB9C !important;
+}
+
+.pending-background {
+    background: #FFD119 !important;
+}
+
+.skipped-background {
+    background: #3498DB !important;
+}
+
+/* general */
+.x_panel {
+    position: relative;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px 17px;
+    display: inline-block;
+    background: #fff;
+    border: 1px solid #E6E9ED;
+    -webkit-column-break-inside: avoid;
+    opacity: 1;
+}
+
+.x_title {
+    border-bottom: 2px solid #E6E9ED;
+    padding: 1px 5px 6px;
+    margin-bottom: 10px;
+}
+
+.x_title .filter {
+    width: 40%;
+    float: right;
+}
+
+.x_title h2 {
+    margin: 5px 0 6px;
+    float: left;
+    font-size: 24px;
+    font-weight: 400;
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.fixed_height_320 {
+    height: 320px;
+}
+
+.x_title span {
+    color: #BDBDBD;
+}
+
+.x_content {
+    padding: 0 5px 6px;
+    position: relative;
+    width: 100%;
+    float: left;
+    clear: both;
+    margin-top: 5px;
+}
+
+.x_content h4 {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.panel_toolbox {
+    float: right;
+    margin: 5px 0 0;
+    min-width: 70px;
+}
+
+.panel_toolbox > li {
+    float: right;
+}
+
+.panel_toolbox > li > a {
+    cursor: pointer;
+}
+
+.panel_toolbox > li > a {
+    padding: 5px;
+    color: #C5C7CB;
+    font-size: 14px;
+}
+
+.panel_toolbox > li > a:hover {
+    background: #F5F7FA;
+}
+
+.page-title {
+    width: 100%;
+    padding: 10px 0 30px 0;
+}
+
+.page-title {
+    display: block;
+}
+
+.page-title h1 {
+    margin: 9px 0 9px 13px;
+    font-size: 30px;
+
+}
+
+.page-title .title_right {
+    width: 55%;
+    float: left;
+    display: block;
+}
+
+.page-title .title_right .pull-right {
+    margin: 10px 0;
+}
+
+.page-title p {
+    margin-left: 15px;
+}
+
+.dashboard-widget-content {
+    padding-top: 9px;
+}
+
+.dashboard-widget-content .sidebar-widget {
+    width: 50%;
+    display: inline-block;
+    vertical-align: top;
+    background: #fff;
+    border: 1px solid #abd9ea;
+    border-radius: 5px;
+    text-align: center;
+    float: right;
+    padding: 2px;
+    margin-top: 10px;
+}
+
+ul.quick-list {
+    padding-left: 0;
+    display: inline-block;
+}
+
+ul.quick-list li,
+table.quick-list tr {
+    padding-left: 10px;
+    list-style: none;
+    margin: 0;
+    padding-bottom: 6px;
+    padding-top: 4px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+ul.quick-list li .meta-data-title,
+table.quick-list td.meta-data-title {
+    display: inline-block;
+    min-width: 75px;
+    font-weight: bold;
+}
+
+ul.quick-list li span,
+table.quick-list td {
+    line-height: 28px;
+}
+
+ul.quick-list li,
+table.quick-list tr {
+    border-bottom: 1px solid #efefef;
+    padding: 0.5em 0;
+}
+
+ul.quick-list li:last-child,
+table.quick-list tr:last-child {
+    border-bottom: none;
+}
+
+ul.quick-list li i {
+    padding-right: 10px;
+    color: #757679;
+}
+
+.screenshot{
+    max-height: 100%;
+    max-width: 100%;
+}
+
+/* Features / Scenarios */
+ul.panel_toolbox li .step {
+    border-radius: 50%;
+    color: #ffffff;
+    display: block;
+    font-size: 14px;
+    height: 30px;
+    margin-right: 5px;
+    padding: 5px;
+    text-align: center;
+    width: 30px;
+}
+
+.scenario-step-container {
+    margin-bottom: 10px;
+}
+
+.scenario-step-container .label {
+    display: inline-block;
+    text-align: center;
+    width: 30px;
+}
+
+.scenario-step-container .text {
+    display: inline;
+}
+
+.scenario-step-container .duration {
+    position: relative;
+    float: right;
+}
+
+.scenario-step-container .text .keyword.highlight {
+    font-size: 1.2em;
+    font-weight: 700;
+}
+
+.scenario-scroll-bar {
+    overflow-x: scroll;
+}
+
+.scenario-step-collapse,
+.scenario-scroll-bar .arguments {
+    margin-left: 30px;
+    width: auto;
+}
+
+/* media */
+@media (max-width: 1200px) {
+    .x_title h2 {
+        width: 70%;
+    }
+}
+
+@media (max-width: 640px) {
+    .x_title h2 {
+        width: 100%;
+    }
+}
+
+/* override */
+table.dataTable.dtr-inline.collapsed > tbody > tr > td:first-child:before,
+table.dataTable.dtr-inline.collapsed > tbody > tr > th:first-child:before {
+    background: #1ABB9C;
+}
+
+table.dataTable.dtr-inline.collapsed > tbody > tr.parent > td:first-child:before, table.dataTable.dtr-inline.collapsed > tbody > tr.parent > th:first-child:before {
+    background: #E74C3C;
+}
+
+.created-by {
+    padding: 50px 0;
+    text-align: center;
+}
+
+body.darkmode,
+body.darkmode div.created-by,
+body.darkmode .dropdown-menu
+{
+    background: #212121 !important;
+    color: #b4bfca;
+    border-color: #2e2e2e;
+}
+
+body.darkmode .x_panel
+{
+    background: #1c1c21 !important;
+    color: #b4bfca;
+    border: 1px solid #2e2e2e;
+}
+
+body.darkmode div.container-fluid
+{
+    background: #2b2b2b !important;
+    color: #b4bfca;
+    border: 0 solid #2e2e2e;
+}
+
+body.darkmode nav.navbar {
+    background: #2b2b2b;
+    border-bottom: 1px solid #313a45;
+    margin-bottom: 0;
+}
+
+body.darkmode .x_title {
+    background: #1c1c21 !important;
+    border-bottom: 2px solid #2e2e2e;
+    padding: 1px 5px 6px;
+    margin-bottom: 10px;
+}
+
+body.darkmode table.quick-list  tr {
+    border-bottom: 1px solid #292929;
+    padding: 0.5em 0;
+}
+
+body.darkmode ul.quick-list li,
+body.darkmode table.quick-list tr {
+    border-bottom: 1px solid #2e2e2e;
+    padding: 0.5em 0;
+}
+
+.darkModeIcon {
+    font-size: x-large;
+    float: left;
+    padding-top: 12px;
+    padding-left: 4px;
+    cursor: pointer;
+    color: #b4bfca;
+    border-color: #2e2e2e;
+}
+
+.darkModeIcon:before {
+    content: '';
+}
+
+body.darkmode a.navbar-default,
+body.darkmode a.navbar-brand {
+    color: #b1bfcd;
+    background: transparent !important;
+    border-right: 1px solid #313a45;
+}
+
+body.darkmode a {
+    background: transparent !important;
+    color: #9cc2e3;
+    border-color: #2e2e2e;
+}
+
+body.darkmode a.collapse-link {
+    color: #c7c7c7;
+    border-color: #2e2e2e;
+}
+
+body.darkmode li:not([class])>a[id] {
+    color: white;
+}
+body.darkmode li:not([class])>a[id]:hover {
+    background: darkslateblue;
+}
+
+body.darkmode #features-table {
+    color: #b4bfca;
+    border-color: #2e2e2e;
+}
+
+body.darkmode #features-table th {
+    background: #212121 !important;
+    color: #a3c2db;
+    border-color: #2e2e2e;
+}
+
+body.darkmode #features-table td {
+    border-color: #2e2e2e;
+}
+
+body.darkmode #features-table tr:nth-of-type(odd) {
+    background: #212121 !important;
+    border-color: #2e2e2e;
+}
+
+body.darkmode table.dataTable>tbody>tr.child ul.dtr-details li {
+    border-bottom: 1px solid #2e2e2e;
+    padding: 0.5em 0;
+}
+
+body.darkmode .pagination,
+body.darkmode .pagination>.active>a,
+body.darkmode .pagination>.active>a:focus,
+body.darkmode .pagination>.active>a:hover,
+body.darkmode .pagination>.active>span,
+body.darkmode .pagination>.active>span:focus,
+body.darkmode .pagination>.active>span:hover {
+    background: #3a7ab7;
+    border-color: #3a7ab7;
+}
+
+body.darkmode .pagination>.disabled>a,
+body.darkmode .pagination>.disabled>a:focus,
+body.darkmode .pagination>.disabled>a:hover,
+body.darkmode .pagination>.disabled>span,
+body.darkmode .pagination>.disabled>span:focus,
+body.darkmode .pagination>.disabled>span:hover {
+    background: #3a7ab7;
+    border-color: #3b3b3b;
+    color: #bfbfbf;
+}
+
+body.darkmode table.dataTable.dtr-inline.collapsed>tbody>tr>td:first-child::before,
+table.dataTable.dtr-inline.collapsed>tbody>tr>th:first-child::before {
+    border: 1px solid #2e2e2e;
+}
+
+body.darkmode #features-table>thead>tr {
+    color: #b4bfca;
+    border-color: #2e2e2e;
+}
+
+body.darkmode .form-control {
+    background: #212121 !important;
+    color: #c3c3c3;
+    border-color: #2e2e2e;
+}
+body.darkmode li[id*=features]>a {
+    background: #212121 !important;
+}
+
+body.darkmode .btn-info {
+    color: #b4bfca;
+    background: #337ab7;
+    border-color: #337ab7;
+}
+
+body.darkmode .panel_toolbox > li > a:hover {
+    background: transparent;
+}
+
+body.darkmode .table-striped>tbody>tr:nth-of-type(even) {
+    background: #1c1c21;
+}
+
+body.darkmode div pre {
+    background: #212121 !important;
+    color: #b4bfca;
+}
+
+body.darkmode span.tag {
+    color: #b4bfca;
+}
+
+body.darkmode .keyword {
+    color: #b4bfca;
+}
+
+body.darkmode div.tags ~h1 {
+    color: #b4bfca;
+}
+
+body.darkmode div.tags ~h2 {
+    color: #b4bfca;
+}
+
+body.darkmode div.tags ~h1 small {
+    color: #bfbfbf;
+}
+
+body.darkmode div.tags ~h2 small {
+    color: #bfbfbf;
+}
+
+svg#moon, svg#sun {
+    width: 40px;
+    height: 30px;
+    fill: #ec6d04;
+}
+
+input#darkCheck:checked ~ label>svg#sun {
+    display: none;
+    border-color: #212121;
+}
+
+label>svg#moon {
+    display: none;
+}
+
+input#darkCheck:checked ~ label>svg#moon {
+    display: inline-block;
+    fill: #b4bfca;
+    border-color: #212121;
+}
+
+        
+    </style>
+</head>
+<body>
+    <script type="text/javascript">
+        window.onload = function() {
+            if(window.localStorage['darkmode'] === 'on') {
+                applyFontStyle();
+            }
+        }
+    </script>
+    <nav class="navbar">
+        <div class="container-fluid">
+
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#" onclick="history.back(-1)">
+                    <i class="fa fa-arrow-left"><span>Back</span></i>
+                </a>
+            </div>
+            <p class="navbar-text" style="float: left">Features Overview
+            </p>
+            <p class="navbar-text">Multiple Cucumber HTML Reporter</p>
+        </div>
+
+    </nav>
+
+    <div class="main_container">
+
+        <div class="page-title">
+            <div class="tags">
+                
+                    
+                    
+                
+            </div>
+            <h1>Feature:
+                <small>Upgrade or downgrade usersubscription</small>
+            </h1>
+            
+                <p>
+               <p><strong>File name:</strong>
+                    at_upgrade_downgrade_usersubscription.feature
+                </p>
+                <p><strong>Relative path:</strong>
+                    at_upgrade_downgrade_usersubscription.feature</p>
+            
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="row">
+            <div class="col-md-8 col-xs-12">
+                <div class="x_panel fixed_height_320">
+                    <div class="x_title">
+    <h2>Scenarios</h2>
+    <ul class="nav navbar-right panel_toolbox">
+        <li>
+            <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+            </a>
+        </li>
+    </ul>
+    <div class="clearfix"></div>
+</div>
+<div class="x_content">
+    <table class="chart">
+        <tr>
+            <th>
+                <p>Chart</p>
+            </th>
+            <th>
+                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                    <p class="">Status</p>
+                </div>
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                    <p class="" style="float:right;">Progress</p>
+                </div>
+            </th>
+        </tr>
+        <tr>
+            <td class="chart">
+                <canvas id="scenario-chart"></canvas>
+                <div class="total">3</div>
+            </td>
+            <td>
+                <table class="tile_info">
+                    <tr>
+                        <td>
+                            <p data-toggle="tooltip" data-placement="left" title="Scenario passed">
+                                <i class="fa fa-check-circle passed-color"></i>
+                                Passed
+                            </p>
+                        </td>
+                        <td class="percentage">0.00 %</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p data-toggle="tooltip" data-placement="left" title="Scenario failed">
+                                <i class="fa fa-exclamation-circle failed-color"></i>
+                                Failed
+                            </p>
+                        </td>
+                        <td class="percentage">100.00 %</td>
+                    
+                    
+                    </tr>
+                    
+                    
+                </table>
+            </td>
+        </tr>
+        
+    </table>
+</div>
+
+                </div>
+            </div>
+            
+            <div class="col-md-4 col-xs-12">
+                <div class="x_panel fixed_height_320">
+                    <div class="x_title">
+    <h2>Metadata</h2>
+    <ul class="nav navbar-right panel_toolbox">
+        <li>
+            <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+            </a>
+        </li>
+    </ul>
+    <div class="clearfix"></div>
+</div>
+<div class="x_content">
+    <div class="dashboard-widget-content">
+        <ul class="quick-list">
+            <li>
+                <span class="meta-data-title">
+                    <i class="fa fa-desktop fa-lg"></i>
+                    <i class="fa fa-mobile fa-lg"></i>
+                </span>
+                <span class="meta-data-data">
+                    
+                    
+                    
+                    
+                    <i class="fa fa-question-circle not-defined-color fa-lg">
+                        <span>question-circle not-defined-color</span>
+                    </i>
+                </span>
+            </li>
+            <li>
+                <span class="meta-data-title">Device</span>
+                <span class="meta-data-data">Local test machine</span>
+            </li>
+            <li>
+                <span class="meta-data-title">OS</span>
+                <span class="meta-data-data">
+                    
+                    
+                    
+                    
+                    <i class="fa fa-question-circle not-defined-color fa-lg">
+                        <span>question-circle not-defined-color</span>
+                    </i>
+                    
+                </span>
+            </li>
+            
+            
+            <li>
+                <span class="meta-data-title">Browser</span>
+                <span class="meta-data-data">
+                    
+                    
+                    
+                    
+                    
+                    <i class="fa fa-chrome fa-lg">
+                        <span>chrome</span>
+                    </i>
+                    81
+                    
+                </span>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+        <div class="dropdown pull-right dropup" >
+            <button class="btn btn-info dropdown-toggle btn-sm" type="button" data-toggle="dropdown" style="margin-bottom: 15px;">
+                Filter By<span class="caret" style="margin-left: 5px"></span></button>
+            <ul class="dropdown-menu">
+                <li> <a id="passed" href="javascript:void(0)" onclick="hideResult(this.id)">Passed
+                    <i class="fa fa-check-circle passed-color filter-i"></i></a>
+                </li>
+                <li> <a id="failed" href="javascript:void(0)" onclick="hideResult(this.id)">Failed
+                    <i class="fa fa-exclamation-circle failed-color filter-i"></i></a>
+                </li>
+                <li> <a id="pending" href="javascript:void(0)" onclick="hideResult(this.id)">Pending
+                    <i class="fa fa-minus-circle pending-color filter-i"></i></a>
+                </li>
+                <li> <a id="skipped" href="javascript:void(0)" onclick="hideResult(this.id)">Skipped
+                    <i class="fa fa-arrow-circle-right fa skipped-color filter-i"></i></a>
+                </li>
+                <li> <a id="not-defined" href="javascript:void(0)" onclick="hideResult(this.id)">Not Defined
+                    <i class="fa fa-question-circle not-defined-color filter-i"></i></a>
+                </li>
+                <li> <a id="ambiguous" href="javascript:void(0)" onclick="hideResult(this.id)">Ambiguous
+                    <i class="fa fa-flash ambiguous-color filter-i"></i></a>
+                </li>
+                <li class="divider"></li>
+                <li> <a id="clear" href="javascript:void(0)"onclick="showAll()">Clear
+                    <i class="fa fa-times-circle"></i></a>
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel" style="height: auto;">
+            <div class="x_title">
+
+                <div class="tags">
+                    
+                        
+                        
+                    
+                </div>
+
+                <h2>Scenario: <small>Upgrade or downgrade usersubscription to tier_1</small></h2>
+
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-down"></i></a>
+                    </li>
+
+                    
+
+                    
+
+                    
+
+                    
+                        <li>
+                            <span class="step failed-background" data-toggle="tooltip" title="Scenario failed">1</span>
+                        </li>
+                    
+
+                    
+                        <li>
+                            <span class="step passed-background" data-toggle="tooltip" title="Scenario passed">2</span>
+                        </li>
+                    
+
+                    
+
+                    
+                </ul>
+
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="x_content" style="display: none;">
+                <div class="scenario-step-container"></div>
+                    
+                        
+                            <div class="scenario-step-container">
+
+                                
+                                    
+                                        <div class="label" title="Success">
+                                            <i class="fa fa-check-circle fa-2x passed-color" data-toggle="tooltip" data-placement="top" title="Step passed"></i>
+                                        </div>
+                                    
+                                
+
+                                <div class="text">
+                                    <span class="keyword highlight">Given </span>
+
+                                    
+                                        User should get refresh_token create authToken
+                                        
+                                    
+
+                                    
+
+                                </div>
+
+                                
+                                    
+
+                                    
+
+                                    
+                                    
+                                    
+
+                                    
+
+                                    
+
+                                    
+                                
+                            </div>
+
+                        
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+                        
+
+                        
+                            
+                        
+
+                    
+                
+                        
+                            <div class="scenario-step-container">
+
+                                
+                                    
+                                        <div class="label" title="Success">
+                                            <i class="fa fa-check-circle fa-2x passed-color" data-toggle="tooltip" data-placement="top" title="Step passed"></i>
+                                        </div>
+                                    
+                                
+
+                                <div class="text">
+                                    <span class="keyword highlight">When </span>
+
+                                    
+                                        User sends post request to upgrade_downgrade_usersubscription endpoint with "tier_1"
+                                        
+                                    
+
+                                    
+
+                                </div>
+
+                                
+                                    
+
+                                    
+
+                                    
+                                    
+                                    
+
+                                    
+
+                                    
+
+                                    
+                                
+                            </div>
+
+                        
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+                        
+
+                        
+                            
+                        
+
+                    
+                
+                        
+                            <div class="scenario-step-container">
+
+                                
+                                    
+                                        <div class="label" data-toggle="tooltip" data-placement="top" title="Step failed">
+                                            <i class="fa fa-exclamation-circle fa-2x failed-color"></i>
+                                        </div>
+                                    
+                                
+
+                                <div class="text">
+                                    <span class="keyword highlight">Then </span>
+
+                                    
+                                        User should able to upgrade or downgrade the subscription
+                                        
+                                    
+
+                                    
+
+                                </div>
+
+                                
+                                    
+
+                                    
+                                        <a href="#error0-2-error" data-toggle="collapse">+ Show Error</a>
+                                    
+
+                                    
+                                    
+                                    
+
+                                    
+
+                                    
+
+                                    
+                                
+                            </div>
+
+                        
+                            
+                                <div id="error0-2-error" class="scenario-step-collapse collapse">
+                                    <pre class=info>AssertionError
+    + expected - actual
+
+    -'Free Tier'
+    +{ specWindow: 
+    +   { window: [Getter],
+    +     self: [Getter/Setter],
+    +     document: [Getter],
+    +     name: [Getter/Setter],
+    +     location: [Getter/Setter],
+    +     customElements: [Getter],
+    +     history: [Getter],
+    +     navigation: [Getter/Setter],
+    +     locationbar: [Getter/Setter],
+    +     menubar: [Getter/Setter],
+    +     personalbar: [Getter/Setter],
+    +     scrollbars: [Getter/Setter],
+    +     statusbar: [Getter/Setter],
+    +     toolbar: [Getter/Setter],
+    +     status: [Getter/Setter],
+    +     closed: [Getter],
+    +     frames: [Getter/Setter],
+    +     length: [Getter/Setter],
+    +     top: [Getter],
+    +     opener: [Getter/Setter],
+    +     parent: [Getter/Setter],
+    +     frameElement: [Getter],
+    +     navigator: [Getter],
+    +     origin: [Getter/Setter],
+    +     external: [Getter/Setter],
+    +     screen: [Getter/Setter],
+    +     innerWidth: [Getter/Setter],
+    +     innerHeight: [Getter/Setter],
+    +     scrollX: [Getter/Setter],
+    +     pageXOffset: [Getter/Setter],
+    +     scrollY: [Getter/Setter],
+    +     pageYOffset: [Getter/Setter],
+    +     visualViewport: [Getter/Setter],
+    +     screenX: [Getter/Setter],
+    +     screenY: [Getter/Setter],
+    +     outerWidth: [Getter/Setter],
+    +     outerHeight: [Getter/Setter],
+    +     devicePixelRatio: [Getter/Setter],
+    +     clientInformation: [Getter/Setter],
+    +     screenLeft: [Getter/Setter],
+    +     screenTop: [Getter/Setter],
+    +     styleMedia: [Getter],
+    +     onsearch: [Getter/Setter],
+    +     isSecureContext: [Getter],
+    +     trustedTypes: [Getter],
+    +     performance: [Getter/Setter],
+    +     onappinstalled: [Getter/Setter],
+    +     onbeforeinstallprompt: [Getter/Setter],
+    +     crypto: [Getter],
+    +     indexedDB: [Getter],
+    +     sessionStorage: [Getter],
+    +     localStorage: [Getter],
+    +     onbeforexrselect: [Getter/Setter],
+    +     onabort: [Getter/Setter],
+    +     onbeforeinput: [Getter/Setter],
+    +     onblur: [Getter/Setter],
+    +     oncancel: [Getter/Setter],
+    +     oncanplay: [Getter/Setter],
+    +     oncanplaythrough: [Getter/Setter],
+    +     onchange: [Getter/Setter],
+    +     onclick: [Getter/Setter],
+    +     onclose: [Getter/Setter],
+    +     oncontextlost: [Getter/Setter],
+    +     oncontextmenu: [Getter/Setter],
+    +     oncontextrestored: [Getter/Setter],
+    +     oncuechange: [Getter/Setter],
+    +     ondblclick: [Getter/Setter],
+    +     ondrag: [Getter/Setter],
+    +     ondragend: [Getter/Setter],
+    +     ondragenter: [Getter/Setter],
+    +     ondragleave: [Getter/Setter],
+    +     ondragover: [Getter/Setter],
+    +     ondragstart: [Getter/Setter],
+    +     ondrop: [Getter/Setter],
+    +     ondurationchange: [Getter/Setter],
+    +     onemptied: [Getter/Setter],
+    +     onended: [Getter/Setter],
+    +     onerror: [Getter/Setter],
+    +     onfocus: [Getter/Setter],
+    +     onformdata: [Getter/Setter],
+    +     oninput: [Getter/Setter],
+    +     oninvalid: [Getter/Setter],
+    +     onkeydown: [Getter/Setter],
+    +     onkeypress: [Getter/Setter],
+    +     onkeyup: [Getter/Setter],
+    +     onload: [Getter/Setter],
+    +     onloadeddata: [Getter/Setter],
+    +     onloadedmetadata: [Getter/Setter],
+    +     onloadstart: [Getter/Setter],
+    +     onmousedown: [Getter/Setter],
+    +     onmouseenter: [Getter/Setter],
+    +     onmouseleave: [Getter/Setter],
+    +     onmousemove: [Getter/Setter],
+    +     onmouseout: [Getter/Setter],
+    +     onmouseover: [Getter/Setter],
+    +     onmouseup: [Getter/Setter],
+    +     onmousewheel: [Getter/Setter],
+    +     onpause: [Getter/Setter],
+    +     onplay: [Getter/Setter],
+    +     onplaying: [Getter/Setter],
+    +     onprogress: [Getter/Setter],
+    +     onratechange: [Getter/Setter],
+    +     onreset: [Getter/Setter],
+    +     onresize: [Getter/Setter],
+    +     onscroll: [Getter/Setter],
+    +     onsecuritypolicyviolation: [Getter/Setter],
+    +     onseeked: [Getter/Setter],
+    +     onseeking: [Getter/Setter],
+    +     onselect: [Getter/Setter],
+    +     onslotchange: [Getter/Setter],
+    +     onstalled: [Getter/Setter],
+    +     onsubmit: [Getter/Setter],
+    +     onsuspend: [Getter/Setter],
+    +     ontimeupdate: [Getter/Setter],
+    +     ontoggle: [Getter/Setter],
+    +     onvolumechange: [Getter/Setter],
+    +     onwaiting: [Getter/Setter],
+    +     onwebkitanimationend: [Getter/Setter],
+    +     onwebkitanimationiteration: [Getter/Setter],
+    +     onwebkitanimationstart: [Getter/Setter],
+    +     onwebkittransitionend: [Getter/Setter],
+    +     onwheel: [Getter/Setter],
+    +     onauxclick: [Getter/Setter],
+    +     ongotpointercapture: [Getter/Setter],
+    +     onlostpointercapture: [Getter/Setter],
+    +     onpointerdown: [Getter/Setter],
+    +     onpointermove: [Getter/Setter],
+    +     onpointerrawupdate: [Getter/Setter],
+    +     onpointerup: [Getter/Setter],
+    +     onpointercancel: [Getter/Setter],
+    +     onpointerover: [Getter/Setter],
+    +     onpointerout: [Getter/Setter],
+    +     onpointerenter: [Getter/Setter],
+    +     onpointerleave: [Getter/Setter],
+    +     onselectstart: [Getter/Setter],
+    +     onselectionchange: [Getter/Setter],
+    +     onanimationend: [Getter/Setter],
+    +     onanimationiteration: [Getter/Setter],
+    +     onanimationstart: [Getter/Setter],
+    +     ontransitionrun: [Getter/Setter],
+    +     ontransitionstart: [Getter/Setter],
+    +     ontransitionend: [Getter/Setter],
+    +     ontransitioncancel: [Getter/Setter],
+    +     onafterprint: [Getter/Setter],
+    +     onbeforeprint: [Getter/Setter],
+    +     onbeforeunload: [Getter/Setter],
+    +     onhashchange: [Getter/Setter],
+    +     onlanguagechange: [Getter/Setter],
+    +     onmessage: [Getter/Setter],
+    +     onmessageerror: [Getter/Setter],
+    +     onoffline: [Getter/Setter],
+    +     ononline: [Getter/Setter],
+    +     onpagehide: [Getter/Setter],
+    +     onpageshow: [Getter/Setter],
+    +     onpopstate: [Getter/Setter],
+    +     onrejectionhandled: [Getter/Setter],
+    +     onstorage: [Getter/Setter],
+    +     onunhandledrejection: [Getter/Setter],
+    +     onunload: [Getter/Setter],
+    +     crossOriginIsolated: [Getter],
+    +     scheduler: [Getter/Setter],
+    +     alert: [Function: alert],
+    +     atob: [Function: atob],
+    +     blur: [Function: blur],
+    +     btoa: [Function: btoa],
+    +     cancelAnimationFrame: [Function: cancelAnimationFrame],
+    +     cancelIdleCallback: [Function: cancelIdleCallback],
+    +     captureEvents: [Function: captureEvents],
+    +     clearInterval: [Function: clearInterval],
+    +     clearTimeout: [Function: clearTimeout],
+    +     close: [Function: close],
+    +     confirm: [Function: confirm],
+    +     createImageBitmap: [Function: createImageBitmap],
+    +     fetch: [Function: fetch],
+    +     find: [Function: find],
+    +     focus: [Function: focus],
+    +     getComputedStyle: [Function: getComputedStyle],
+    +     getSelection: [Function: getSelection],
+    +     matchMedia: [Function: matchMedia],
+    +     moveBy: [Function: moveBy],
+    +     moveTo: [Function: moveTo],
+    +     open: [Function: open],
+    +     postMessage: [Function: postMessage],
+    +     print: [Function: print],
+    +     prompt: [Function: prompt],
+    +     queueMicrotask: [Function: queueMicrotask],
+    +     releaseEvents: [Function: releaseEvents],
+    +     reportError: [Function: reportError],
+    +     requestAnimationFrame: [Function: requestAnimationFrame],
+    +     requestIdleCallback: [Function: requestIdleCallback],
+    +     resizeBy: [Function: resizeBy],
+    +     resizeTo: [Function: resizeTo],
+    +     scroll: [Function: scroll],
+    +     scrollBy: [Function: scrollBy],
+    +     scrollTo: [Function: scrollTo],
+    +     setInterval: [Function: setInterval],
+    +     setTimeout: [Function: setTimeout],
+    +     stop: [Function: stop],
+    +     structuredClone: [Function: structuredClone],
+    +     webkitCancelAnimationFrame: [Function: webkitCancelAnimationFrame],
+    +     webkitRequestAnimationFrame: [Function: webkitRequestAnimationFrame],
+    +     'cypressSendToServer-/__socket/default': [Function],
+    +     'cypressSendToServer-/__socket/data-context': [Function],
+    +     chrome: {},
+    +     credentialless: [Getter],
+    +     caches: [Getter],
+    +     cookieStore: [Getter],
+    +     ondevicemotion: [Getter/Setter],
+    +     ondeviceorientation: [Getter/Setter],
+    +     ondeviceorientationabsolute: [Getter/Setter],
+    +     launchQueue: [Getter],
+    +     onbeforematch: [Getter/Setter],
+    +     onbeforetoggle: [Getter/Setter],
+    +     getScreenDetails: [Function: getScreenDetails],
+    +     queryLocalFonts: [Function: queryLocalFonts],
+    +     showDirectoryPicker: [Function: showDirectoryPicker],
+    +     showOpenFilePicker: [Function: showOpenFilePicker],
+    +     showSaveFilePicker: [Function: showSaveFilePicker],
+    +     originAgentCluster: [Getter],
+    +     speechSynthesis: [Getter],
+    +     oncontentvisibilityautostatechange: [Getter/Setter],
+    +     onscrollend: [Getter/Setter],
+    +     openDatabase: [Function: openDatabase],
+    +     webkitRequestFileSystem: [Function: webkitRequestFileSystem],
+    +     webkitResolveLocalFileSystemURL: [Function: webkitResolveLocalFileSystemURL],
+    +     Cypress: 
+    +      { cy: [Object],
+    +        chai: null,
+    +        mocha: [Object],
+    +        runner: [Object],
+    +        downloads: [Object],
+    +        Commands: [Object],
+    +        '$autIframe': [Object],
+    +        onSpecReady: [Function: onSpecReady],
+    +        events: [Object],
+    +        '$': [Object],
+    +        arch: 'x64',
+    +        spec: [Object],
+    +        version: '13.2.0',
+    +        browser: [Object],
+    +        platform: 'darwin',
+    +        testingType: 'e2e',
+    +        state: [Object],
+    +        originalConfig: [Object],
+    +        config: [Object],
+    +        env: [Object],
+    +        getTestRetries: [Function],
+    +        Cookies: [Object],
+    +        ProxyLogging: [Object],
+    +        _onInitialize: undefined,
+    +        isCy: [Function: bound isCy],
+    +        log: [Function],
+    +        isBrowser: [Function: wrapper],
+    +        browserMajorVersion: [Function: browserMajorVersion],
+    +        emit: [Function],
+    +        emitThen: [Function],
+    +        emitMap: [Function],
+    +        primaryOriginCommunicator: [Object],
+    +        specBridgeCommunicator: [Object],
+    +        isCrossOriginSpecBridge: false,
+    +        on: [Function],
+    +        '$Cypress': [Object],
+    +        Cy: [Object],
+    +        Chainer: [Function: $Chainer],
+    +        Command: [Function: $Command],
+    +        dom: [Object],
+    +        ensure: [Object],
+    +        errorMessages: [Object],
+    +        Keyboard: [Object],
+    +        Location: [Function: $Location],
+    +        Log: [Object],
+    +        LocalStorage: [Object],
+    +        Mocha: [Object],
+    +        resolveWindowReference: [Function: resolveWindowReference],
+    +        resolveLocationReference: [Function: resolveLocationReference],
+    +        Mouse: [Object],
+    +        Runner: [Object],
+    +        Server: [Object],
+    +        Screenshot: [Object],
+    +        SelectorPlayground: [Object],
+    +        utils: [Object],
+    +        _: [Object],
+    +        Blob: [Object],
+    +        Buffer: [Object],
+    +        Promise: [Object],
+    +        minimatch: [Object],
+    +        sinon: [Object],
+    +        lolex: [Object],
+    +        _events: [Object],
+    +        _newListener: false,
+    +        _removeListener: false,
+    +        verboseMemoryLeak: false,
+    +        _maxListeners: Infinity,
+    +        _conf: [Object],
+    +        proxyTo: [Function],
+    +        emitThenSeries: [Function],
+    +        listenTo: [Function],
+    +        stopListeningTo: [Function],
+    +        delimiter: '.',
+    +        setMaxListeners: [Function],
+    +        getMaxListeners: [Function],
+    +        event: 'command:start',
+    +        once: [Function],
+    +        prependOnceListener: [Function],
+    +        _once: [Function],
+    +        many: [Function],
+    +        prependMany: [Function],
+    +        _many: [Function],
+    +        emitAsync: [Function],
+    +        prependListener: [Function],
+    +        onAny: [Function],
+    +        prependAny: [Function],
+    +        addListener: [Function],
+    +        _onAny: [Function],
+    +        _on: [Function],
+    +        off: [Function],
+    +        offAny: [Function],
+    +        removeListener: [Function],
+    +        removeAllListeners: [Function],
+    +        listeners: [Function],
+    +        eventNames: [Function],
+    +        listenerCount: [Function],
+    +        hasListeners: [Function],
+    +        listenersAny: [Function],
+    +        waitFor: [Function],
+    +        session: [Object] },
+    +     chai: 
+    +      { version: '4.2.0',
+    +        AssertionError: [Function: AssertionError],
+    +        use: [Function],
+    +        util: -1,
+    +        config: [Object],
+    +        Assertion: [Object],
+    +        expect: [Object],
+    +        should: [Function: loadShould],
+    +        Should: [Function: loadShould],
+    +        assert: [Object] },
+    +     expect: [Function],
+    +     assert: 
+    +      { [Function: fn]
+    +        fail: [Function],
+    +        isOk: [Function],
+    +        isNotOk: [Function],
+    +        equal: [Function],
+    +        notEqual: [Function],
+    +        strictEqual: [Function],
+    +        notStrictEqual: [Function],
+    +        deepStrictEqual: [Function],
+    +        deepEqual: [Function],
+    +        notDeepEqual: [Function],
+    +        isAbove: [Function],
+    +        isAtLeast: [Function],
+    +        isBelow: [Function],
+    +        isAtMost: [Function],
+    +        isTrue: [Function],
+    +        isNotTrue: [Function],
+    +        isFalse: [Function],
+    +        isNotFalse: [Function],
+    +        isNull: [Function],
+    +        isNotNull: [Function],
+    +        isNaN: [Function],
+    +        isNotNaN: [Function],
+    +        exists: [Function],
+    +        notExists: [Function],
+    +        isUndefined: [Function],
+    +        isDefined: [Function],
+    +        isFunction: [Function],
+    +        isNotFunction: [Function],
+    +        isObject: [Function],
+    +        isNotObject: [Function],
+    +        isArray: [Function],
+    +        isNotArray: [Function],
+    +        isString: [Function],
+    +        isNotString: [Function],
+    +        isNumber: [Function],
+    +        isNotNumber: [Function],
+    +        isFinite: [Function],
+    +        isBoolean: [Function],
+    +        isNotBoolean: [Function],
+    +        typeOf: [Function],
+    +        notTypeOf: [Function],
+    +        instanceOf: [Function],
+    +        notInstanceOf: [Function],
+    +        include: [Function],
+    +        notInclude: [Function],
+    +        deepInclude: [Function],
+    +        notDeepInclude: [Function],
+    +        nestedInclude: [Function],
+    +        notNestedInclude: [Function],
+    +        deepNestedInclude: [Function],
+    +        notDeepNestedInclude: [Function],
+    +        ownInclude: [Function],
+    +        notOwnInclude: [Function],
+    +        deepOwnInclude: [Function],
+    +        notDeepOwnInclude: [Function],
+    +        match: [Function],
+    +        notMatch: [Function],
+    +        property: [Function],
+    +        notProperty: [Function],
+    +        propertyVal: [Function],
+    +        notPropertyVal: [Function],
+    +        deepPropertyVal: [Function],
+    +        notDeepPropertyVal: [Function],
+    +        ownProperty: [Function],
+    +        notOwnProperty: [Function],
+    +        ownPropertyVal: [Function],
+    +        notOwnPropertyVal: [Function],
+    +        deepOwnPropertyVal: [Function],
+    +        notDeepOwnPropertyVal: [Function],
+    +        nestedProperty: [Function],
+    +        notNestedProperty: [Function],
+    +        nestedPropertyVal: [Function],
+    +        notNestedPropertyVal: [Function],
+    +        deepNestedPropertyVal: [Function],
+    +        notDeepNestedPropertyVal: [Function],
+    +        lengthOf: [Function],
+    +        hasAnyKeys: [Function],
+    +        hasAllKeys: [Function],
+    +        containsAllKeys: [Function],
+    +        doesNotHaveAnyKeys: [Function],
+    +        doesNotHaveAllKeys: [Function],
+    +        hasAnyDeepKeys: [Function],
+    +        hasAllDeepKeys: [Function],
+    +        containsAllDeepKeys: [Function],
+    +        doesNotHaveAnyDeepKeys: [Function],
+    +        doesNotHaveAllDeepKeys: [Function],
+    +        throws: [Function],
+    +        doesNotThrow: [Function],
+    +        operator: [Function],
+    +        closeTo: [Function],
+    +        approximately: [Function],
+    +        sameMembers: [Function],
+    +        notSameMembers: [Function],
+    +        sameDeepMembers: [Function],
+    +        notSameDeepMembers: [Function],
+    +        sameOrderedMembers: [Function],
+    +        notSameOrderedMembers: [Function],
+    +        sameDeepOrderedMembers: [Function],
+    +        notSameDeepOrderedMembers: [Function],
+    +        includeMembers: [Function],
+    +        notIncludeMembers: [Function],
+    +        includeDeepMembers: [Function],
+    +        notIncludeDeepMembers: [Function],
+    +        includeOrderedMembers: [Function],
+    +        notIncludeOrderedMembers: [Function],
+    +        includeDeepOrderedMembers: [Function],
+    +        notIncludeDeepOrderedMembers: [Function],
+    +        oneOf: [Function],
+    +        changes: [Function],
+    +        changesBy: [Function],
+    +        doesNotChange: [Function],
+    +        changesButNotBy: [Function],
+    +        increases: [Function],
+    +        increasesBy: [Function],
+    +        doesNotIncrease: [Function],
+    +        increasesButNotBy: [Function],
+    +        decreases: [Function],
+    +        decreasesBy: [Function],
+    +        doesNotDecrease: [Function],
+    +        doesNotDecreaseBy: [Function],
+    +        decreasesButNotBy: [Function],
+    +        ifError: [Function],
+    +        isExtensible: [Function],
+    +        isNotExtensible: [Function],
+    +        isSealed: [Function],
+    +        isNotSealed: [Function],
+    +        isFrozen: [Function],
+    +        isNotFrozen: [Function],
+    +        isEmpty: [Function],
+    +        isNotEmpty: [Function],
+    +        ok: [Function],
+    +        notOk: [Function],
+    +        throw: [Function],
+    +        Throw: [Function],
+    +        extensible: [Function],
+    +        notExtensible: [Function],
+    +        sealed: [Function],
+    +        notSealed: [Function],
+    +        frozen: [Function],
+    +        notFrozen: [Function],
+    +        empty: [Function],
+    +        notEmpty: [Function] },
+    +     cy: 
+    +      { _events: {},
+    +        _newListener: false,
+    +        _removeListener: false,
+    +        verboseMemoryLeak: false,
+    +        id: 'cy1',
+    +        specWindow: [Circular],
+    +        state: [Object],
+    +        config: [Object],
+    +        Cypress: [Object],
+    +        Cookies: [Object],
+    +        devices: [Object],
+    +        queue: [Object],
+    +        timeout: [Function: timeout],
+    +        clearTimeout: [Function: clearTimeout],
+    +        isStable: [Function: isStable],
+    +        whenStable: [Function: whenStable],
+    +        assert: [Function: assert],
+    +        verifyUpcomingAssertions: [Function: verifyUpcomingAssertions],
+    +        retry: [Function: retry],
+    +        retryIfCommandAUTOriginMismatch: [Function: retryIfCommandAUTOriginMismatch],
+    +        '$$': [Function: $$],
+    +        getRemotejQueryInstance: [Function: getRemotejQueryInstance],
+    +        getRemoteLocation: [Function: getRemoteLocation],
+    +        getCrossOriginRemoteLocation: [Function: getCrossOriginRemoteLocation],
+    +        fireBlur: [Function: fireBlur],
+    +        fireFocus: [Function: fireFocus],
+    +        needsFocus: [Function: needsFocus],
+    +        getFocused: [Function: getFocused],
+    +        pauseTimers: [Function: pauseTimers],
+    +        expect: [Function],
+    +        getIndexedXhrByAlias: [Function: getIndexedXhrByAlias],
+    +        addAlias: [Function: addAlias],
+    +        getAlias: [Function: getAlias],
+    +        getNextAlias: [Function: getNextAlias],
+    +        validateAlias: [Function: validateAlias],
+    +        aliasNotFoundFor: [Function: aliasNotFoundFor],
+    +        getXhrTypeByAlias: [Function: getXhrTypeByAlias],
+    +        createSnapshot: [Function: createSnapshot],
+    +        detachDom: [Function: detachDom],
+    +        getStyles: [Function: getStyles],
+    +        resetTimer: [Function: reset],
+    +        overrides: [Object],
+    +        onBeforeWindowLoad: [Function: onBeforeWindowLoad],
+    +        documentHasFocus: [Function: documentHasFocus],
+    +        interceptFocus: [Function: interceptFocus],
+    +        interceptBlur: [Function: interceptBlur],
+    +        testConfigOverride: [Object],
+    +        commandFns: [Object],
+    +        queryFns: [Object],
+    +        isCy: [Function: bound isCy],
+    +        fail: [Function: bound fail],
+    +        isStopped: [Function: bound isStopped],
+    +        stop: [Function: bound stop],
+    +        reset: [Function: bound reset],
+    +        addCommandSync: [Function: bound addCommandSync],
+    +        addCommand: [Function: bound addCommand],
+    +        addQuery: [Function: bound addQuery],
+    +        now: [Function: bound now],
+    +        onBeforeAppWindowLoad: [Function: bound onBeforeAppWindowLoad],
+    +        onUncaughtException: [Function: bound onUncaughtException],
+    +        setRunnable: [Function: bound setRunnable],
+    +        getSubjectFromChain: [Function: bound getSubjectFromChain],
+    +        setSubjectForChainer: [Function: bound setSubjectForChainer],
+    +        subject: [Function: bound subject],
+    +        subjectChain: [Function: bound subjectChain],
+    +        _maxListeners: Infinity,
+    +        _conf: [Object],
+    +        proxyTo: [Function],
+    +        emitMap: [Function],
+    +        emitThen: [Function],
+    +        emitThenSeries: [Function],
+    +        listenTo: [Function],
+    +        stopListeningTo: [Function],
+    +        delimiter: '.',
+    +        setMaxListeners: [Function],
+    +        getMaxListeners: [Function],
+    +        event: 'command:enqueued',
+    +        once: [Function],
+    +        prependOnceListener: [Function],
+    +        _once: [Function],
+    +        many: [Function],
+    +        prependMany: [Function],
+    +        _many: [Function],
+    +        emit: [Function],
+    +        emitAsync: [Function],
+    +        on: [Function],
+    +        prependListener: [Function],
+    +        onAny: [Function],
+    +        prependAny: [Function],
+    +        addListener: [Function],
+    +        _onAny: [Function],
+    +        _on: [Function],
+    +        off: [Function],
+    +        offAny: [Function],
+    +        removeListener: [Function],
+    +        removeAllListeners: [Function],
+    +        listeners: [Function],
+    +        eventNames: [Function],
+    +        listenerCount: [Function],
+    +        hasListeners: [Function],
+    +        listenersAny: [Function],
+    +        waitFor: [Function],
+    +        check: [Function],
+    +        uncheck: [Function],
+    +        click: [Function],
+    +        dblclick: [Function],
+    +        rightclick: [Function],
+    +        focus: [Function],
+    +        blur: [Function],
+    +        hover: [Function],
+    +        mount: [Function],
+    +        scrollIntoView: [Function],
+    +        scrollTo: [Function],
+    +        select: [Function],
+    +        selectFile: [Function],
+    +        submit: [Function],
+    +        trigger: [Function],
+    +        type: [Function],
+    +        clear: [Function],
+    +        spy: [Function],
+    +        stub: [Function],
+    +        as: [Function],
+    +        should: [Function],
+    +        and: [Function],
+    +        clock: [Function],
+    +        tick: [Function],
+    +        command: [Function],
+    +        its: [Function],
+    +        invoke: [Function],
+    +        spread: [Function],
+    +        each: [Function],
+    +        then: [Function],
+    +        getCookie: [Function],
+    +        getCookies: [Function],
+    +        getAllCookies: [Function],
+    +        setCookie: [Function],
+    +        clearCookie: [Function],
+    +        clearCookies: [Function],
+    +        clearAllCookies: [Function],
+    +        pause: [Function],
+    +        debug: [Function],
+    +        exec: [Function],
+    +        readFile: [Function],
+    +        writeFile: [Function],
+    +        fixture: [Function],
+    +        getAllLocalStorage: [Function],
+    +        getAllSessionStorage: [Function],
+    +        clearAllLocalStorage: [Function],
+    +        clearAllSessionStorage: [Function],
+    +        clearLocalStorage: [Function],
+    +        url: [Function],
+    +        hash: [Function],
+    +        location: [Function],
+    +        end: [Function],
+    +        noop: [Function],
+    +        log: [Function],
+    +        wrap: [Function],
+    +        origin: [Function],
+    +        reload: [Function],
+    +        go: [Function],
+    +        visit: [Function],
+    +        focused: [Function],
+    +        get: [Function],
+    +        contains: [Function],
+    +        shadow: [Function],
+    +        root: [Function],
+    +        within: [Function],
+    +        request: [Function],
+    +        session: [Function],
+    +        screenshot: [Function],
+    +        task: [Function],
+    +        find: [Function],
+    +        filter: [Function],
+    +        not: [Function],
+    +        children: [Function],
+    +        eq: [Function],
+    +        closest: [Function],
+    +        first: [Function],
+    +        last: [Function],
+    +        next: [Function],
+    +        nextAll: [Function],
+    +        nextUntil: [Function],
+    +        parent: [Function],
+    +        parents: [Function],
+    +        parentsUntil: [Function],
+    +        prev: [Function],
+    +        prevAll: [Function],
+    +        prevUntil: [Function],
+    +        siblings: [Function],
+    +        wait: [Function],
+    +        title: [Function],
+    +        window: [Function],
+    +        document: [Function],
+    +        viewport: [Function],
+    +        server: [Function],
+    +        route: [Function],
+    +        intercept: [Function],
+    +        convertDatatableToJson: [Function],
+    +        findPackageName: [Function],
+    +        generateToken: [Function],
+    +        subscription: [Function],
+    +        userSubscription: [Function],
+    +        contentCreation: [Function],
+    +        refreshToken: [Function],
+    +        upGradeDownGradeUsersubscription: [Function],
+    +        usersubscription: [Function],
+    +        contentCreation2: [Function],
+    +        delete_UserSubscription: [Function] },
+    +     Mocha: 
+    +      { [Function: Mocha]
+    +        utils: [Object],
+    +        interfaces: [Object],
+    +        reporters: [Object],
+    +        Runnable: [Object],
+    +        Context: [Function: Context],
+    +        Runner: [Object],
+    +        Suite: [Object],
+    +        Hook: [Object],
+    +        Test: [Object],
+    +        unloadFile: [Function],
+    +        process: [Object],
+    +        afterEach: [Function: afterEach],
+    +        after: [Function: after],
+    +        beforeEach: [Function: beforeEach],
+    +        before: [Function: before],
+    +        describe: [Object],
+    +        it: [Object],
+    +        xit: [Function],
+    +        setup: [Function: beforeEach],
+    +        suiteSetup: [Function: before],
+    +        suiteTeardown: [Function: after],
+    +        suite: [Object],
+    +        teardown: [Function: afterEach],
+    +        test: [Object],
+    +        run: undefined },
+    +     mocha: 
+    +      { files: [],
+    +        options: [Object],
+    +        suite: [Object],
+    +        _reporter: [Function: reporter],
+    +        Mocha: [Object],
+    +        ui: [Function],
+    +        _ui: undefined,
+    +        bail: [Function],
+    +        addFile: [Function],
+    +        reporter: [Function],
+    +        loadFiles: [Function],
+    +        unloadFiles: [Function],
+    +        fgrep: [Function],
+    +        grep: [Function],
+    +        invert: [Function],
+    +        ignoreLeaks: [Function],
+    +        checkLeaks: [Function],
+    +        fullTrace: [Function],
+    +        growl: [Function],
+    +        isGrowlCapable: [Function],
+    +        _growl: [Function],
+    +        global: [Function],
+    +        globals: [Function],
+    +        useColors: [Function],
+    +        color: [Function],
+    +        useInlineDiffs: [Function],
+    +        inlineDiffs: [Function],
+    +        hideDiff: [Function],
+    +        diff: [Function],
+    +        timeout: [Function],
+    +        retries: [Function],
+    +        slow: [Function],
+    +        enableTimeouts: [Function],
+    +        asyncOnly: [Function],
+    +        noHighlighting: [Function],
+    +        allowUncaught: [Function],
+    +        delay: [Function: delay],
+    +        forbidOnly: [Function],
+    +        forbidPending: [Function],
+    +        version: '7.0.1',
+    +        run: [Function] },
+    +     before: [Function: before],
+    +     after: [Function: after],
+    +     beforeEach: [Function: beforeEach],
+    +     afterEach: [Function: afterEach],
+    +     run: undefined,
+    +     context: { [Function] only: [Function], skip: [Function] },
+    +     describe: { [Function] only: [Function], skip: [Function] },
+    +     xcontext: [Function],
+    +     xdescribe: [Function],
+    +     specify: { [Function] only: [Function], skip: [Function] },
+    +     it: { [Function] only: [Function], skip: [Function] },
+    +     xspecify: [Function],
+    +     xit: [Function],
+    +     Gherkin: 
+    +      { Parser: [Function: Parser],
+    +        TokenScanner: [Function: TokenScanner],
+    +        TokenMatcher: [Function: TokenMatcher],
+    +        AstBuilder: [Function: AstBuilder],
+    +        Compiler: [Function: Compiler],
+    +        DIALECTS: [Object],
+    +        generateEvents: [Function: generateEvents] },
+    +     '__core-js_shared__': 
+    +      { versions: [Object],
+    +        keys: [Object],
+    +        wks: [Object],
+    +        'symbol-registry': {},
+    +        symbols: {},
+    +        'op-symbols': {} },
+    +     Given: [Function: Given],
+    +     When: [Function: When],
+    +     Then: [Function: Then],
+    +     And: [Function: And],
+    +     But: [Function: But],
+    +     defineParameterType: [Function],
+    +     defineStep: [Function: defineStep],
+    +     cucumberJson: 
+    +      { generate: true,
+    +        outputFolder: './reports/cucumber-json',
+    +        filePrefix: '',
+    +        fileSuffix: '.cucumber' },
+    +     testState: 
+    +      { feature: [Object],
+    +        scenarioSteps: [Object],
+    +        runScenarios: [Object],
+    +        runTests: {},
+    +        stepResults: [Object],
+    +        testError: null,
+    +        uri: 'at_upgrade_downgrade_usersubscription.feature',
+    +        spec: 'Feature: Upgrade or downgrade usersubscription \n\nBackground: User gets refresh_token\nGiven User should get refresh_token create authToken\n\nScenario Outline: Upgrade or downgrade usersubscription to (tier_type)\nWhen User sends post request to upgrade_downgrade_usersubscription endpoint with "(tier_type)"\nThen User should able to upgrade or downgrade the subscription \nExamples: \n    | tier_type| \n    | tier_1   | \n    | tier_2   | \n    | tier_free|\n',
+    +        currentScenario: [Object],
+    +        currentStep: 2,
+    +        timer: 1697593066000,
+    +        logStep: [Function],
+    +        onStartTest: [Function],
+    +        onFinishTest: [Function],
+    +        onStartScenario: [Function],
+    +        onFinishScenario: [Function],
+    +        onStartStep: [Function],
+    +        onFinishStep: [Function],
+    +        onFail: [Function],
+    +        timeTaken: [Function],
+    +        formatTestCase: [Function],
+    +        attachErrorToFailingStep: [Function],
+    +        markStillPendingStepsAsSkipped: [Function],
+    +        recordScenarioResult: [Function],
+    +        setStepToPending: [Function],
+    +        recordStepResult: [Function],
+    +        areAllStepsSkipped: [Function],
+    +        anyStepsHaveFailed: [Function] },
+    +     TEMPORARY: 0,
+    +     PERSISTENT: 1,
+    +     addEventListener: [Function: addEventListener],
+    +     dispatchEvent: [Function: dispatchEvent],
+    +     removeEventListener: [Function: removeEventListener] },
+    +  chainerId: 'ch-http://localhost:61874-16',
+    +  check: [Function],
+    +  uncheck: [Function],
+    +  click: [Function],
+    +  dblclick: [Function],
+    +  rightclick: [Function],
+    +  focus: [Function],
+    +  blur: [Function],
+    +  hover: [Function],
+    +  mount: [Function],
+    +  scrollIntoView: [Function],
+    +  scrollTo: [Function],
+    +  select: [Function],
+    +  selectFile: [Function],
+    +  submit: [Function],
+    +  trigger: [Function],
+    +  type: [Function],
+    +  clear: [Function],
+    +  as: [Function],
+    +  should: [Function],
+    +  and: [Function],
+    +  clock: [Function],
+    +  tick: [Function],
+    +  command: [Function],
+    +  its: [Function],
+    +  invoke: [Function],
+    +  spread: [Function],
+    +  each: [Function],
+    +  then: [Function],
+    +  getCookie: [Function],
+    +  getCookies: [Function],
+    +  getAllCookies: [Function],
+    +  setCookie: [Function],
+    +  clearCookie: [Function],
+    +  clearCookies: [Function],
+    +  clearAllCookies: [Function],
+    +  pause: [Function],
+    +  debug: [Function],
+    +  exec: [Function],
+    +  readFile: [Function],
+    +  writeFile: [Function],
+    +  fixture: [Function],
+    +  getAllLocalStorage: [Function],
+    +  getAllSessionStorage: [Function],
+    +  clearAllLocalStorage: [Function],
+    +  clearAllSessionStorage: [Function],
+    +  clearLocalStorage: [Function],
+    +  url: [Function],
+    +  hash: [Function],
+    +  location: [Function],
+    +  end: [Function],
+    +  noop: [Function],
+    +  log: [Function],
+    +  wrap: [Function],
+    +  origin: [Function],
+    +  reload: [Function],
+    +  go: [Function],
+    +  visit: [Function],
+    +  focused: [Function],
+    +  get: [Function],
+    +  contains: [Function],
+    +  shadow: [Function],
+    +  root: [Function],
+    +  within: [Function],
+    +  request: [Function],
+    +  session: [Function],
+    +  screenshot: [Function],
+    +  task: [Function],
+    +  find: [Function],
+    +  filter: [Function],
+    +  not: [Function],
+    +  children: [Function],
+    +  eq: [Function],
+    +  closest: [Function],
+    +  first: [Function],
+    +  last: [Function],
+    +  next: [Function],
+    +  nextAll: [Function],
+    +  nextUntil: [Function],
+    +  parent: [Function],
+    +  parents: [Function],
+    +  parentsUntil: [Function],
+    +  prev: [Function],
+    +  prevAll: [Function],
+    +  prevUntil: [Function],
+    +  siblings: [Function],
+    +  wait: [Function],
+    +  title: [Function],
+    +  window: [Function],
+    +  document: [Function],
+    +  viewport: [Function],
+    +  server: [Function],
+    +  route: [Function],
+    +  intercept: [Function],
+    +  convertDatatableToJson: [Function],
+    +  findPackageName: [Function],
+    +  generateToken: [Function],
+    +  subscription: [Function],
+    +  userSubscription: [Function],
+    +  contentCreation: [Function],
+    +  refreshToken: [Function],
+    +  upGradeDownGradeUsersubscription: [Function],
+    +  usersubscription: [Function],
+    +  contentCreation2: [Function],
+    +  delete_UserSubscription: [Function] }
+
+    at Context.eval (cypress/integration/step_definitions/backend/at_upgrade_downgrade_usersubscription.cy.js:15:42)</pre>
+                                </div>
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+                        
+
+                        
+                            
+                        
+
+                    
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel" style="height: auto;">
+            <div class="x_title">
+
+                <div class="tags">
+                    
+                        
+                        
+                    
+                </div>
+
+                <h2>Scenario: <small>Upgrade or downgrade usersubscription to tier_2</small></h2>
+
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-down"></i></a>
+                    </li>
+
+                    
+
+                    
+
+                    
+
+                    
+                        <li>
+                            <span class="step failed-background" data-toggle="tooltip" title="Scenario failed">1</span>
+                        </li>
+                    
+
+                    
+                        <li>
+                            <span class="step passed-background" data-toggle="tooltip" title="Scenario passed">2</span>
+                        </li>
+                    
+
+                    
+
+                    
+                </ul>
+
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="x_content" style="display: none;">
+                <div class="scenario-step-container"></div>
+                    
+                        
+                            <div class="scenario-step-container">
+
+                                
+                                    
+                                        <div class="label" title="Success">
+                                            <i class="fa fa-check-circle fa-2x passed-color" data-toggle="tooltip" data-placement="top" title="Step passed"></i>
+                                        </div>
+                                    
+                                
+
+                                <div class="text">
+                                    <span class="keyword highlight">Given </span>
+
+                                    
+                                        User should get refresh_token create authToken
+                                        
+                                    
+
+                                    
+
+                                </div>
+
+                                
+                                    
+
+                                    
+
+                                    
+                                    
+                                    
+
+                                    
+
+                                    
+
+                                    
+                                
+                            </div>
+
+                        
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+                        
+
+                        
+                            
+                        
+
+                    
+                
+                        
+                            <div class="scenario-step-container">
+
+                                
+                                    
+                                        <div class="label" title="Success">
+                                            <i class="fa fa-check-circle fa-2x passed-color" data-toggle="tooltip" data-placement="top" title="Step passed"></i>
+                                        </div>
+                                    
+                                
+
+                                <div class="text">
+                                    <span class="keyword highlight">When </span>
+
+                                    
+                                        User sends post request to upgrade_downgrade_usersubscription endpoint with "tier_2"
+                                        
+                                    
+
+                                    
+
+                                </div>
+
+                                
+                                    
+
+                                    
+
+                                    
+                                    
+                                    
+
+                                    
+
+                                    
+
+                                    
+                                
+                            </div>
+
+                        
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+                        
+
+                        
+                            
+                        
+
+                    
+                
+                        
+                            <div class="scenario-step-container">
+
+                                
+                                    
+                                        <div class="label" data-toggle="tooltip" data-placement="top" title="Step failed">
+                                            <i class="fa fa-exclamation-circle fa-2x failed-color"></i>
+                                        </div>
+                                    
+                                
+
+                                <div class="text">
+                                    <span class="keyword highlight">Then </span>
+
+                                    
+                                        User should able to upgrade or downgrade the subscription
+                                        
+                                    
+
+                                    
+
+                                </div>
+
+                                
+                                    
+
+                                    
+                                        <a href="#error1-2-error" data-toggle="collapse">+ Show Error</a>
+                                    
+
+                                    
+                                    
+                                    
+
+                                    
+
+                                    
+
+                                    
+                                
+                            </div>
+
+                        
+                            
+                                <div id="error1-2-error" class="scenario-step-collapse collapse">
+                                    <pre class=info>AssertionError
+    + expected - actual
+
+    -'Free Tier'
+    +{ specWindow: 
+    +   { window: [Getter],
+    +     self: [Getter/Setter],
+    +     document: [Getter],
+    +     name: [Getter/Setter],
+    +     location: [Getter/Setter],
+    +     customElements: [Getter],
+    +     history: [Getter],
+    +     navigation: [Getter/Setter],
+    +     locationbar: [Getter/Setter],
+    +     menubar: [Getter/Setter],
+    +     personalbar: [Getter/Setter],
+    +     scrollbars: [Getter/Setter],
+    +     statusbar: [Getter/Setter],
+    +     toolbar: [Getter/Setter],
+    +     status: [Getter/Setter],
+    +     closed: [Getter],
+    +     frames: [Getter/Setter],
+    +     length: [Getter/Setter],
+    +     top: [Getter],
+    +     opener: [Getter/Setter],
+    +     parent: [Getter/Setter],
+    +     frameElement: [Getter],
+    +     navigator: [Getter],
+    +     origin: [Getter/Setter],
+    +     external: [Getter/Setter],
+    +     screen: [Getter/Setter],
+    +     innerWidth: [Getter/Setter],
+    +     innerHeight: [Getter/Setter],
+    +     scrollX: [Getter/Setter],
+    +     pageXOffset: [Getter/Setter],
+    +     scrollY: [Getter/Setter],
+    +     pageYOffset: [Getter/Setter],
+    +     visualViewport: [Getter/Setter],
+    +     screenX: [Getter/Setter],
+    +     screenY: [Getter/Setter],
+    +     outerWidth: [Getter/Setter],
+    +     outerHeight: [Getter/Setter],
+    +     devicePixelRatio: [Getter/Setter],
+    +     clientInformation: [Getter/Setter],
+    +     screenLeft: [Getter/Setter],
+    +     screenTop: [Getter/Setter],
+    +     styleMedia: [Getter],
+    +     onsearch: [Getter/Setter],
+    +     isSecureContext: [Getter],
+    +     trustedTypes: [Getter],
+    +     performance: [Getter/Setter],
+    +     onappinstalled: [Getter/Setter],
+    +     onbeforeinstallprompt: [Getter/Setter],
+    +     crypto: [Getter],
+    +     indexedDB: [Getter],
+    +     sessionStorage: [Getter],
+    +     localStorage: [Getter],
+    +     onbeforexrselect: [Getter/Setter],
+    +     onabort: [Getter/Setter],
+    +     onbeforeinput: [Getter/Setter],
+    +     onblur: [Getter/Setter],
+    +     oncancel: [Getter/Setter],
+    +     oncanplay: [Getter/Setter],
+    +     oncanplaythrough: [Getter/Setter],
+    +     onchange: [Getter/Setter],
+    +     onclick: [Getter/Setter],
+    +     onclose: [Getter/Setter],
+    +     oncontextlost: [Getter/Setter],
+    +     oncontextmenu: [Getter/Setter],
+    +     oncontextrestored: [Getter/Setter],
+    +     oncuechange: [Getter/Setter],
+    +     ondblclick: [Getter/Setter],
+    +     ondrag: [Getter/Setter],
+    +     ondragend: [Getter/Setter],
+    +     ondragenter: [Getter/Setter],
+    +     ondragleave: [Getter/Setter],
+    +     ondragover: [Getter/Setter],
+    +     ondragstart: [Getter/Setter],
+    +     ondrop: [Getter/Setter],
+    +     ondurationchange: [Getter/Setter],
+    +     onemptied: [Getter/Setter],
+    +     onended: [Getter/Setter],
+    +     onerror: [Getter/Setter],
+    +     onfocus: [Getter/Setter],
+    +     onformdata: [Getter/Setter],
+    +     oninput: [Getter/Setter],
+    +     oninvalid: [Getter/Setter],
+    +     onkeydown: [Getter/Setter],
+    +     onkeypress: [Getter/Setter],
+    +     onkeyup: [Getter/Setter],
+    +     onload: [Getter/Setter],
+    +     onloadeddata: [Getter/Setter],
+    +     onloadedmetadata: [Getter/Setter],
+    +     onloadstart: [Getter/Setter],
+    +     onmousedown: [Getter/Setter],
+    +     onmouseenter: [Getter/Setter],
+    +     onmouseleave: [Getter/Setter],
+    +     onmousemove: [Getter/Setter],
+    +     onmouseout: [Getter/Setter],
+    +     onmouseover: [Getter/Setter],
+    +     onmouseup: [Getter/Setter],
+    +     onmousewheel: [Getter/Setter],
+    +     onpause: [Getter/Setter],
+    +     onplay: [Getter/Setter],
+    +     onplaying: [Getter/Setter],
+    +     onprogress: [Getter/Setter],
+    +     onratechange: [Getter/Setter],
+    +     onreset: [Getter/Setter],
+    +     onresize: [Getter/Setter],
+    +     onscroll: [Getter/Setter],
+    +     onsecuritypolicyviolation: [Getter/Setter],
+    +     onseeked: [Getter/Setter],
+    +     onseeking: [Getter/Setter],
+    +     onselect: [Getter/Setter],
+    +     onslotchange: [Getter/Setter],
+    +     onstalled: [Getter/Setter],
+    +     onsubmit: [Getter/Setter],
+    +     onsuspend: [Getter/Setter],
+    +     ontimeupdate: [Getter/Setter],
+    +     ontoggle: [Getter/Setter],
+    +     onvolumechange: [Getter/Setter],
+    +     onwaiting: [Getter/Setter],
+    +     onwebkitanimationend: [Getter/Setter],
+    +     onwebkitanimationiteration: [Getter/Setter],
+    +     onwebkitanimationstart: [Getter/Setter],
+    +     onwebkittransitionend: [Getter/Setter],
+    +     onwheel: [Getter/Setter],
+    +     onauxclick: [Getter/Setter],
+    +     ongotpointercapture: [Getter/Setter],
+    +     onlostpointercapture: [Getter/Setter],
+    +     onpointerdown: [Getter/Setter],
+    +     onpointermove: [Getter/Setter],
+    +     onpointerrawupdate: [Getter/Setter],
+    +     onpointerup: [Getter/Setter],
+    +     onpointercancel: [Getter/Setter],
+    +     onpointerover: [Getter/Setter],
+    +     onpointerout: [Getter/Setter],
+    +     onpointerenter: [Getter/Setter],
+    +     onpointerleave: [Getter/Setter],
+    +     onselectstart: [Getter/Setter],
+    +     onselectionchange: [Getter/Setter],
+    +     onanimationend: [Getter/Setter],
+    +     onanimationiteration: [Getter/Setter],
+    +     onanimationstart: [Getter/Setter],
+    +     ontransitionrun: [Getter/Setter],
+    +     ontransitionstart: [Getter/Setter],
+    +     ontransitionend: [Getter/Setter],
+    +     ontransitioncancel: [Getter/Setter],
+    +     onafterprint: [Getter/Setter],
+    +     onbeforeprint: [Getter/Setter],
+    +     onbeforeunload: [Getter/Setter],
+    +     onhashchange: [Getter/Setter],
+    +     onlanguagechange: [Getter/Setter],
+    +     onmessage: [Getter/Setter],
+    +     onmessageerror: [Getter/Setter],
+    +     onoffline: [Getter/Setter],
+    +     ononline: [Getter/Setter],
+    +     onpagehide: [Getter/Setter],
+    +     onpageshow: [Getter/Setter],
+    +     onpopstate: [Getter/Setter],
+    +     onrejectionhandled: [Getter/Setter],
+    +     onstorage: [Getter/Setter],
+    +     onunhandledrejection: [Getter/Setter],
+    +     onunload: [Getter/Setter],
+    +     crossOriginIsolated: [Getter],
+    +     scheduler: [Getter/Setter],
+    +     alert: [Function: alert],
+    +     atob: [Function: atob],
+    +     blur: [Function: blur],
+    +     btoa: [Function: btoa],
+    +     cancelAnimationFrame: [Function: cancelAnimationFrame],
+    +     cancelIdleCallback: [Function: cancelIdleCallback],
+    +     captureEvents: [Function: captureEvents],
+    +     clearInterval: [Function: clearInterval],
+    +     clearTimeout: [Function: clearTimeout],
+    +     close: [Function: close],
+    +     confirm: [Function: confirm],
+    +     createImageBitmap: [Function: createImageBitmap],
+    +     fetch: [Function: fetch],
+    +     find: [Function: find],
+    +     focus: [Function: focus],
+    +     getComputedStyle: [Function: getComputedStyle],
+    +     getSelection: [Function: getSelection],
+    +     matchMedia: [Function: matchMedia],
+    +     moveBy: [Function: moveBy],
+    +     moveTo: [Function: moveTo],
+    +     open: [Function: open],
+    +     postMessage: [Function: postMessage],
+    +     print: [Function: print],
+    +     prompt: [Function: prompt],
+    +     queueMicrotask: [Function: queueMicrotask],
+    +     releaseEvents: [Function: releaseEvents],
+    +     reportError: [Function: reportError],
+    +     requestAnimationFrame: [Function: requestAnimationFrame],
+    +     requestIdleCallback: [Function: requestIdleCallback],
+    +     resizeBy: [Function: resizeBy],
+    +     resizeTo: [Function: resizeTo],
+    +     scroll: [Function: scroll],
+    +     scrollBy: [Function: scrollBy],
+    +     scrollTo: [Function: scrollTo],
+    +     setInterval: [Function: setInterval],
+    +     setTimeout: [Function: setTimeout],
+    +     stop: [Function: stop],
+    +     structuredClone: [Function: structuredClone],
+    +     webkitCancelAnimationFrame: [Function: webkitCancelAnimationFrame],
+    +     webkitRequestAnimationFrame: [Function: webkitRequestAnimationFrame],
+    +     'cypressSendToServer-/__socket/default': [Function],
+    +     'cypressSendToServer-/__socket/data-context': [Function],
+    +     chrome: {},
+    +     credentialless: [Getter],
+    +     caches: [Getter],
+    +     cookieStore: [Getter],
+    +     ondevicemotion: [Getter/Setter],
+    +     ondeviceorientation: [Getter/Setter],
+    +     ondeviceorientationabsolute: [Getter/Setter],
+    +     launchQueue: [Getter],
+    +     onbeforematch: [Getter/Setter],
+    +     onbeforetoggle: [Getter/Setter],
+    +     getScreenDetails: [Function: getScreenDetails],
+    +     queryLocalFonts: [Function: queryLocalFonts],
+    +     showDirectoryPicker: [Function: showDirectoryPicker],
+    +     showOpenFilePicker: [Function: showOpenFilePicker],
+    +     showSaveFilePicker: [Function: showSaveFilePicker],
+    +     originAgentCluster: [Getter],
+    +     speechSynthesis: [Getter],
+    +     oncontentvisibilityautostatechange: [Getter/Setter],
+    +     onscrollend: [Getter/Setter],
+    +     openDatabase: [Function: openDatabase],
+    +     webkitRequestFileSystem: [Function: webkitRequestFileSystem],
+    +     webkitResolveLocalFileSystemURL: [Function: webkitResolveLocalFileSystemURL],
+    +     Cypress: 
+    +      { cy: [Object],
+    +        chai: null,
+    +        mocha: [Object],
+    +        runner: [Object],
+    +        downloads: [Object],
+    +        Commands: [Object],
+    +        '$autIframe': [Object],
+    +        onSpecReady: [Function: onSpecReady],
+    +        events: [Object],
+    +        '$': [Object],
+    +        arch: 'x64',
+    +        spec: [Object],
+    +        version: '13.2.0',
+    +        browser: [Object],
+    +        platform: 'darwin',
+    +        testingType: 'e2e',
+    +        state: [Object],
+    +        originalConfig: [Object],
+    +        config: [Object],
+    +        env: [Object],
+    +        getTestRetries: [Function],
+    +        Cookies: [Object],
+    +        ProxyLogging: [Object],
+    +        _onInitialize: undefined,
+    +        isCy: [Function: bound isCy],
+    +        log: [Function],
+    +        isBrowser: [Function: wrapper],
+    +        browserMajorVersion: [Function: browserMajorVersion],
+    +        emit: [Function],
+    +        emitThen: [Function],
+    +        emitMap: [Function],
+    +        primaryOriginCommunicator: [Object],
+    +        specBridgeCommunicator: [Object],
+    +        isCrossOriginSpecBridge: false,
+    +        on: [Function],
+    +        '$Cypress': [Object],
+    +        Cy: [Object],
+    +        Chainer: [Function: $Chainer],
+    +        Command: [Function: $Command],
+    +        dom: [Object],
+    +        ensure: [Object],
+    +        errorMessages: [Object],
+    +        Keyboard: [Object],
+    +        Location: [Function: $Location],
+    +        Log: [Object],
+    +        LocalStorage: [Object],
+    +        Mocha: [Object],
+    +        resolveWindowReference: [Function: resolveWindowReference],
+    +        resolveLocationReference: [Function: resolveLocationReference],
+    +        Mouse: [Object],
+    +        Runner: [Object],
+    +        Server: [Object],
+    +        Screenshot: [Object],
+    +        SelectorPlayground: [Object],
+    +        utils: [Object],
+    +        _: [Object],
+    +        Blob: [Object],
+    +        Buffer: [Object],
+    +        Promise: [Object],
+    +        minimatch: [Object],
+    +        sinon: [Object],
+    +        lolex: [Object],
+    +        _events: [Object],
+    +        _newListener: false,
+    +        _removeListener: false,
+    +        verboseMemoryLeak: false,
+    +        _maxListeners: Infinity,
+    +        _conf: [Object],
+    +        proxyTo: [Function],
+    +        emitThenSeries: [Function],
+    +        listenTo: [Function],
+    +        stopListeningTo: [Function],
+    +        delimiter: '.',
+    +        setMaxListeners: [Function],
+    +        getMaxListeners: [Function],
+    +        event: 'command:start',
+    +        once: [Function],
+    +        prependOnceListener: [Function],
+    +        _once: [Function],
+    +        many: [Function],
+    +        prependMany: [Function],
+    +        _many: [Function],
+    +        emitAsync: [Function],
+    +        prependListener: [Function],
+    +        onAny: [Function],
+    +        prependAny: [Function],
+    +        addListener: [Function],
+    +        _onAny: [Function],
+    +        _on: [Function],
+    +        off: [Function],
+    +        offAny: [Function],
+    +        removeListener: [Function],
+    +        removeAllListeners: [Function],
+    +        listeners: [Function],
+    +        eventNames: [Function],
+    +        listenerCount: [Function],
+    +        hasListeners: [Function],
+    +        listenersAny: [Function],
+    +        waitFor: [Function],
+    +        session: [Object] },
+    +     chai: 
+    +      { version: '4.2.0',
+    +        AssertionError: [Function: AssertionError],
+    +        use: [Function],
+    +        util: -1,
+    +        config: [Object],
+    +        Assertion: [Object],
+    +        expect: [Object],
+    +        should: [Function: loadShould],
+    +        Should: [Function: loadShould],
+    +        assert: [Object] },
+    +     expect: [Function],
+    +     assert: 
+    +      { [Function: fn]
+    +        fail: [Function],
+    +        isOk: [Function],
+    +        isNotOk: [Function],
+    +        equal: [Function],
+    +        notEqual: [Function],
+    +        strictEqual: [Function],
+    +        notStrictEqual: [Function],
+    +        deepStrictEqual: [Function],
+    +        deepEqual: [Function],
+    +        notDeepEqual: [Function],
+    +        isAbove: [Function],
+    +        isAtLeast: [Function],
+    +        isBelow: [Function],
+    +        isAtMost: [Function],
+    +        isTrue: [Function],
+    +        isNotTrue: [Function],
+    +        isFalse: [Function],
+    +        isNotFalse: [Function],
+    +        isNull: [Function],
+    +        isNotNull: [Function],
+    +        isNaN: [Function],
+    +        isNotNaN: [Function],
+    +        exists: [Function],
+    +        notExists: [Function],
+    +        isUndefined: [Function],
+    +        isDefined: [Function],
+    +        isFunction: [Function],
+    +        isNotFunction: [Function],
+    +        isObject: [Function],
+    +        isNotObject: [Function],
+    +        isArray: [Function],
+    +        isNotArray: [Function],
+    +        isString: [Function],
+    +        isNotString: [Function],
+    +        isNumber: [Function],
+    +        isNotNumber: [Function],
+    +        isFinite: [Function],
+    +        isBoolean: [Function],
+    +        isNotBoolean: [Function],
+    +        typeOf: [Function],
+    +        notTypeOf: [Function],
+    +        instanceOf: [Function],
+    +        notInstanceOf: [Function],
+    +        include: [Function],
+    +        notInclude: [Function],
+    +        deepInclude: [Function],
+    +        notDeepInclude: [Function],
+    +        nestedInclude: [Function],
+    +        notNestedInclude: [Function],
+    +        deepNestedInclude: [Function],
+    +        notDeepNestedInclude: [Function],
+    +        ownInclude: [Function],
+    +        notOwnInclude: [Function],
+    +        deepOwnInclude: [Function],
+    +        notDeepOwnInclude: [Function],
+    +        match: [Function],
+    +        notMatch: [Function],
+    +        property: [Function],
+    +        notProperty: [Function],
+    +        propertyVal: [Function],
+    +        notPropertyVal: [Function],
+    +        deepPropertyVal: [Function],
+    +        notDeepPropertyVal: [Function],
+    +        ownProperty: [Function],
+    +        notOwnProperty: [Function],
+    +        ownPropertyVal: [Function],
+    +        notOwnPropertyVal: [Function],
+    +        deepOwnPropertyVal: [Function],
+    +        notDeepOwnPropertyVal: [Function],
+    +        nestedProperty: [Function],
+    +        notNestedProperty: [Function],
+    +        nestedPropertyVal: [Function],
+    +        notNestedPropertyVal: [Function],
+    +        deepNestedPropertyVal: [Function],
+    +        notDeepNestedPropertyVal: [Function],
+    +        lengthOf: [Function],
+    +        hasAnyKeys: [Function],
+    +        hasAllKeys: [Function],
+    +        containsAllKeys: [Function],
+    +        doesNotHaveAnyKeys: [Function],
+    +        doesNotHaveAllKeys: [Function],
+    +        hasAnyDeepKeys: [Function],
+    +        hasAllDeepKeys: [Function],
+    +        containsAllDeepKeys: [Function],
+    +        doesNotHaveAnyDeepKeys: [Function],
+    +        doesNotHaveAllDeepKeys: [Function],
+    +        throws: [Function],
+    +        doesNotThrow: [Function],
+    +        operator: [Function],
+    +        closeTo: [Function],
+    +        approximately: [Function],
+    +        sameMembers: [Function],
+    +        notSameMembers: [Function],
+    +        sameDeepMembers: [Function],
+    +        notSameDeepMembers: [Function],
+    +        sameOrderedMembers: [Function],
+    +        notSameOrderedMembers: [Function],
+    +        sameDeepOrderedMembers: [Function],
+    +        notSameDeepOrderedMembers: [Function],
+    +        includeMembers: [Function],
+    +        notIncludeMembers: [Function],
+    +        includeDeepMembers: [Function],
+    +        notIncludeDeepMembers: [Function],
+    +        includeOrderedMembers: [Function],
+    +        notIncludeOrderedMembers: [Function],
+    +        includeDeepOrderedMembers: [Function],
+    +        notIncludeDeepOrderedMembers: [Function],
+    +        oneOf: [Function],
+    +        changes: [Function],
+    +        changesBy: [Function],
+    +        doesNotChange: [Function],
+    +        changesButNotBy: [Function],
+    +        increases: [Function],
+    +        increasesBy: [Function],
+    +        doesNotIncrease: [Function],
+    +        increasesButNotBy: [Function],
+    +        decreases: [Function],
+    +        decreasesBy: [Function],
+    +        doesNotDecrease: [Function],
+    +        doesNotDecreaseBy: [Function],
+    +        decreasesButNotBy: [Function],
+    +        ifError: [Function],
+    +        isExtensible: [Function],
+    +        isNotExtensible: [Function],
+    +        isSealed: [Function],
+    +        isNotSealed: [Function],
+    +        isFrozen: [Function],
+    +        isNotFrozen: [Function],
+    +        isEmpty: [Function],
+    +        isNotEmpty: [Function],
+    +        ok: [Function],
+    +        notOk: [Function],
+    +        throw: [Function],
+    +        Throw: [Function],
+    +        extensible: [Function],
+    +        notExtensible: [Function],
+    +        sealed: [Function],
+    +        notSealed: [Function],
+    +        frozen: [Function],
+    +        notFrozen: [Function],
+    +        empty: [Function],
+    +        notEmpty: [Function] },
+    +     cy: 
+    +      { _events: {},
+    +        _newListener: false,
+    +        _removeListener: false,
+    +        verboseMemoryLeak: false,
+    +        id: 'cy1',
+    +        specWindow: [Circular],
+    +        state: [Object],
+    +        config: [Object],
+    +        Cypress: [Object],
+    +        Cookies: [Object],
+    +        devices: [Object],
+    +        queue: [Object],
+    +        timeout: [Function: timeout],
+    +        clearTimeout: [Function: clearTimeout],
+    +        isStable: [Function: isStable],
+    +        whenStable: [Function: whenStable],
+    +        assert: [Function: assert],
+    +        verifyUpcomingAssertions: [Function: verifyUpcomingAssertions],
+    +        retry: [Function: retry],
+    +        retryIfCommandAUTOriginMismatch: [Function: retryIfCommandAUTOriginMismatch],
+    +        '$$': [Function: $$],
+    +        getRemotejQueryInstance: [Function: getRemotejQueryInstance],
+    +        getRemoteLocation: [Function: getRemoteLocation],
+    +        getCrossOriginRemoteLocation: [Function: getCrossOriginRemoteLocation],
+    +        fireBlur: [Function: fireBlur],
+    +        fireFocus: [Function: fireFocus],
+    +        needsFocus: [Function: needsFocus],
+    +        getFocused: [Function: getFocused],
+    +        pauseTimers: [Function: pauseTimers],
+    +        expect: [Function],
+    +        getIndexedXhrByAlias: [Function: getIndexedXhrByAlias],
+    +        addAlias: [Function: addAlias],
+    +        getAlias: [Function: getAlias],
+    +        getNextAlias: [Function: getNextAlias],
+    +        validateAlias: [Function: validateAlias],
+    +        aliasNotFoundFor: [Function: aliasNotFoundFor],
+    +        getXhrTypeByAlias: [Function: getXhrTypeByAlias],
+    +        createSnapshot: [Function: createSnapshot],
+    +        detachDom: [Function: detachDom],
+    +        getStyles: [Function: getStyles],
+    +        resetTimer: [Function: reset],
+    +        overrides: [Object],
+    +        onBeforeWindowLoad: [Function: onBeforeWindowLoad],
+    +        documentHasFocus: [Function: documentHasFocus],
+    +        interceptFocus: [Function: interceptFocus],
+    +        interceptBlur: [Function: interceptBlur],
+    +        testConfigOverride: [Object],
+    +        commandFns: [Object],
+    +        queryFns: [Object],
+    +        isCy: [Function: bound isCy],
+    +        fail: [Function: bound fail],
+    +        isStopped: [Function: bound isStopped],
+    +        stop: [Function: bound stop],
+    +        reset: [Function: bound reset],
+    +        addCommandSync: [Function: bound addCommandSync],
+    +        addCommand: [Function: bound addCommand],
+    +        addQuery: [Function: bound addQuery],
+    +        now: [Function: bound now],
+    +        onBeforeAppWindowLoad: [Function: bound onBeforeAppWindowLoad],
+    +        onUncaughtException: [Function: bound onUncaughtException],
+    +        setRunnable: [Function: bound setRunnable],
+    +        getSubjectFromChain: [Function: bound getSubjectFromChain],
+    +        setSubjectForChainer: [Function: bound setSubjectForChainer],
+    +        subject: [Function: bound subject],
+    +        subjectChain: [Function: bound subjectChain],
+    +        _maxListeners: Infinity,
+    +        _conf: [Object],
+    +        proxyTo: [Function],
+    +        emitMap: [Function],
+    +        emitThen: [Function],
+    +        emitThenSeries: [Function],
+    +        listenTo: [Function],
+    +        stopListeningTo: [Function],
+    +        delimiter: '.',
+    +        setMaxListeners: [Function],
+    +        getMaxListeners: [Function],
+    +        event: 'command:enqueued',
+    +        once: [Function],
+    +        prependOnceListener: [Function],
+    +        _once: [Function],
+    +        many: [Function],
+    +        prependMany: [Function],
+    +        _many: [Function],
+    +        emit: [Function],
+    +        emitAsync: [Function],
+    +        on: [Function],
+    +        prependListener: [Function],
+    +        onAny: [Function],
+    +        prependAny: [Function],
+    +        addListener: [Function],
+    +        _onAny: [Function],
+    +        _on: [Function],
+    +        off: [Function],
+    +        offAny: [Function],
+    +        removeListener: [Function],
+    +        removeAllListeners: [Function],
+    +        listeners: [Function],
+    +        eventNames: [Function],
+    +        listenerCount: [Function],
+    +        hasListeners: [Function],
+    +        listenersAny: [Function],
+    +        waitFor: [Function],
+    +        check: [Function],
+    +        uncheck: [Function],
+    +        click: [Function],
+    +        dblclick: [Function],
+    +        rightclick: [Function],
+    +        focus: [Function],
+    +        blur: [Function],
+    +        hover: [Function],
+    +        mount: [Function],
+    +        scrollIntoView: [Function],
+    +        scrollTo: [Function],
+    +        select: [Function],
+    +        selectFile: [Function],
+    +        submit: [Function],
+    +        trigger: [Function],
+    +        type: [Function],
+    +        clear: [Function],
+    +        spy: [Function],
+    +        stub: [Function],
+    +        as: [Function],
+    +        should: [Function],
+    +        and: [Function],
+    +        clock: [Function],
+    +        tick: [Function],
+    +        command: [Function],
+    +        its: [Function],
+    +        invoke: [Function],
+    +        spread: [Function],
+    +        each: [Function],
+    +        then: [Function],
+    +        getCookie: [Function],
+    +        getCookies: [Function],
+    +        getAllCookies: [Function],
+    +        setCookie: [Function],
+    +        clearCookie: [Function],
+    +        clearCookies: [Function],
+    +        clearAllCookies: [Function],
+    +        pause: [Function],
+    +        debug: [Function],
+    +        exec: [Function],
+    +        readFile: [Function],
+    +        writeFile: [Function],
+    +        fixture: [Function],
+    +        getAllLocalStorage: [Function],
+    +        getAllSessionStorage: [Function],
+    +        clearAllLocalStorage: [Function],
+    +        clearAllSessionStorage: [Function],
+    +        clearLocalStorage: [Function],
+    +        url: [Function],
+    +        hash: [Function],
+    +        location: [Function],
+    +        end: [Function],
+    +        noop: [Function],
+    +        log: [Function],
+    +        wrap: [Function],
+    +        origin: [Function],
+    +        reload: [Function],
+    +        go: [Function],
+    +        visit: [Function],
+    +        focused: [Function],
+    +        get: [Function],
+    +        contains: [Function],
+    +        shadow: [Function],
+    +        root: [Function],
+    +        within: [Function],
+    +        request: [Function],
+    +        session: [Function],
+    +        screenshot: [Function],
+    +        task: [Function],
+    +        find: [Function],
+    +        filter: [Function],
+    +        not: [Function],
+    +        children: [Function],
+    +        eq: [Function],
+    +        closest: [Function],
+    +        first: [Function],
+    +        last: [Function],
+    +        next: [Function],
+    +        nextAll: [Function],
+    +        nextUntil: [Function],
+    +        parent: [Function],
+    +        parents: [Function],
+    +        parentsUntil: [Function],
+    +        prev: [Function],
+    +        prevAll: [Function],
+    +        prevUntil: [Function],
+    +        siblings: [Function],
+    +        wait: [Function],
+    +        title: [Function],
+    +        window: [Function],
+    +        document: [Function],
+    +        viewport: [Function],
+    +        server: [Function],
+    +        route: [Function],
+    +        intercept: [Function],
+    +        convertDatatableToJson: [Function],
+    +        findPackageName: [Function],
+    +        generateToken: [Function],
+    +        subscription: [Function],
+    +        userSubscription: [Function],
+    +        contentCreation: [Function],
+    +        refreshToken: [Function],
+    +        upGradeDownGradeUsersubscription: [Function],
+    +        usersubscription: [Function],
+    +        contentCreation2: [Function],
+    +        delete_UserSubscription: [Function] },
+    +     Mocha: 
+    +      { [Function: Mocha]
+    +        utils: [Object],
+    +        interfaces: [Object],
+    +        reporters: [Object],
+    +        Runnable: [Object],
+    +        Context: [Function: Context],
+    +        Runner: [Object],
+    +        Suite: [Object],
+    +        Hook: [Object],
+    +        Test: [Object],
+    +        unloadFile: [Function],
+    +        process: [Object],
+    +        afterEach: [Function: afterEach],
+    +        after: [Function: after],
+    +        beforeEach: [Function: beforeEach],
+    +        before: [Function: before],
+    +        describe: [Object],
+    +        it: [Object],
+    +        xit: [Function],
+    +        setup: [Function: beforeEach],
+    +        suiteSetup: [Function: before],
+    +        suiteTeardown: [Function: after],
+    +        suite: [Object],
+    +        teardown: [Function: afterEach],
+    +        test: [Object],
+    +        run: undefined },
+    +     mocha: 
+    +      { files: [],
+    +        options: [Object],
+    +        suite: [Object],
+    +        _reporter: [Function: reporter],
+    +        Mocha: [Object],
+    +        ui: [Function],
+    +        _ui: undefined,
+    +        bail: [Function],
+    +        addFile: [Function],
+    +        reporter: [Function],
+    +        loadFiles: [Function],
+    +        unloadFiles: [Function],
+    +        fgrep: [Function],
+    +        grep: [Function],
+    +        invert: [Function],
+    +        ignoreLeaks: [Function],
+    +        checkLeaks: [Function],
+    +        fullTrace: [Function],
+    +        growl: [Function],
+    +        isGrowlCapable: [Function],
+    +        _growl: [Function],
+    +        global: [Function],
+    +        globals: [Function],
+    +        useColors: [Function],
+    +        color: [Function],
+    +        useInlineDiffs: [Function],
+    +        inlineDiffs: [Function],
+    +        hideDiff: [Function],
+    +        diff: [Function],
+    +        timeout: [Function],
+    +        retries: [Function],
+    +        slow: [Function],
+    +        enableTimeouts: [Function],
+    +        asyncOnly: [Function],
+    +        noHighlighting: [Function],
+    +        allowUncaught: [Function],
+    +        delay: [Function: delay],
+    +        forbidOnly: [Function],
+    +        forbidPending: [Function],
+    +        version: '7.0.1',
+    +        run: [Function] },
+    +     before: [Function: before],
+    +     after: [Function: after],
+    +     beforeEach: [Function: beforeEach],
+    +     afterEach: [Function: afterEach],
+    +     run: undefined,
+    +     context: { [Function] only: [Function], skip: [Function] },
+    +     describe: { [Function] only: [Function], skip: [Function] },
+    +     xcontext: [Function],
+    +     xdescribe: [Function],
+    +     specify: { [Function] only: [Function], skip: [Function] },
+    +     it: { [Function] only: [Function], skip: [Function] },
+    +     xspecify: [Function],
+    +     xit: [Function],
+    +     Gherkin: 
+    +      { Parser: [Function: Parser],
+    +        TokenScanner: [Function: TokenScanner],
+    +        TokenMatcher: [Function: TokenMatcher],
+    +        AstBuilder: [Function: AstBuilder],
+    +        Compiler: [Function: Compiler],
+    +        DIALECTS: [Object],
+    +        generateEvents: [Function: generateEvents] },
+    +     '__core-js_shared__': 
+    +      { versions: [Object],
+    +        keys: [Object],
+    +        wks: [Object],
+    +        'symbol-registry': {},
+    +        symbols: {},
+    +        'op-symbols': {} },
+    +     Given: [Function: Given],
+    +     When: [Function: When],
+    +     Then: [Function: Then],
+    +     And: [Function: And],
+    +     But: [Function: But],
+    +     defineParameterType: [Function],
+    +     defineStep: [Function: defineStep],
+    +     cucumberJson: 
+    +      { generate: true,
+    +        outputFolder: './reports/cucumber-json',
+    +        filePrefix: '',
+    +        fileSuffix: '.cucumber' },
+    +     testState: 
+    +      { feature: [Object],
+    +        scenarioSteps: [Object],
+    +        runScenarios: [Object],
+    +        runTests: [Object],
+    +        stepResults: [Object],
+    +        testError: null,
+    +        uri: 'at_upgrade_downgrade_usersubscription.feature',
+    +        spec: 'Feature: Upgrade or downgrade usersubscription \n\nBackground: User gets refresh_token\nGiven User should get refresh_token create authToken\n\nScenario Outline: Upgrade or downgrade usersubscription to (tier_type)\nWhen User sends post request to upgrade_downgrade_usersubscription endpoint with "(tier_type)"\nThen User should able to upgrade or downgrade the subscription \nExamples: \n    | tier_type| \n    | tier_1   | \n    | tier_2   | \n    | tier_free|\n',
+    +        currentScenario: [Object],
+    +        currentStep: 2,
+    +        timer: 1697593067428,
+    +        logStep: [Function],
+    +        onStartTest: [Function],
+    +        onFinishTest: [Function],
+    +        onStartScenario: [Function],
+    +        onFinishScenario: [Function],
+    +        onStartStep: [Function],
+    +        onFinishStep: [Function],
+    +        onFail: [Function],
+    +        timeTaken: [Function],
+    +        formatTestCase: [Function],
+    +        attachErrorToFailingStep: [Function],
+    +        markStillPendingStepsAsSkipped: [Function],
+    +        recordScenarioResult: [Function],
+    +        setStepToPending: [Function],
+    +        recordStepResult: [Function],
+    +        areAllStepsSkipped: [Function],
+    +        anyStepsHaveFailed: [Function] },
+    +     TEMPORARY: 0,
+    +     PERSISTENT: 1,
+    +     addEventListener: [Function: addEventListener],
+    +     dispatchEvent: [Function: dispatchEvent],
+    +     removeEventListener: [Function: removeEventListener] },
+    +  chainerId: 'ch-http://localhost:61874-32',
+    +  check: [Function],
+    +  uncheck: [Function],
+    +  click: [Function],
+    +  dblclick: [Function],
+    +  rightclick: [Function],
+    +  focus: [Function],
+    +  blur: [Function],
+    +  hover: [Function],
+    +  mount: [Function],
+    +  scrollIntoView: [Function],
+    +  scrollTo: [Function],
+    +  select: [Function],
+    +  selectFile: [Function],
+    +  submit: [Function],
+    +  trigger: [Function],
+    +  type: [Function],
+    +  clear: [Function],
+    +  as: [Function],
+    +  should: [Function],
+    +  and: [Function],
+    +  clock: [Function],
+    +  tick: [Function],
+    +  command: [Function],
+    +  its: [Function],
+    +  invoke: [Function],
+    +  spread: [Function],
+    +  each: [Function],
+    +  then: [Function],
+    +  getCookie: [Function],
+    +  getCookies: [Function],
+    +  getAllCookies: [Function],
+    +  setCookie: [Function],
+    +  clearCookie: [Function],
+    +  clearCookies: [Function],
+    +  clearAllCookies: [Function],
+    +  pause: [Function],
+    +  debug: [Function],
+    +  exec: [Function],
+    +  readFile: [Function],
+    +  writeFile: [Function],
+    +  fixture: [Function],
+    +  getAllLocalStorage: [Function],
+    +  getAllSessionStorage: [Function],
+    +  clearAllLocalStorage: [Function],
+    +  clearAllSessionStorage: [Function],
+    +  clearLocalStorage: [Function],
+    +  url: [Function],
+    +  hash: [Function],
+    +  location: [Function],
+    +  end: [Function],
+    +  noop: [Function],
+    +  log: [Function],
+    +  wrap: [Function],
+    +  origin: [Function],
+    +  reload: [Function],
+    +  go: [Function],
+    +  visit: [Function],
+    +  focused: [Function],
+    +  get: [Function],
+    +  contains: [Function],
+    +  shadow: [Function],
+    +  root: [Function],
+    +  within: [Function],
+    +  request: [Function],
+    +  session: [Function],
+    +  screenshot: [Function],
+    +  task: [Function],
+    +  find: [Function],
+    +  filter: [Function],
+    +  not: [Function],
+    +  children: [Function],
+    +  eq: [Function],
+    +  closest: [Function],
+    +  first: [Function],
+    +  last: [Function],
+    +  next: [Function],
+    +  nextAll: [Function],
+    +  nextUntil: [Function],
+    +  parent: [Function],
+    +  parents: [Function],
+    +  parentsUntil: [Function],
+    +  prev: [Function],
+    +  prevAll: [Function],
+    +  prevUntil: [Function],
+    +  siblings: [Function],
+    +  wait: [Function],
+    +  title: [Function],
+    +  window: [Function],
+    +  document: [Function],
+    +  viewport: [Function],
+    +  server: [Function],
+    +  route: [Function],
+    +  intercept: [Function],
+    +  convertDatatableToJson: [Function],
+    +  findPackageName: [Function],
+    +  generateToken: [Function],
+    +  subscription: [Function],
+    +  userSubscription: [Function],
+    +  contentCreation: [Function],
+    +  refreshToken: [Function],
+    +  upGradeDownGradeUsersubscription: [Function],
+    +  usersubscription: [Function],
+    +  contentCreation2: [Function],
+    +  delete_UserSubscription: [Function] }
+
+    at Context.eval (cypress/integration/step_definitions/backend/at_upgrade_downgrade_usersubscription.cy.js:15:42)</pre>
+                                </div>
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+                        
+
+                        
+                            
+                        
+
+                    
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel" style="height: auto;">
+            <div class="x_title">
+
+                <div class="tags">
+                    
+                        
+                        
+                    
+                </div>
+
+                <h2>Scenario: <small>Upgrade or downgrade usersubscription to tier_free</small></h2>
+
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-down"></i></a>
+                    </li>
+
+                    
+
+                    
+
+                    
+
+                    
+                        <li>
+                            <span class="step failed-background" data-toggle="tooltip" title="Scenario failed">1</span>
+                        </li>
+                    
+
+                    
+                        <li>
+                            <span class="step passed-background" data-toggle="tooltip" title="Scenario passed">2</span>
+                        </li>
+                    
+
+                    
+
+                    
+                </ul>
+
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="x_content" style="display: none;">
+                <div class="scenario-step-container"></div>
+                    
+                        
+                            <div class="scenario-step-container">
+
+                                
+                                    
+                                        <div class="label" title="Success">
+                                            <i class="fa fa-check-circle fa-2x passed-color" data-toggle="tooltip" data-placement="top" title="Step passed"></i>
+                                        </div>
+                                    
+                                
+
+                                <div class="text">
+                                    <span class="keyword highlight">Given </span>
+
+                                    
+                                        User should get refresh_token create authToken
+                                        
+                                    
+
+                                    
+
+                                </div>
+
+                                
+                                    
+
+                                    
+
+                                    
+                                    
+                                    
+
+                                    
+
+                                    
+
+                                    
+                                
+                            </div>
+
+                        
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+                        
+
+                        
+                            
+                        
+
+                    
+                
+                        
+                            <div class="scenario-step-container">
+
+                                
+                                    
+                                        <div class="label" title="Success">
+                                            <i class="fa fa-check-circle fa-2x passed-color" data-toggle="tooltip" data-placement="top" title="Step passed"></i>
+                                        </div>
+                                    
+                                
+
+                                <div class="text">
+                                    <span class="keyword highlight">When </span>
+
+                                    
+                                        User sends post request to upgrade_downgrade_usersubscription endpoint with "tier_free"
+                                        
+                                    
+
+                                    
+
+                                </div>
+
+                                
+                                    
+
+                                    
+
+                                    
+                                    
+                                    
+
+                                    
+
+                                    
+
+                                    
+                                
+                            </div>
+
+                        
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+                        
+
+                        
+                            
+                        
+
+                    
+                
+                        
+                            <div class="scenario-step-container">
+
+                                
+                                    
+                                        <div class="label" data-toggle="tooltip" data-placement="top" title="Step failed">
+                                            <i class="fa fa-exclamation-circle fa-2x failed-color"></i>
+                                        </div>
+                                    
+                                
+
+                                <div class="text">
+                                    <span class="keyword highlight">Then </span>
+
+                                    
+                                        User should able to upgrade or downgrade the subscription
+                                        
+                                    
+
+                                    
+
+                                </div>
+
+                                
+                                    
+
+                                    
+                                        <a href="#error2-2-error" data-toggle="collapse">+ Show Error</a>
+                                    
+
+                                    
+                                    
+                                    
+
+                                    
+
+                                    
+
+                                    
+                                
+                            </div>
+
+                        
+                            
+                                <div id="error2-2-error" class="scenario-step-collapse collapse">
+                                    <pre class=info>AssertionError
+    + expected - actual
+
+    -'Free Tier'
+    +{ specWindow: 
+    +   { window: [Getter],
+    +     self: [Getter/Setter],
+    +     document: [Getter],
+    +     name: [Getter/Setter],
+    +     location: [Getter/Setter],
+    +     customElements: [Getter],
+    +     history: [Getter],
+    +     navigation: [Getter/Setter],
+    +     locationbar: [Getter/Setter],
+    +     menubar: [Getter/Setter],
+    +     personalbar: [Getter/Setter],
+    +     scrollbars: [Getter/Setter],
+    +     statusbar: [Getter/Setter],
+    +     toolbar: [Getter/Setter],
+    +     status: [Getter/Setter],
+    +     closed: [Getter],
+    +     frames: [Getter/Setter],
+    +     length: [Getter/Setter],
+    +     top: [Getter],
+    +     opener: [Getter/Setter],
+    +     parent: [Getter/Setter],
+    +     frameElement: [Getter],
+    +     navigator: [Getter],
+    +     origin: [Getter/Setter],
+    +     external: [Getter/Setter],
+    +     screen: [Getter/Setter],
+    +     innerWidth: [Getter/Setter],
+    +     innerHeight: [Getter/Setter],
+    +     scrollX: [Getter/Setter],
+    +     pageXOffset: [Getter/Setter],
+    +     scrollY: [Getter/Setter],
+    +     pageYOffset: [Getter/Setter],
+    +     visualViewport: [Getter/Setter],
+    +     screenX: [Getter/Setter],
+    +     screenY: [Getter/Setter],
+    +     outerWidth: [Getter/Setter],
+    +     outerHeight: [Getter/Setter],
+    +     devicePixelRatio: [Getter/Setter],
+    +     clientInformation: [Getter/Setter],
+    +     screenLeft: [Getter/Setter],
+    +     screenTop: [Getter/Setter],
+    +     styleMedia: [Getter],
+    +     onsearch: [Getter/Setter],
+    +     isSecureContext: [Getter],
+    +     trustedTypes: [Getter],
+    +     performance: [Getter/Setter],
+    +     onappinstalled: [Getter/Setter],
+    +     onbeforeinstallprompt: [Getter/Setter],
+    +     crypto: [Getter],
+    +     indexedDB: [Getter],
+    +     sessionStorage: [Getter],
+    +     localStorage: [Getter],
+    +     onbeforexrselect: [Getter/Setter],
+    +     onabort: [Getter/Setter],
+    +     onbeforeinput: [Getter/Setter],
+    +     onblur: [Getter/Setter],
+    +     oncancel: [Getter/Setter],
+    +     oncanplay: [Getter/Setter],
+    +     oncanplaythrough: [Getter/Setter],
+    +     onchange: [Getter/Setter],
+    +     onclick: [Getter/Setter],
+    +     onclose: [Getter/Setter],
+    +     oncontextlost: [Getter/Setter],
+    +     oncontextmenu: [Getter/Setter],
+    +     oncontextrestored: [Getter/Setter],
+    +     oncuechange: [Getter/Setter],
+    +     ondblclick: [Getter/Setter],
+    +     ondrag: [Getter/Setter],
+    +     ondragend: [Getter/Setter],
+    +     ondragenter: [Getter/Setter],
+    +     ondragleave: [Getter/Setter],
+    +     ondragover: [Getter/Setter],
+    +     ondragstart: [Getter/Setter],
+    +     ondrop: [Getter/Setter],
+    +     ondurationchange: [Getter/Setter],
+    +     onemptied: [Getter/Setter],
+    +     onended: [Getter/Setter],
+    +     onerror: [Getter/Setter],
+    +     onfocus: [Getter/Setter],
+    +     onformdata: [Getter/Setter],
+    +     oninput: [Getter/Setter],
+    +     oninvalid: [Getter/Setter],
+    +     onkeydown: [Getter/Setter],
+    +     onkeypress: [Getter/Setter],
+    +     onkeyup: [Getter/Setter],
+    +     onload: [Getter/Setter],
+    +     onloadeddata: [Getter/Setter],
+    +     onloadedmetadata: [Getter/Setter],
+    +     onloadstart: [Getter/Setter],
+    +     onmousedown: [Getter/Setter],
+    +     onmouseenter: [Getter/Setter],
+    +     onmouseleave: [Getter/Setter],
+    +     onmousemove: [Getter/Setter],
+    +     onmouseout: [Getter/Setter],
+    +     onmouseover: [Getter/Setter],
+    +     onmouseup: [Getter/Setter],
+    +     onmousewheel: [Getter/Setter],
+    +     onpause: [Getter/Setter],
+    +     onplay: [Getter/Setter],
+    +     onplaying: [Getter/Setter],
+    +     onprogress: [Getter/Setter],
+    +     onratechange: [Getter/Setter],
+    +     onreset: [Getter/Setter],
+    +     onresize: [Getter/Setter],
+    +     onscroll: [Getter/Setter],
+    +     onsecuritypolicyviolation: [Getter/Setter],
+    +     onseeked: [Getter/Setter],
+    +     onseeking: [Getter/Setter],
+    +     onselect: [Getter/Setter],
+    +     onslotchange: [Getter/Setter],
+    +     onstalled: [Getter/Setter],
+    +     onsubmit: [Getter/Setter],
+    +     onsuspend: [Getter/Setter],
+    +     ontimeupdate: [Getter/Setter],
+    +     ontoggle: [Getter/Setter],
+    +     onvolumechange: [Getter/Setter],
+    +     onwaiting: [Getter/Setter],
+    +     onwebkitanimationend: [Getter/Setter],
+    +     onwebkitanimationiteration: [Getter/Setter],
+    +     onwebkitanimationstart: [Getter/Setter],
+    +     onwebkittransitionend: [Getter/Setter],
+    +     onwheel: [Getter/Setter],
+    +     onauxclick: [Getter/Setter],
+    +     ongotpointercapture: [Getter/Setter],
+    +     onlostpointercapture: [Getter/Setter],
+    +     onpointerdown: [Getter/Setter],
+    +     onpointermove: [Getter/Setter],
+    +     onpointerrawupdate: [Getter/Setter],
+    +     onpointerup: [Getter/Setter],
+    +     onpointercancel: [Getter/Setter],
+    +     onpointerover: [Getter/Setter],
+    +     onpointerout: [Getter/Setter],
+    +     onpointerenter: [Getter/Setter],
+    +     onpointerleave: [Getter/Setter],
+    +     onselectstart: [Getter/Setter],
+    +     onselectionchange: [Getter/Setter],
+    +     onanimationend: [Getter/Setter],
+    +     onanimationiteration: [Getter/Setter],
+    +     onanimationstart: [Getter/Setter],
+    +     ontransitionrun: [Getter/Setter],
+    +     ontransitionstart: [Getter/Setter],
+    +     ontransitionend: [Getter/Setter],
+    +     ontransitioncancel: [Getter/Setter],
+    +     onafterprint: [Getter/Setter],
+    +     onbeforeprint: [Getter/Setter],
+    +     onbeforeunload: [Getter/Setter],
+    +     onhashchange: [Getter/Setter],
+    +     onlanguagechange: [Getter/Setter],
+    +     onmessage: [Getter/Setter],
+    +     onmessageerror: [Getter/Setter],
+    +     onoffline: [Getter/Setter],
+    +     ononline: [Getter/Setter],
+    +     onpagehide: [Getter/Setter],
+    +     onpageshow: [Getter/Setter],
+    +     onpopstate: [Getter/Setter],
+    +     onrejectionhandled: [Getter/Setter],
+    +     onstorage: [Getter/Setter],
+    +     onunhandledrejection: [Getter/Setter],
+    +     onunload: [Getter/Setter],
+    +     crossOriginIsolated: [Getter],
+    +     scheduler: [Getter/Setter],
+    +     alert: [Function: alert],
+    +     atob: [Function: atob],
+    +     blur: [Function: blur],
+    +     btoa: [Function: btoa],
+    +     cancelAnimationFrame: [Function: cancelAnimationFrame],
+    +     cancelIdleCallback: [Function: cancelIdleCallback],
+    +     captureEvents: [Function: captureEvents],
+    +     clearInterval: [Function: clearInterval],
+    +     clearTimeout: [Function: clearTimeout],
+    +     close: [Function: close],
+    +     confirm: [Function: confirm],
+    +     createImageBitmap: [Function: createImageBitmap],
+    +     fetch: [Function: fetch],
+    +     find: [Function: find],
+    +     focus: [Function: focus],
+    +     getComputedStyle: [Function: getComputedStyle],
+    +     getSelection: [Function: getSelection],
+    +     matchMedia: [Function: matchMedia],
+    +     moveBy: [Function: moveBy],
+    +     moveTo: [Function: moveTo],
+    +     open: [Function: open],
+    +     postMessage: [Function: postMessage],
+    +     print: [Function: print],
+    +     prompt: [Function: prompt],
+    +     queueMicrotask: [Function: queueMicrotask],
+    +     releaseEvents: [Function: releaseEvents],
+    +     reportError: [Function: reportError],
+    +     requestAnimationFrame: [Function: requestAnimationFrame],
+    +     requestIdleCallback: [Function: requestIdleCallback],
+    +     resizeBy: [Function: resizeBy],
+    +     resizeTo: [Function: resizeTo],
+    +     scroll: [Function: scroll],
+    +     scrollBy: [Function: scrollBy],
+    +     scrollTo: [Function: scrollTo],
+    +     setInterval: [Function: setInterval],
+    +     setTimeout: [Function: setTimeout],
+    +     stop: [Function: stop],
+    +     structuredClone: [Function: structuredClone],
+    +     webkitCancelAnimationFrame: [Function: webkitCancelAnimationFrame],
+    +     webkitRequestAnimationFrame: [Function: webkitRequestAnimationFrame],
+    +     'cypressSendToServer-/__socket/default': [Function],
+    +     'cypressSendToServer-/__socket/data-context': [Function],
+    +     chrome: {},
+    +     credentialless: [Getter],
+    +     caches: [Getter],
+    +     cookieStore: [Getter],
+    +     ondevicemotion: [Getter/Setter],
+    +     ondeviceorientation: [Getter/Setter],
+    +     ondeviceorientationabsolute: [Getter/Setter],
+    +     launchQueue: [Getter],
+    +     onbeforematch: [Getter/Setter],
+    +     onbeforetoggle: [Getter/Setter],
+    +     getScreenDetails: [Function: getScreenDetails],
+    +     queryLocalFonts: [Function: queryLocalFonts],
+    +     showDirectoryPicker: [Function: showDirectoryPicker],
+    +     showOpenFilePicker: [Function: showOpenFilePicker],
+    +     showSaveFilePicker: [Function: showSaveFilePicker],
+    +     originAgentCluster: [Getter],
+    +     speechSynthesis: [Getter],
+    +     oncontentvisibilityautostatechange: [Getter/Setter],
+    +     onscrollend: [Getter/Setter],
+    +     openDatabase: [Function: openDatabase],
+    +     webkitRequestFileSystem: [Function: webkitRequestFileSystem],
+    +     webkitResolveLocalFileSystemURL: [Function: webkitResolveLocalFileSystemURL],
+    +     Cypress: 
+    +      { cy: [Object],
+    +        chai: null,
+    +        mocha: [Object],
+    +        runner: [Object],
+    +        downloads: [Object],
+    +        Commands: [Object],
+    +        '$autIframe': [Object],
+    +        onSpecReady: [Function: onSpecReady],
+    +        events: [Object],
+    +        '$': [Object],
+    +        arch: 'x64',
+    +        spec: [Object],
+    +        version: '13.2.0',
+    +        browser: [Object],
+    +        platform: 'darwin',
+    +        testingType: 'e2e',
+    +        state: [Object],
+    +        originalConfig: [Object],
+    +        config: [Object],
+    +        env: [Object],
+    +        getTestRetries: [Function],
+    +        Cookies: [Object],
+    +        ProxyLogging: [Object],
+    +        _onInitialize: undefined,
+    +        isCy: [Function: bound isCy],
+    +        log: [Function],
+    +        isBrowser: [Function: wrapper],
+    +        browserMajorVersion: [Function: browserMajorVersion],
+    +        emit: [Function],
+    +        emitThen: [Function],
+    +        emitMap: [Function],
+    +        primaryOriginCommunicator: [Object],
+    +        specBridgeCommunicator: [Object],
+    +        isCrossOriginSpecBridge: false,
+    +        on: [Function],
+    +        '$Cypress': [Object],
+    +        Cy: [Object],
+    +        Chainer: [Function: $Chainer],
+    +        Command: [Function: $Command],
+    +        dom: [Object],
+    +        ensure: [Object],
+    +        errorMessages: [Object],
+    +        Keyboard: [Object],
+    +        Location: [Function: $Location],
+    +        Log: [Object],
+    +        LocalStorage: [Object],
+    +        Mocha: [Object],
+    +        resolveWindowReference: [Function: resolveWindowReference],
+    +        resolveLocationReference: [Function: resolveLocationReference],
+    +        Mouse: [Object],
+    +        Runner: [Object],
+    +        Server: [Object],
+    +        Screenshot: [Object],
+    +        SelectorPlayground: [Object],
+    +        utils: [Object],
+    +        _: [Object],
+    +        Blob: [Object],
+    +        Buffer: [Object],
+    +        Promise: [Object],
+    +        minimatch: [Object],
+    +        sinon: [Object],
+    +        lolex: [Object],
+    +        _events: [Object],
+    +        _newListener: false,
+    +        _removeListener: false,
+    +        verboseMemoryLeak: false,
+    +        _maxListeners: Infinity,
+    +        _conf: [Object],
+    +        proxyTo: [Function],
+    +        emitThenSeries: [Function],
+    +        listenTo: [Function],
+    +        stopListeningTo: [Function],
+    +        delimiter: '.',
+    +        setMaxListeners: [Function],
+    +        getMaxListeners: [Function],
+    +        event: 'command:start',
+    +        once: [Function],
+    +        prependOnceListener: [Function],
+    +        _once: [Function],
+    +        many: [Function],
+    +        prependMany: [Function],
+    +        _many: [Function],
+    +        emitAsync: [Function],
+    +        prependListener: [Function],
+    +        onAny: [Function],
+    +        prependAny: [Function],
+    +        addListener: [Function],
+    +        _onAny: [Function],
+    +        _on: [Function],
+    +        off: [Function],
+    +        offAny: [Function],
+    +        removeListener: [Function],
+    +        removeAllListeners: [Function],
+    +        listeners: [Function],
+    +        eventNames: [Function],
+    +        listenerCount: [Function],
+    +        hasListeners: [Function],
+    +        listenersAny: [Function],
+    +        waitFor: [Function],
+    +        session: [Object] },
+    +     chai: 
+    +      { version: '4.2.0',
+    +        AssertionError: [Function: AssertionError],
+    +        use: [Function],
+    +        util: -1,
+    +        config: [Object],
+    +        Assertion: [Object],
+    +        expect: [Object],
+    +        should: [Function: loadShould],
+    +        Should: [Function: loadShould],
+    +        assert: [Object] },
+    +     expect: [Function],
+    +     assert: 
+    +      { [Function: fn]
+    +        fail: [Function],
+    +        isOk: [Function],
+    +        isNotOk: [Function],
+    +        equal: [Function],
+    +        notEqual: [Function],
+    +        strictEqual: [Function],
+    +        notStrictEqual: [Function],
+    +        deepStrictEqual: [Function],
+    +        deepEqual: [Function],
+    +        notDeepEqual: [Function],
+    +        isAbove: [Function],
+    +        isAtLeast: [Function],
+    +        isBelow: [Function],
+    +        isAtMost: [Function],
+    +        isTrue: [Function],
+    +        isNotTrue: [Function],
+    +        isFalse: [Function],
+    +        isNotFalse: [Function],
+    +        isNull: [Function],
+    +        isNotNull: [Function],
+    +        isNaN: [Function],
+    +        isNotNaN: [Function],
+    +        exists: [Function],
+    +        notExists: [Function],
+    +        isUndefined: [Function],
+    +        isDefined: [Function],
+    +        isFunction: [Function],
+    +        isNotFunction: [Function],
+    +        isObject: [Function],
+    +        isNotObject: [Function],
+    +        isArray: [Function],
+    +        isNotArray: [Function],
+    +        isString: [Function],
+    +        isNotString: [Function],
+    +        isNumber: [Function],
+    +        isNotNumber: [Function],
+    +        isFinite: [Function],
+    +        isBoolean: [Function],
+    +        isNotBoolean: [Function],
+    +        typeOf: [Function],
+    +        notTypeOf: [Function],
+    +        instanceOf: [Function],
+    +        notInstanceOf: [Function],
+    +        include: [Function],
+    +        notInclude: [Function],
+    +        deepInclude: [Function],
+    +        notDeepInclude: [Function],
+    +        nestedInclude: [Function],
+    +        notNestedInclude: [Function],
+    +        deepNestedInclude: [Function],
+    +        notDeepNestedInclude: [Function],
+    +        ownInclude: [Function],
+    +        notOwnInclude: [Function],
+    +        deepOwnInclude: [Function],
+    +        notDeepOwnInclude: [Function],
+    +        match: [Function],
+    +        notMatch: [Function],
+    +        property: [Function],
+    +        notProperty: [Function],
+    +        propertyVal: [Function],
+    +        notPropertyVal: [Function],
+    +        deepPropertyVal: [Function],
+    +        notDeepPropertyVal: [Function],
+    +        ownProperty: [Function],
+    +        notOwnProperty: [Function],
+    +        ownPropertyVal: [Function],
+    +        notOwnPropertyVal: [Function],
+    +        deepOwnPropertyVal: [Function],
+    +        notDeepOwnPropertyVal: [Function],
+    +        nestedProperty: [Function],
+    +        notNestedProperty: [Function],
+    +        nestedPropertyVal: [Function],
+    +        notNestedPropertyVal: [Function],
+    +        deepNestedPropertyVal: [Function],
+    +        notDeepNestedPropertyVal: [Function],
+    +        lengthOf: [Function],
+    +        hasAnyKeys: [Function],
+    +        hasAllKeys: [Function],
+    +        containsAllKeys: [Function],
+    +        doesNotHaveAnyKeys: [Function],
+    +        doesNotHaveAllKeys: [Function],
+    +        hasAnyDeepKeys: [Function],
+    +        hasAllDeepKeys: [Function],
+    +        containsAllDeepKeys: [Function],
+    +        doesNotHaveAnyDeepKeys: [Function],
+    +        doesNotHaveAllDeepKeys: [Function],
+    +        throws: [Function],
+    +        doesNotThrow: [Function],
+    +        operator: [Function],
+    +        closeTo: [Function],
+    +        approximately: [Function],
+    +        sameMembers: [Function],
+    +        notSameMembers: [Function],
+    +        sameDeepMembers: [Function],
+    +        notSameDeepMembers: [Function],
+    +        sameOrderedMembers: [Function],
+    +        notSameOrderedMembers: [Function],
+    +        sameDeepOrderedMembers: [Function],
+    +        notSameDeepOrderedMembers: [Function],
+    +        includeMembers: [Function],
+    +        notIncludeMembers: [Function],
+    +        includeDeepMembers: [Function],
+    +        notIncludeDeepMembers: [Function],
+    +        includeOrderedMembers: [Function],
+    +        notIncludeOrderedMembers: [Function],
+    +        includeDeepOrderedMembers: [Function],
+    +        notIncludeDeepOrderedMembers: [Function],
+    +        oneOf: [Function],
+    +        changes: [Function],
+    +        changesBy: [Function],
+    +        doesNotChange: [Function],
+    +        changesButNotBy: [Function],
+    +        increases: [Function],
+    +        increasesBy: [Function],
+    +        doesNotIncrease: [Function],
+    +        increasesButNotBy: [Function],
+    +        decreases: [Function],
+    +        decreasesBy: [Function],
+    +        doesNotDecrease: [Function],
+    +        doesNotDecreaseBy: [Function],
+    +        decreasesButNotBy: [Function],
+    +        ifError: [Function],
+    +        isExtensible: [Function],
+    +        isNotExtensible: [Function],
+    +        isSealed: [Function],
+    +        isNotSealed: [Function],
+    +        isFrozen: [Function],
+    +        isNotFrozen: [Function],
+    +        isEmpty: [Function],
+    +        isNotEmpty: [Function],
+    +        ok: [Function],
+    +        notOk: [Function],
+    +        throw: [Function],
+    +        Throw: [Function],
+    +        extensible: [Function],
+    +        notExtensible: [Function],
+    +        sealed: [Function],
+    +        notSealed: [Function],
+    +        frozen: [Function],
+    +        notFrozen: [Function],
+    +        empty: [Function],
+    +        notEmpty: [Function] },
+    +     cy: 
+    +      { _events: {},
+    +        _newListener: false,
+    +        _removeListener: false,
+    +        verboseMemoryLeak: false,
+    +        id: 'cy1',
+    +        specWindow: [Circular],
+    +        state: [Object],
+    +        config: [Object],
+    +        Cypress: [Object],
+    +        Cookies: [Object],
+    +        devices: [Object],
+    +        queue: [Object],
+    +        timeout: [Function: timeout],
+    +        clearTimeout: [Function: clearTimeout],
+    +        isStable: [Function: isStable],
+    +        whenStable: [Function: whenStable],
+    +        assert: [Function: assert],
+    +        verifyUpcomingAssertions: [Function: verifyUpcomingAssertions],
+    +        retry: [Function: retry],
+    +        retryIfCommandAUTOriginMismatch: [Function: retryIfCommandAUTOriginMismatch],
+    +        '$$': [Function: $$],
+    +        getRemotejQueryInstance: [Function: getRemotejQueryInstance],
+    +        getRemoteLocation: [Function: getRemoteLocation],
+    +        getCrossOriginRemoteLocation: [Function: getCrossOriginRemoteLocation],
+    +        fireBlur: [Function: fireBlur],
+    +        fireFocus: [Function: fireFocus],
+    +        needsFocus: [Function: needsFocus],
+    +        getFocused: [Function: getFocused],
+    +        pauseTimers: [Function: pauseTimers],
+    +        expect: [Function],
+    +        getIndexedXhrByAlias: [Function: getIndexedXhrByAlias],
+    +        addAlias: [Function: addAlias],
+    +        getAlias: [Function: getAlias],
+    +        getNextAlias: [Function: getNextAlias],
+    +        validateAlias: [Function: validateAlias],
+    +        aliasNotFoundFor: [Function: aliasNotFoundFor],
+    +        getXhrTypeByAlias: [Function: getXhrTypeByAlias],
+    +        createSnapshot: [Function: createSnapshot],
+    +        detachDom: [Function: detachDom],
+    +        getStyles: [Function: getStyles],
+    +        resetTimer: [Function: reset],
+    +        overrides: [Object],
+    +        onBeforeWindowLoad: [Function: onBeforeWindowLoad],
+    +        documentHasFocus: [Function: documentHasFocus],
+    +        interceptFocus: [Function: interceptFocus],
+    +        interceptBlur: [Function: interceptBlur],
+    +        testConfigOverride: [Object],
+    +        commandFns: [Object],
+    +        queryFns: [Object],
+    +        isCy: [Function: bound isCy],
+    +        fail: [Function: bound fail],
+    +        isStopped: [Function: bound isStopped],
+    +        stop: [Function: bound stop],
+    +        reset: [Function: bound reset],
+    +        addCommandSync: [Function: bound addCommandSync],
+    +        addCommand: [Function: bound addCommand],
+    +        addQuery: [Function: bound addQuery],
+    +        now: [Function: bound now],
+    +        onBeforeAppWindowLoad: [Function: bound onBeforeAppWindowLoad],
+    +        onUncaughtException: [Function: bound onUncaughtException],
+    +        setRunnable: [Function: bound setRunnable],
+    +        getSubjectFromChain: [Function: bound getSubjectFromChain],
+    +        setSubjectForChainer: [Function: bound setSubjectForChainer],
+    +        subject: [Function: bound subject],
+    +        subjectChain: [Function: bound subjectChain],
+    +        _maxListeners: Infinity,
+    +        _conf: [Object],
+    +        proxyTo: [Function],
+    +        emitMap: [Function],
+    +        emitThen: [Function],
+    +        emitThenSeries: [Function],
+    +        listenTo: [Function],
+    +        stopListeningTo: [Function],
+    +        delimiter: '.',
+    +        setMaxListeners: [Function],
+    +        getMaxListeners: [Function],
+    +        event: 'command:enqueued',
+    +        once: [Function],
+    +        prependOnceListener: [Function],
+    +        _once: [Function],
+    +        many: [Function],
+    +        prependMany: [Function],
+    +        _many: [Function],
+    +        emit: [Function],
+    +        emitAsync: [Function],
+    +        on: [Function],
+    +        prependListener: [Function],
+    +        onAny: [Function],
+    +        prependAny: [Function],
+    +        addListener: [Function],
+    +        _onAny: [Function],
+    +        _on: [Function],
+    +        off: [Function],
+    +        offAny: [Function],
+    +        removeListener: [Function],
+    +        removeAllListeners: [Function],
+    +        listeners: [Function],
+    +        eventNames: [Function],
+    +        listenerCount: [Function],
+    +        hasListeners: [Function],
+    +        listenersAny: [Function],
+    +        waitFor: [Function],
+    +        check: [Function],
+    +        uncheck: [Function],
+    +        click: [Function],
+    +        dblclick: [Function],
+    +        rightclick: [Function],
+    +        focus: [Function],
+    +        blur: [Function],
+    +        hover: [Function],
+    +        mount: [Function],
+    +        scrollIntoView: [Function],
+    +        scrollTo: [Function],
+    +        select: [Function],
+    +        selectFile: [Function],
+    +        submit: [Function],
+    +        trigger: [Function],
+    +        type: [Function],
+    +        clear: [Function],
+    +        spy: [Function],
+    +        stub: [Function],
+    +        as: [Function],
+    +        should: [Function],
+    +        and: [Function],
+    +        clock: [Function],
+    +        tick: [Function],
+    +        command: [Function],
+    +        its: [Function],
+    +        invoke: [Function],
+    +        spread: [Function],
+    +        each: [Function],
+    +        then: [Function],
+    +        getCookie: [Function],
+    +        getCookies: [Function],
+    +        getAllCookies: [Function],
+    +        setCookie: [Function],
+    +        clearCookie: [Function],
+    +        clearCookies: [Function],
+    +        clearAllCookies: [Function],
+    +        pause: [Function],
+    +        debug: [Function],
+    +        exec: [Function],
+    +        readFile: [Function],
+    +        writeFile: [Function],
+    +        fixture: [Function],
+    +        getAllLocalStorage: [Function],
+    +        getAllSessionStorage: [Function],
+    +        clearAllLocalStorage: [Function],
+    +        clearAllSessionStorage: [Function],
+    +        clearLocalStorage: [Function],
+    +        url: [Function],
+    +        hash: [Function],
+    +        location: [Function],
+    +        end: [Function],
+    +        noop: [Function],
+    +        log: [Function],
+    +        wrap: [Function],
+    +        origin: [Function],
+    +        reload: [Function],
+    +        go: [Function],
+    +        visit: [Function],
+    +        focused: [Function],
+    +        get: [Function],
+    +        contains: [Function],
+    +        shadow: [Function],
+    +        root: [Function],
+    +        within: [Function],
+    +        request: [Function],
+    +        session: [Function],
+    +        screenshot: [Function],
+    +        task: [Function],
+    +        find: [Function],
+    +        filter: [Function],
+    +        not: [Function],
+    +        children: [Function],
+    +        eq: [Function],
+    +        closest: [Function],
+    +        first: [Function],
+    +        last: [Function],
+    +        next: [Function],
+    +        nextAll: [Function],
+    +        nextUntil: [Function],
+    +        parent: [Function],
+    +        parents: [Function],
+    +        parentsUntil: [Function],
+    +        prev: [Function],
+    +        prevAll: [Function],
+    +        prevUntil: [Function],
+    +        siblings: [Function],
+    +        wait: [Function],
+    +        title: [Function],
+    +        window: [Function],
+    +        document: [Function],
+    +        viewport: [Function],
+    +        server: [Function],
+    +        route: [Function],
+    +        intercept: [Function],
+    +        convertDatatableToJson: [Function],
+    +        findPackageName: [Function],
+    +        generateToken: [Function],
+    +        subscription: [Function],
+    +        userSubscription: [Function],
+    +        contentCreation: [Function],
+    +        refreshToken: [Function],
+    +        upGradeDownGradeUsersubscription: [Function],
+    +        usersubscription: [Function],
+    +        contentCreation2: [Function],
+    +        delete_UserSubscription: [Function] },
+    +     Mocha: 
+    +      { [Function: Mocha]
+    +        utils: [Object],
+    +        interfaces: [Object],
+    +        reporters: [Object],
+    +        Runnable: [Object],
+    +        Context: [Function: Context],
+    +        Runner: [Object],
+    +        Suite: [Object],
+    +        Hook: [Object],
+    +        Test: [Object],
+    +        unloadFile: [Function],
+    +        process: [Object],
+    +        afterEach: [Function: afterEach],
+    +        after: [Function: after],
+    +        beforeEach: [Function: beforeEach],
+    +        before: [Function: before],
+    +        describe: [Object],
+    +        it: [Object],
+    +        xit: [Function],
+    +        setup: [Function: beforeEach],
+    +        suiteSetup: [Function: before],
+    +        suiteTeardown: [Function: after],
+    +        suite: [Object],
+    +        teardown: [Function: afterEach],
+    +        test: [Object],
+    +        run: undefined },
+    +     mocha: 
+    +      { files: [],
+    +        options: [Object],
+    +        suite: [Object],
+    +        _reporter: [Function: reporter],
+    +        Mocha: [Object],
+    +        ui: [Function],
+    +        _ui: undefined,
+    +        bail: [Function],
+    +        addFile: [Function],
+    +        reporter: [Function],
+    +        loadFiles: [Function],
+    +        unloadFiles: [Function],
+    +        fgrep: [Function],
+    +        grep: [Function],
+    +        invert: [Function],
+    +        ignoreLeaks: [Function],
+    +        checkLeaks: [Function],
+    +        fullTrace: [Function],
+    +        growl: [Function],
+    +        isGrowlCapable: [Function],
+    +        _growl: [Function],
+    +        global: [Function],
+    +        globals: [Function],
+    +        useColors: [Function],
+    +        color: [Function],
+    +        useInlineDiffs: [Function],
+    +        inlineDiffs: [Function],
+    +        hideDiff: [Function],
+    +        diff: [Function],
+    +        timeout: [Function],
+    +        retries: [Function],
+    +        slow: [Function],
+    +        enableTimeouts: [Function],
+    +        asyncOnly: [Function],
+    +        noHighlighting: [Function],
+    +        allowUncaught: [Function],
+    +        delay: [Function: delay],
+    +        forbidOnly: [Function],
+    +        forbidPending: [Function],
+    +        version: '7.0.1',
+    +        run: [Function] },
+    +     before: [Function: before],
+    +     after: [Function: after],
+    +     beforeEach: [Function: beforeEach],
+    +     afterEach: [Function: afterEach],
+    +     run: undefined,
+    +     context: { [Function] only: [Function], skip: [Function] },
+    +     describe: { [Function] only: [Function], skip: [Function] },
+    +     xcontext: [Function],
+    +     xdescribe: [Function],
+    +     specify: { [Function] only: [Function], skip: [Function] },
+    +     it: { [Function] only: [Function], skip: [Function] },
+    +     xspecify: [Function],
+    +     xit: [Function],
+    +     Gherkin: 
+    +      { Parser: [Function: Parser],
+    +        TokenScanner: [Function: TokenScanner],
+    +        TokenMatcher: [Function: TokenMatcher],
+    +        AstBuilder: [Function: AstBuilder],
+    +        Compiler: [Function: Compiler],
+    +        DIALECTS: [Object],
+    +        generateEvents: [Function: generateEvents] },
+    +     '__core-js_shared__': 
+    +      { versions: [Object],
+    +        keys: [Object],
+    +        wks: [Object],
+    +        'symbol-registry': {},
+    +        symbols: {},
+    +        'op-symbols': {} },
+    +     Given: [Function: Given],
+    +     When: [Function: When],
+    +     Then: [Function: Then],
+    +     And: [Function: And],
+    +     But: [Function: But],
+    +     defineParameterType: [Function],
+    +     defineStep: [Function: defineStep],
+    +     cucumberJson: 
+    +      { generate: true,
+    +        outputFolder: './reports/cucumber-json',
+    +        filePrefix: '',
+    +        fileSuffix: '.cucumber' },
+    +     testState: 
+    +      { feature: [Object],
+    +        scenarioSteps: [Object],
+    +        runScenarios: [Object],
+    +        runTests: [Object],
+    +        stepResults: [Object],
+    +        testError: null,
+    +        uri: 'at_upgrade_downgrade_usersubscription.feature',
+    +        spec: 'Feature: Upgrade or downgrade usersubscription \n\nBackground: User gets refresh_token\nGiven User should get refresh_token create authToken\n\nScenario Outline: Upgrade or downgrade usersubscription to (tier_type)\nWhen User sends post request to upgrade_downgrade_usersubscription endpoint with "(tier_type)"\nThen User should able to upgrade or downgrade the subscription \nExamples: \n    | tier_type| \n    | tier_1   | \n    | tier_2   | \n    | tier_free|\n',
+    +        currentScenario: [Object],
+    +        currentStep: 2,
+    +        timer: 1697593068657,
+    +        logStep: [Function],
+    +        onStartTest: [Function],
+    +        onFinishTest: [Function],
+    +        onStartScenario: [Function],
+    +        onFinishScenario: [Function],
+    +        onStartStep: [Function],
+    +        onFinishStep: [Function],
+    +        onFail: [Function],
+    +        timeTaken: [Function],
+    +        formatTestCase: [Function],
+    +        attachErrorToFailingStep: [Function],
+    +        markStillPendingStepsAsSkipped: [Function],
+    +        recordScenarioResult: [Function],
+    +        setStepToPending: [Function],
+    +        recordStepResult: [Function],
+    +        areAllStepsSkipped: [Function],
+    +        anyStepsHaveFailed: [Function] },
+    +     TEMPORARY: 0,
+    +     PERSISTENT: 1,
+    +     addEventListener: [Function: addEventListener],
+    +     dispatchEvent: [Function: dispatchEvent],
+    +     removeEventListener: [Function: removeEventListener] },
+    +  chainerId: 'ch-http://localhost:61874-48',
+    +  check: [Function],
+    +  uncheck: [Function],
+    +  click: [Function],
+    +  dblclick: [Function],
+    +  rightclick: [Function],
+    +  focus: [Function],
+    +  blur: [Function],
+    +  hover: [Function],
+    +  mount: [Function],
+    +  scrollIntoView: [Function],
+    +  scrollTo: [Function],
+    +  select: [Function],
+    +  selectFile: [Function],
+    +  submit: [Function],
+    +  trigger: [Function],
+    +  type: [Function],
+    +  clear: [Function],
+    +  as: [Function],
+    +  should: [Function],
+    +  and: [Function],
+    +  clock: [Function],
+    +  tick: [Function],
+    +  command: [Function],
+    +  its: [Function],
+    +  invoke: [Function],
+    +  spread: [Function],
+    +  each: [Function],
+    +  then: [Function],
+    +  getCookie: [Function],
+    +  getCookies: [Function],
+    +  getAllCookies: [Function],
+    +  setCookie: [Function],
+    +  clearCookie: [Function],
+    +  clearCookies: [Function],
+    +  clearAllCookies: [Function],
+    +  pause: [Function],
+    +  debug: [Function],
+    +  exec: [Function],
+    +  readFile: [Function],
+    +  writeFile: [Function],
+    +  fixture: [Function],
+    +  getAllLocalStorage: [Function],
+    +  getAllSessionStorage: [Function],
+    +  clearAllLocalStorage: [Function],
+    +  clearAllSessionStorage: [Function],
+    +  clearLocalStorage: [Function],
+    +  url: [Function],
+    +  hash: [Function],
+    +  location: [Function],
+    +  end: [Function],
+    +  noop: [Function],
+    +  log: [Function],
+    +  wrap: [Function],
+    +  origin: [Function],
+    +  reload: [Function],
+    +  go: [Function],
+    +  visit: [Function],
+    +  focused: [Function],
+    +  get: [Function],
+    +  contains: [Function],
+    +  shadow: [Function],
+    +  root: [Function],
+    +  within: [Function],
+    +  request: [Function],
+    +  session: [Function],
+    +  screenshot: [Function],
+    +  task: [Function],
+    +  find: [Function],
+    +  filter: [Function],
+    +  not: [Function],
+    +  children: [Function],
+    +  eq: [Function],
+    +  closest: [Function],
+    +  first: [Function],
+    +  last: [Function],
+    +  next: [Function],
+    +  nextAll: [Function],
+    +  nextUntil: [Function],
+    +  parent: [Function],
+    +  parents: [Function],
+    +  parentsUntil: [Function],
+    +  prev: [Function],
+    +  prevAll: [Function],
+    +  prevUntil: [Function],
+    +  siblings: [Function],
+    +  wait: [Function],
+    +  title: [Function],
+    +  window: [Function],
+    +  document: [Function],
+    +  viewport: [Function],
+    +  server: [Function],
+    +  route: [Function],
+    +  intercept: [Function],
+    +  convertDatatableToJson: [Function],
+    +  findPackageName: [Function],
+    +  generateToken: [Function],
+    +  subscription: [Function],
+    +  userSubscription: [Function],
+    +  contentCreation: [Function],
+    +  refreshToken: [Function],
+    +  upGradeDownGradeUsersubscription: [Function],
+    +  usersubscription: [Function],
+    +  contentCreation2: [Function],
+    +  delete_UserSubscription: [Function] }
+
+    at Context.eval (cypress/integration/step_definitions/backend/at_upgrade_downgrade_usersubscription.cy.js:15:42)</pre>
+                                </div>
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+                        
+
+                        
+                            
+                        
+
+                    
+                
+            </div>
+        </div>
+    </div>
+
+
+        </div>
+    </div>
+
+    
+        <div class="created-by">
+            <p>Created by wswebcreation. Find me on:</p>
+            <a href="http://www.wswebcreation.nl/" target="_blank"><i class="fa fa-rss-square fa-2x"></i></a>
+            <a href="https://github.com/wswebcreation/" target="_blank"><i class="fa fa-github-square fa-2x"></i></a>
+            <a href="http://nl.linkedin.com/in/wimselles" target="_blank"><i class="fa fa-linkedin-square fa-2x"></i></a>
+            <a href="http://stackoverflow.com/users/5911978/wswebcreation" target="_blank"><i class="fa fa-stack-overflow fa-2x"></i></a>
+        </div>
+    
+
+    
+        <script src="../assets/js/jquery-3.2.1.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/Chart.min.js"></script>
+    
+
+    <!-- Custom -->
+    <script>
+        var hideResult;
+        var showAll;
+        $(document).ready(function () {
+
+            var scenarioOptions = {
+                legend: false,
+                responsive: false
+            };
+
+            var getColor = function(selector, defaultColor) {
+                if (document.querySelector(selector)) {
+                    return getComputedStyle(document.querySelector(selector)).color
+                }
+                return defaultColor
+            }
+
+            new Chart(document.getElementById("scenario-chart"), {
+                type: 'doughnut',
+                tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+                data: {
+                    labels: [
+                        "Passed",
+                        "Failed",
+                        "Pending",
+                        "Skipped",
+                        "Ambiguous",
+                        "Not defined"
+                    ],
+                    datasets: [{
+                        data: [
+                            0,
+                            3,
+                            0,
+                            0,
+                            0,
+                            0
+                        ],
+                        backgroundColor: [
+                            getColor(".passed-color", "#26B99A"),
+                            getColor(".failed-color", "#E74C3C"),
+                            getColor(".pending-color", "#FFD119"),
+                            getColor(".skipped-color", "#3498DB"),
+                            getColor(".ambiguous-color", "#b73122"),
+                            getColor(".not-defined-color", "#F39C12")
+                        ]
+                    }]
+                },
+                options: scenarioOptions
+            });
+
+            $('.x_title').on('click', function () {
+    var $BOX_PANEL = $(this).closest('.x_panel'),
+        $ICON = $(this).find('.collapse-link i'),
+        $BOX_CONTENT = $BOX_PANEL.find('.x_content');
+
+    // fix for some div with hardcoded fix class
+    if ($BOX_PANEL.attr('style')) {
+        $BOX_CONTENT.slideToggle(200, function () {
+            $BOX_PANEL.removeAttr('style');
+        });
+    } else {
+        $BOX_CONTENT.slideToggle(200);
+        $BOX_PANEL.css('height', 'auto');
+    }
+
+    $ICON.toggleClass('fa-chevron-up fa-chevron-down');
+});
+
+$('body').tooltip({
+    selector: '[data-toggle="tooltip"]'
+});
+
+hideResult = (resultId) => {
+    $('span[class*=step]').closest('div.x_panel[style]').hide();
+    $('span[class*=' + resultId + ']').closest('div.x_panel[style]').show();
+}
+
+showAll = () => {
+    $('span[class*=step]').closest('div.x_panel[style]').show();
+}
+
+$(document).ready(() => {
+    const status = ['passed', 'failed', 'pending', 'skipped', 'ambiguous', 'not-defined']
+    status.forEach(value => {
+        var menuItem = $('span[class*=' + value + '-background]');
+        if (menuItem.length === 0) {
+            $('#' + value).parent().addClass('disabled');
+        }
+    })
+});
+
+        });
+    </script>
+</body>
+</html>

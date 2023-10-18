@@ -1,0 +1,3865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../assets/js/darkmode.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Cache-control" content="public">
+    <title>Multiple Cucumber HTML Reporter</title>
+
+    
+            <!-- Bootstrap -->
+            <link rel="stylesheet" href="../assets/css/bootstrap.min.css" >
+
+            <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+            <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+
+            <!--[if lt IE 9]>
+            <script src="../assets/js/html5shiv.min.js"></script>
+            <script src="../assets/js/respond.min.js"></script>
+            <![endif]-->
+
+            <link href="../assets/css/font-awesome.min.css" rel="stylesheet">
+    
+
+    <!-- Custom Theme Style -->
+    <style type="text/css">
+        body {
+    color: #73879C;
+    background: #F7F7F7;
+    font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.471;
+}
+
+.main_container {
+    padding: 10px 20px 0;
+}
+
+i span {
+    display: none;
+}
+
+/* Navigation */
+nav.navbar {
+    background: #EDEDED;
+    border-bottom: 1px solid #D9DEE4;
+    margin-bottom: 0;
+}
+
+nav .navbar-brand {
+    border-right: 1px solid #D9DEE4;
+    color: #5A738E;
+}
+
+nav .navbar-text {
+    font-size: 18px;
+    height: 50px;
+    margin-bottom: 0;
+    margin-top: 0;
+    padding: 15px 0;
+    float: right;
+}
+
+/* Table */
+table {
+    width: 100%;
+}
+
+table.chart tr th:first-of-type {
+    width: 33.333%;
+}
+
+.table > thead > tr > th {
+    background: #F5F7FA;
+}
+
+table.tile h3, table.tile h4, table.tile span {
+    font-weight: bold;
+    vertical-align: middle !important;
+}
+
+table.tile th, table.tile td {
+    text-align: center;
+}
+
+table.tile th {
+    border-bottom: 1px solid #E6ECEE;
+}
+
+table.tile td {
+    padding: 5px 0;
+}
+
+table.tile td ul {
+    text-align: left;
+    padding-left: 0;
+}
+
+table.tile td ul li {
+    list-style: none;
+    width: 100%;
+}
+
+table.tile td ul li a {
+    width: 100%;
+}
+
+table.tile td ul li a big {
+    right: 0;
+    float: right;
+    margin-right: 13px;
+}
+
+table.tile_info {
+    width: 100%;
+}
+
+table.tile_info td {
+    text-align: left;
+    padding: 1px;
+    font-size: 15px;
+}
+
+table.tile_info td p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+    line-height: 28px;
+}
+
+table.tile_info td i {
+    display: inline-block;
+    margin-right: 8px;
+    font-size: 17px;
+    float: left;
+    width: 18px;
+    line-height: 28px;
+    text-align: center;
+}
+
+table.tile_info td:first-child {
+    width: 65%;
+}
+
+td span {
+    line-height: 28px;
+}
+
+table.tile_info td.percentage {
+    text-align: right;
+
+}
+
+/* chart in table */
+table td.chart {
+    display: inline-block;
+    position: relative;
+}
+
+table td.chart #feature-chart,
+table td.chart #scenario-chart,
+table td.chart .total {
+    height: 140px;
+    margin: 15px 10px 10px 0;
+    width: 140px;
+}
+
+table td.chart .total {
+    display: inline-block;
+    position: absolute;
+    font-size: 2em;
+    height: 50px;
+    line-height: 50px;
+    top: 45px;
+    left: 45px;
+    text-align: center;
+    vertical-align: middle;
+    width: 50px;
+}
+
+/* colors */
+.ambiguous-color {
+    color: #E74C3C !important;
+}
+
+.failed-color {
+    color: #E74C3C !important;
+}
+
+.not-defined-color {
+    color: #F39C12 !important;
+}
+
+.passed-color {
+    color: #1ABB9C !important;
+}
+
+.pending-color {
+    color: #FFD119 !important;
+}
+
+.skipped-color {
+    color: #3498DB !important;
+}
+
+/* backgrounds */
+.ambiguous-background {
+    background: #b73122 !important;
+}
+
+.failed-background {
+    background: #E74C3C !important;
+}
+
+.not-defined-background {
+    background: #F39C12 !important;
+}
+
+.passed-background {
+    background: #1ABB9C !important;
+}
+
+.pending-background {
+    background: #FFD119 !important;
+}
+
+.skipped-background {
+    background: #3498DB !important;
+}
+
+/* general */
+.x_panel {
+    position: relative;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px 17px;
+    display: inline-block;
+    background: #fff;
+    border: 1px solid #E6E9ED;
+    -webkit-column-break-inside: avoid;
+    opacity: 1;
+}
+
+.x_title {
+    border-bottom: 2px solid #E6E9ED;
+    padding: 1px 5px 6px;
+    margin-bottom: 10px;
+}
+
+.x_title .filter {
+    width: 40%;
+    float: right;
+}
+
+.x_title h2 {
+    margin: 5px 0 6px;
+    float: left;
+    font-size: 24px;
+    font-weight: 400;
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.fixed_height_320 {
+    height: 320px;
+}
+
+.x_title span {
+    color: #BDBDBD;
+}
+
+.x_content {
+    padding: 0 5px 6px;
+    position: relative;
+    width: 100%;
+    float: left;
+    clear: both;
+    margin-top: 5px;
+}
+
+.x_content h4 {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.panel_toolbox {
+    float: right;
+    margin: 5px 0 0;
+    min-width: 70px;
+}
+
+.panel_toolbox > li {
+    float: right;
+}
+
+.panel_toolbox > li > a {
+    cursor: pointer;
+}
+
+.panel_toolbox > li > a {
+    padding: 5px;
+    color: #C5C7CB;
+    font-size: 14px;
+}
+
+.panel_toolbox > li > a:hover {
+    background: #F5F7FA;
+}
+
+.page-title {
+    width: 100%;
+    padding: 10px 0 30px 0;
+}
+
+.page-title {
+    display: block;
+}
+
+.page-title h1 {
+    margin: 9px 0 9px 13px;
+    font-size: 30px;
+
+}
+
+.page-title .title_right {
+    width: 55%;
+    float: left;
+    display: block;
+}
+
+.page-title .title_right .pull-right {
+    margin: 10px 0;
+}
+
+.page-title p {
+    margin-left: 15px;
+}
+
+.dashboard-widget-content {
+    padding-top: 9px;
+}
+
+.dashboard-widget-content .sidebar-widget {
+    width: 50%;
+    display: inline-block;
+    vertical-align: top;
+    background: #fff;
+    border: 1px solid #abd9ea;
+    border-radius: 5px;
+    text-align: center;
+    float: right;
+    padding: 2px;
+    margin-top: 10px;
+}
+
+ul.quick-list {
+    padding-left: 0;
+    display: inline-block;
+}
+
+ul.quick-list li,
+table.quick-list tr {
+    padding-left: 10px;
+    list-style: none;
+    margin: 0;
+    padding-bottom: 6px;
+    padding-top: 4px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+ul.quick-list li .meta-data-title,
+table.quick-list td.meta-data-title {
+    display: inline-block;
+    min-width: 75px;
+    font-weight: bold;
+}
+
+ul.quick-list li span,
+table.quick-list td {
+    line-height: 28px;
+}
+
+ul.quick-list li,
+table.quick-list tr {
+    border-bottom: 1px solid #efefef;
+    padding: 0.5em 0;
+}
+
+ul.quick-list li:last-child,
+table.quick-list tr:last-child {
+    border-bottom: none;
+}
+
+ul.quick-list li i {
+    padding-right: 10px;
+    color: #757679;
+}
+
+.screenshot{
+    max-height: 100%;
+    max-width: 100%;
+}
+
+/* Features / Scenarios */
+ul.panel_toolbox li .step {
+    border-radius: 50%;
+    color: #ffffff;
+    display: block;
+    font-size: 14px;
+    height: 30px;
+    margin-right: 5px;
+    padding: 5px;
+    text-align: center;
+    width: 30px;
+}
+
+.scenario-step-container {
+    margin-bottom: 10px;
+}
+
+.scenario-step-container .label {
+    display: inline-block;
+    text-align: center;
+    width: 30px;
+}
+
+.scenario-step-container .text {
+    display: inline;
+}
+
+.scenario-step-container .duration {
+    position: relative;
+    float: right;
+}
+
+.scenario-step-container .text .keyword.highlight {
+    font-size: 1.2em;
+    font-weight: 700;
+}
+
+.scenario-scroll-bar {
+    overflow-x: scroll;
+}
+
+.scenario-step-collapse,
+.scenario-scroll-bar .arguments {
+    margin-left: 30px;
+    width: auto;
+}
+
+/* media */
+@media (max-width: 1200px) {
+    .x_title h2 {
+        width: 70%;
+    }
+}
+
+@media (max-width: 640px) {
+    .x_title h2 {
+        width: 100%;
+    }
+}
+
+/* override */
+table.dataTable.dtr-inline.collapsed > tbody > tr > td:first-child:before,
+table.dataTable.dtr-inline.collapsed > tbody > tr > th:first-child:before {
+    background: #1ABB9C;
+}
+
+table.dataTable.dtr-inline.collapsed > tbody > tr.parent > td:first-child:before, table.dataTable.dtr-inline.collapsed > tbody > tr.parent > th:first-child:before {
+    background: #E74C3C;
+}
+
+.created-by {
+    padding: 50px 0;
+    text-align: center;
+}
+
+body.darkmode,
+body.darkmode div.created-by,
+body.darkmode .dropdown-menu
+{
+    background: #212121 !important;
+    color: #b4bfca;
+    border-color: #2e2e2e;
+}
+
+body.darkmode .x_panel
+{
+    background: #1c1c21 !important;
+    color: #b4bfca;
+    border: 1px solid #2e2e2e;
+}
+
+body.darkmode div.container-fluid
+{
+    background: #2b2b2b !important;
+    color: #b4bfca;
+    border: 0 solid #2e2e2e;
+}
+
+body.darkmode nav.navbar {
+    background: #2b2b2b;
+    border-bottom: 1px solid #313a45;
+    margin-bottom: 0;
+}
+
+body.darkmode .x_title {
+    background: #1c1c21 !important;
+    border-bottom: 2px solid #2e2e2e;
+    padding: 1px 5px 6px;
+    margin-bottom: 10px;
+}
+
+body.darkmode table.quick-list  tr {
+    border-bottom: 1px solid #292929;
+    padding: 0.5em 0;
+}
+
+body.darkmode ul.quick-list li,
+body.darkmode table.quick-list tr {
+    border-bottom: 1px solid #2e2e2e;
+    padding: 0.5em 0;
+}
+
+.darkModeIcon {
+    font-size: x-large;
+    float: left;
+    padding-top: 12px;
+    padding-left: 4px;
+    cursor: pointer;
+    color: #b4bfca;
+    border-color: #2e2e2e;
+}
+
+.darkModeIcon:before {
+    content: '';
+}
+
+body.darkmode a.navbar-default,
+body.darkmode a.navbar-brand {
+    color: #b1bfcd;
+    background: transparent !important;
+    border-right: 1px solid #313a45;
+}
+
+body.darkmode a {
+    background: transparent !important;
+    color: #9cc2e3;
+    border-color: #2e2e2e;
+}
+
+body.darkmode a.collapse-link {
+    color: #c7c7c7;
+    border-color: #2e2e2e;
+}
+
+body.darkmode li:not([class])>a[id] {
+    color: white;
+}
+body.darkmode li:not([class])>a[id]:hover {
+    background: darkslateblue;
+}
+
+body.darkmode #features-table {
+    color: #b4bfca;
+    border-color: #2e2e2e;
+}
+
+body.darkmode #features-table th {
+    background: #212121 !important;
+    color: #a3c2db;
+    border-color: #2e2e2e;
+}
+
+body.darkmode #features-table td {
+    border-color: #2e2e2e;
+}
+
+body.darkmode #features-table tr:nth-of-type(odd) {
+    background: #212121 !important;
+    border-color: #2e2e2e;
+}
+
+body.darkmode table.dataTable>tbody>tr.child ul.dtr-details li {
+    border-bottom: 1px solid #2e2e2e;
+    padding: 0.5em 0;
+}
+
+body.darkmode .pagination,
+body.darkmode .pagination>.active>a,
+body.darkmode .pagination>.active>a:focus,
+body.darkmode .pagination>.active>a:hover,
+body.darkmode .pagination>.active>span,
+body.darkmode .pagination>.active>span:focus,
+body.darkmode .pagination>.active>span:hover {
+    background: #3a7ab7;
+    border-color: #3a7ab7;
+}
+
+body.darkmode .pagination>.disabled>a,
+body.darkmode .pagination>.disabled>a:focus,
+body.darkmode .pagination>.disabled>a:hover,
+body.darkmode .pagination>.disabled>span,
+body.darkmode .pagination>.disabled>span:focus,
+body.darkmode .pagination>.disabled>span:hover {
+    background: #3a7ab7;
+    border-color: #3b3b3b;
+    color: #bfbfbf;
+}
+
+body.darkmode table.dataTable.dtr-inline.collapsed>tbody>tr>td:first-child::before,
+table.dataTable.dtr-inline.collapsed>tbody>tr>th:first-child::before {
+    border: 1px solid #2e2e2e;
+}
+
+body.darkmode #features-table>thead>tr {
+    color: #b4bfca;
+    border-color: #2e2e2e;
+}
+
+body.darkmode .form-control {
+    background: #212121 !important;
+    color: #c3c3c3;
+    border-color: #2e2e2e;
+}
+body.darkmode li[id*=features]>a {
+    background: #212121 !important;
+}
+
+body.darkmode .btn-info {
+    color: #b4bfca;
+    background: #337ab7;
+    border-color: #337ab7;
+}
+
+body.darkmode .panel_toolbox > li > a:hover {
+    background: transparent;
+}
+
+body.darkmode .table-striped>tbody>tr:nth-of-type(even) {
+    background: #1c1c21;
+}
+
+body.darkmode div pre {
+    background: #212121 !important;
+    color: #b4bfca;
+}
+
+body.darkmode span.tag {
+    color: #b4bfca;
+}
+
+body.darkmode .keyword {
+    color: #b4bfca;
+}
+
+body.darkmode div.tags ~h1 {
+    color: #b4bfca;
+}
+
+body.darkmode div.tags ~h2 {
+    color: #b4bfca;
+}
+
+body.darkmode div.tags ~h1 small {
+    color: #bfbfbf;
+}
+
+body.darkmode div.tags ~h2 small {
+    color: #bfbfbf;
+}
+
+svg#moon, svg#sun {
+    width: 40px;
+    height: 30px;
+    fill: #ec6d04;
+}
+
+input#darkCheck:checked ~ label>svg#sun {
+    display: none;
+    border-color: #212121;
+}
+
+label>svg#moon {
+    display: none;
+}
+
+input#darkCheck:checked ~ label>svg#moon {
+    display: inline-block;
+    fill: #b4bfca;
+    border-color: #212121;
+}
+
+        
+    </style>
+</head>
+<body>
+    <script type="text/javascript">
+        window.onload = function() {
+            if(window.localStorage['darkmode'] === 'on') {
+                applyFontStyle();
+            }
+        }
+    </script>
+    <nav class="navbar">
+        <div class="container-fluid">
+
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#" onclick="history.back(-1)">
+                    <i class="fa fa-arrow-left"><span>Back</span></i>
+                </a>
+            </div>
+            <p class="navbar-text" style="float: left">Features Overview
+            </p>
+            <p class="navbar-text">Multiple Cucumber HTML Reporter</p>
+        </div>
+
+    </nav>
+
+    <div class="main_container">
+
+        <div class="page-title">
+            <div class="tags">
+                
+                    
+                    
+                        <i class="fa fa-tag fa-lg"></i>
+                        
+                            <span class="tag">@demo</span>
+                        
+                    
+                
+            </div>
+            <h1>Feature:
+                <small>This feature is created for demo</small>
+            </h1>
+            
+                <p>
+               <p><strong>File name:</strong>
+                    demo.feature
+                </p>
+                <p><strong>Relative path:</strong>
+                    demo.feature</p>
+            
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="row">
+            <div class="col-md-8 col-xs-12">
+                <div class="x_panel fixed_height_320">
+                    <div class="x_title">
+    <h2>Scenarios</h2>
+    <ul class="nav navbar-right panel_toolbox">
+        <li>
+            <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+            </a>
+        </li>
+    </ul>
+    <div class="clearfix"></div>
+</div>
+<div class="x_content">
+    <table class="chart">
+        <tr>
+            <th>
+                <p>Chart</p>
+            </th>
+            <th>
+                <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                    <p class="">Status</p>
+                </div>
+                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                    <p class="" style="float:right;">Progress</p>
+                </div>
+            </th>
+        </tr>
+        <tr>
+            <td class="chart">
+                <canvas id="scenario-chart"></canvas>
+                <div class="total">9</div>
+            </td>
+            <td>
+                <table class="tile_info">
+                    <tr>
+                        <td>
+                            <p data-toggle="tooltip" data-placement="left" title="Scenario passed">
+                                <i class="fa fa-check-circle passed-color"></i>
+                                Passed
+                            </p>
+                        </td>
+                        <td class="percentage">22.22 %</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p data-toggle="tooltip" data-placement="left" title="Scenario failed">
+                                <i class="fa fa-exclamation-circle failed-color"></i>
+                                Failed
+                            </p>
+                        </td>
+                        <td class="percentage">77.78 %</td>
+                    
+                    
+                    </tr>
+                    
+                    
+                </table>
+            </td>
+        </tr>
+        
+    </table>
+</div>
+
+                </div>
+            </div>
+            
+            <div class="col-md-4 col-xs-12">
+                <div class="x_panel fixed_height_320">
+                    <div class="x_title">
+    <h2>Metadata</h2>
+    <ul class="nav navbar-right panel_toolbox">
+        <li>
+            <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+            </a>
+        </li>
+    </ul>
+    <div class="clearfix"></div>
+</div>
+<div class="x_content">
+    <div class="dashboard-widget-content">
+        <ul class="quick-list">
+            <li>
+                <span class="meta-data-title">
+                    <i class="fa fa-desktop fa-lg"></i>
+                    <i class="fa fa-mobile fa-lg"></i>
+                </span>
+                <span class="meta-data-data">
+                    
+                    
+                    
+                    
+                    <i class="fa fa-question-circle not-defined-color fa-lg">
+                        <span>question-circle not-defined-color</span>
+                    </i>
+                </span>
+            </li>
+            <li>
+                <span class="meta-data-title">Device</span>
+                <span class="meta-data-data">Local test machine</span>
+            </li>
+            <li>
+                <span class="meta-data-title">OS</span>
+                <span class="meta-data-data">
+                    
+                    
+                    
+                    
+                    <i class="fa fa-question-circle not-defined-color fa-lg">
+                        <span>question-circle not-defined-color</span>
+                    </i>
+                    
+                </span>
+            </li>
+            
+            
+            <li>
+                <span class="meta-data-title">Browser</span>
+                <span class="meta-data-data">
+                    
+                    
+                    
+                    
+                    
+                    <i class="fa fa-chrome fa-lg">
+                        <span>chrome</span>
+                    </i>
+                    81
+                    
+                </span>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+        <div class="dropdown pull-right dropup" >
+            <button class="btn btn-info dropdown-toggle btn-sm" type="button" data-toggle="dropdown" style="margin-bottom: 15px;">
+                Filter By<span class="caret" style="margin-left: 5px"></span></button>
+            <ul class="dropdown-menu">
+                <li> <a id="passed" href="javascript:void(0)" onclick="hideResult(this.id)">Passed
+                    <i class="fa fa-check-circle passed-color filter-i"></i></a>
+                </li>
+                <li> <a id="failed" href="javascript:void(0)" onclick="hideResult(this.id)">Failed
+                    <i class="fa fa-exclamation-circle failed-color filter-i"></i></a>
+                </li>
+                <li> <a id="pending" href="javascript:void(0)" onclick="hideResult(this.id)">Pending
+                    <i class="fa fa-minus-circle pending-color filter-i"></i></a>
+                </li>
+                <li> <a id="skipped" href="javascript:void(0)" onclick="hideResult(this.id)">Skipped
+                    <i class="fa fa-arrow-circle-right fa skipped-color filter-i"></i></a>
+                </li>
+                <li> <a id="not-defined" href="javascript:void(0)" onclick="hideResult(this.id)">Not Defined
+                    <i class="fa fa-question-circle not-defined-color filter-i"></i></a>
+                </li>
+                <li> <a id="ambiguous" href="javascript:void(0)" onclick="hideResult(this.id)">Ambiguous
+                    <i class="fa fa-flash ambiguous-color filter-i"></i></a>
+                </li>
+                <li class="divider"></li>
+                <li> <a id="clear" href="javascript:void(0)"onclick="showAll()">Clear
+                    <i class="fa fa-times-circle"></i></a>
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel" style="height: auto;">
+            <div class="x_title">
+
+                <div class="tags">
+                    
+                        
+                        
+                            <i class="fa fa-tag fa-lg"></i>
+                            
+                                <span class="tag">@demo</span>
+                            
+                        
+                    
+                </div>
+
+                <h2>Scenario: <small>Successful Subscription GET request</small></h2>
+
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-down"></i></a>
+                    </li>
+
+                    
+
+                    
+
+                    
+
+                    
+
+                    
+                        <li>
+                            <span class="step passed-background" data-toggle="tooltip" title="Scenario passed">4</span>
+                        </li>
+                    
+
+                    
+
+                    
+                </ul>
+
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="x_content" style="display: none;">
+                <div class="scenario-step-container"></div>
+                    
+                        
+                            <div class="scenario-step-container">
+
+                                
+                                    
+                                        <div class="label" title="Success">
+                                            <i class="fa fa-check-circle fa-2x passed-color" data-toggle="tooltip" data-placement="top" title="Step passed"></i>
+                                        </div>
+                                    
+                                
+
+                                <div class="text">
+                                    <span class="keyword highlight">Given </span>
+
+                                    
+                                        User should get refresh_token and create authToken
+                                        
+                                    
+
+                                    
+
+                                </div>
+
+                                
+                                    
+
+                                    
+
+                                    
+                                    
+                                    
+
+                                    
+
+                                    
+
+                                    
+                                
+                            </div>
+
+                        
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+                        
+
+                        
+                            
+                        
+
+                    
+                
+                        
+                            <div class="scenario-step-container">
+
+                                
+                                    
+                                        <div class="label" title="Success">
+                                            <i class="fa fa-check-circle fa-2x passed-color" data-toggle="tooltip" data-placement="top" title="Step passed"></i>
+                                        </div>
+                                    
+                                
+
+                                <div class="text">
+                                    <span class="keyword highlight">When </span>
+
+                                    
+                                        user sends GET Subscription request
+                                        
+                                    
+
+                                    
+
+                                </div>
+
+                                
+                                    
+
+                                    
+
+                                    
+                                    
+                                    
+
+                                    
+
+                                    
+
+                                    
+                                
+                            </div>
+
+                        
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+                        
+
+                        
+                            
+                        
+
+                    
+                
+                        
+                            <div class="scenario-step-container">
+
+                                
+                                    
+                                        <div class="label" title="Success">
+                                            <i class="fa fa-check-circle fa-2x passed-color" data-toggle="tooltip" data-placement="top" title="Step passed"></i>
+                                        </div>
+                                    
+                                
+
+                                <div class="text">
+                                    <span class="keyword highlight">Then </span>
+
+                                    
+                                        user should receive a response with status code 200
+                                        
+                                    
+
+                                    
+
+                                </div>
+
+                                
+                                    
+
+                                    
+
+                                    
+                                    
+                                    
+
+                                    
+
+                                    
+
+                                    
+                                
+                            </div>
+
+                        
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+                        
+
+                        
+                            
+                        
+
+                    
+                
+                        
+                            <div class="scenario-step-container">
+
+                                
+                                    
+                                        <div class="label" title="Success">
+                                            <i class="fa fa-check-circle fa-2x passed-color" data-toggle="tooltip" data-placement="top" title="Step passed"></i>
+                                        </div>
+                                    
+                                
+
+                                <div class="text">
+                                    <span class="keyword highlight">And </span>
+
+                                    
+                                        response should contain following data:
+                                        
+                                    
+
+                                    
+
+                                </div>
+
+                                
+                                    
+
+                                    
+
+                                    
+                                    
+                                    
+
+                                    
+
+                                    
+
+                                    
+                                
+                            </div>
+
+                        
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+                        
+
+                        
+                            
+                                <div class="scenario-scroll-bar">
+                                    
+                                        <table class="table arguments">
+                                            
+                                            <tr>
+                                                
+                                                
+                                                    <th>name</th>
+                                                
+                                                    <th>character_count_of_each_revayz</th>
+                                                
+                                                    <th>package_id</th>
+                                                
+                                                    <th>currency</th>
+                                                
+                                                    <th>revayz_count</th>
+                                                
+                                                    <th>price</th>
+                                                
+                                                    <th>package_code</th>
+                                                
+                                            </tr>
+
+                                            
+                                                <tr>
+                                                    
+                                                    
+                                                        <td>Free Tier</td>
+                                                    
+                                                        <td>400</td>
+                                                    
+                                                        <td>837871</td>
+                                                    
+                                                        <td>$</td>
+                                                    
+                                                        <td>50</td>
+                                                    
+                                                        <td>0</td>
+                                                    
+                                                        <td>free</td>
+                                                    
+                                                </tr>
+                                            
+                                                <tr>
+                                                    
+                                                    
+                                                        <td>Tier 1</td>
+                                                    
+                                                        <td>400</td>
+                                                    
+                                                        <td>price_1NyveXGRkOBpNhaCKR23bLoD</td>
+                                                    
+                                                        <td>$</td>
+                                                    
+                                                        <td>500</td>
+                                                    
+                                                        <td>4.99</td>
+                                                    
+                                                        <td>tier_1</td>
+                                                    
+                                                </tr>
+                                            
+                                                <tr>
+                                                    
+                                                    
+                                                        <td>Tier 2</td>
+                                                    
+                                                        <td>800</td>
+                                                    
+                                                        <td>price_1NyvhhGRkOBpNhaCbeUTjqoE</td>
+                                                    
+                                                        <td>$</td>
+                                                    
+                                                        <td>5000</td>
+                                                    
+                                                        <td>9.99</td>
+                                                    
+                                                        <td>tier_2</td>
+                                                    
+                                                </tr>
+                                            
+                                        </table>
+                                    
+                                </div>
+
+                                
+                            
+                        
+
+                    
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel" style="height: auto;">
+            <div class="x_title">
+
+                <div class="tags">
+                    
+                        
+                        
+                    
+                </div>
+
+                <h2>Scenario: <small>Successful content generation POST request with 400 characters</small></h2>
+
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-down"></i></a>
+                    </li>
+
+                    
+
+                    
+
+                    
+                        <li>
+                            <span class="step skipped-background" data-toggle="tooltip" title="Scenario is skipped">2</span>
+                        </li>
+                    
+
+                    
+                        <li>
+                            <span class="step failed-background" data-toggle="tooltip" title="Scenario failed">1</span>
+                        </li>
+                    
+
+                    
+                        <li>
+                            <span class="step passed-background" data-toggle="tooltip" title="Scenario passed">1</span>
+                        </li>
+                    
+
+                    
+
+                    
+                </ul>
+
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="x_content" style="display: none;">
+                <div class="scenario-step-container"></div>
+                    
+                        
+                            <div class="scenario-step-container">
+
+                                
+                                    
+                                        <div class="label" title="Success">
+                                            <i class="fa fa-check-circle fa-2x passed-color" data-toggle="tooltip" data-placement="top" title="Step passed"></i>
+                                        </div>
+                                    
+                                
+
+                                <div class="text">
+                                    <span class="keyword highlight">Given </span>
+
+                                    
+                                        User should get refresh_token and create authToken
+                                        
+                                    
+
+                                    
+
+                                </div>
+
+                                
+                                    
+
+                                    
+
+                                    
+                                    
+                                    
+
+                                    
+
+                                    
+
+                                    
+                                
+                            </div>
+
+                        
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+                        
+
+                        
+                            
+                        
+
+                    
+                
+                        
+                            <div class="scenario-step-container">
+
+                                
+                                    
+                                        <div class="label" data-toggle="tooltip" data-placement="top" title="Step failed">
+                                            <i class="fa fa-exclamation-circle fa-2x failed-color"></i>
+                                        </div>
+                                    
+                                
+
+                                <div class="text">
+                                    <span class="keyword highlight">When </span>
+
+                                    
+                                        a POST request is made with the following 400 characters:
+                                        
+                                    
+
+                                    
+
+                                </div>
+
+                                
+                                    
+
+                                    
+                                        <a href="#error1-1-error" data-toggle="collapse">+ Show Error</a>
+                                    
+
+                                    
+                                    
+                                    
+
+                                    
+
+                                    
+
+                                    
+                                
+                            </div>
+
+                        
+                            
+                                <div id="error1-1-error" class="scenario-step-collapse collapse">
+                                    <pre class=info>CypressError: `cy.request()` failed on:
+
+https://rmzwitktjd.execute-api.us-east-1.amazonaws.com/Prod/contentcreation
+
+The response we received from your web server was:
+
+  ) 404: Not Found
+
+This was considered a failure because the status code was not `2xx` or `3xx`.
+
+If you do not want status codes to cause failures pass the option: `failOnStatusCode: false`
+
+-----------------------------------------------------------
+
+The request we sent was:
+
+Method: POST
+URL: https://rmzwitktjd.execute-api.us-east-1.amazonaws.com/Prod/contentcreation
+Headers: {
+  "Connection": "keep-alive",
+  "Authorization": "Bearer eyJraWQiOiJ6ZG0yZ2NvUkltVXBmODFNWk54QnlEN2tRMGpMUXpucnpLVjNpaUd0bTk0PSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI4NGY4NDRlOC0yMDMxLTcwMDktYTJjNy1lYjQzZDA3ZDljNGIiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLnVzLWVhc3QtMS5hbWF6b25hd3MuY29tXC91cy1lYXN0LTFfVWJDN0p0R2xZIiwiY29nbml0bzp1c2VybmFtZSI6Ijg0Zjg0NGU4LTIwMzEtNzAwOS1hMmM3LWViNDNkMDdkOWM0YiIsIm9yaWdpbl9qdGkiOiI5M2QzZGQxZS1kOTI3LTRmMmMtYjc1MC0yMDNlNzUzMjFiZjAiLCJhdWQiOiI2MGh0Nms0azA2OW9pNjk2bWMza2ZscGloOSIsImV2ZW50X2lkIjoiYTQxM2Q2ZDgtMTBiYy00OGQ4LWE0ZjgtMTVhMWE2ZmU4MDM5IiwidG9rZW5fdXNlIjoiaWQiLCJhdXRoX3RpbWUiOjE2OTc0NDU5MjgsImV4cCI6MTY5NzY3OTY0MSwiaWF0IjoxNjk3NTkzMjQxLCJqdGkiOiIwMDE0Y2M4Mi0xMDNmLTQ3NmMtODM2NC0zMDJhZDhkZjY1OGEiLCJlbWFpbCI6InNlbG1hLmJlcmdAYWJleWlzLmNvbSJ9.2EqN43blLzLkAemyZtyh201YxIHs_4NCsFAT2sx5OBHqJGcr253_c6J6Lc8WLtOVp8cbJB6jlVeFagDJarJZREc7vqyQ58M7koqh4n_kTTgWVt1F5sSvLLbxYaA6REECpVYWdmprdHq8WY62NUh6l9pVvmQMARMexyRxuh7fNB8DtgYK8a-fbN0CZ6qsJLkfy38Pp7mYify78-TdEn8nq8iqDeqyyOnJDyAGyxAVtwkMF4l56PeU3zlxZTdgdylUqPmTSTVxakgOpAxV7jlcfVQSCbhpcy9kbyo5yHUVY75YJT-d-K8pxbGHTelbNPiD1QCRE_9SMLxGKGP1VCPdjw",
+  "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Cypress/13.2.0 Chrome/114.0.5735.289 Electron/25.8.0 Safari/537.36",
+  "accept": "*/*",
+  "accept-encoding": "gzip, deflate",
+  "content-type": "application/json",
+  "content-length": 268
+}
+Body: {"content":"{\n    \"content\": \"Advancements in AI are reshaping our world. From healthcare to transportation, AI is driving innovation, automating tasks, and enhancing decision-making. Ethical development is vital to ensure responsible and unbiased AI usage.\"\n}"}
+
+-----------------------------------------------------------
+
+The response we got was:
+
+Status: 404 - Not Found
+Headers: {
+  "content-type": "application/json",
+  "content-length": "57",
+  "connection": "keep-alive",
+  "date": "Wed, 18 Oct 2023 01:40:41 GMT",
+  "x-amzn-requestid": "173abaa0-8c84-46fc-9ea2-8e071bcb24f5",
+  "x-amz-apigw-id": "M-WgAFPvoAMF29Q=",
+  "x-amzn-trace-id": "Root=1-652f3799-7de4fd6d679a15142783e0cd;Sampled=0;lineage=7c5ac6ec:0",
+  "x-cache": "Error from cloudfront",
+  "via": "1.1 293365d41b590aec3b6811bdb271df64.cloudfront.net (CloudFront)",
+  "x-amz-cf-pop": "YTO50-P3",
+  "x-amz-cf-id": "jm3nANK-RGMpwduQ5uEpceyvzaPfUBPcJMfMsEKWp_fNLPUULt5AcQ=="
+}
+Body: {
+  "data": [],
+  "errorDescription": "Package not available"
+}
+
+
+https://on.cypress.io/request
+    at (unknown) (http://localhost:62631/__cypress/runner/cypress_runner.js:133013:72)
+    at tryCatcher (http://localhost:62631/__cypress/runner/cypress_runner.js:1807:23)
+    at Promise._settlePromiseFromHandler (http://localhost:62631/__cypress/runner/cypress_runner.js:1519:31)
+    at Promise._settlePromise (http://localhost:62631/__cypress/runner/cypress_runner.js:1576:18)
+    at Promise._settlePromise0 (http://localhost:62631/__cypress/runner/cypress_runner.js:1621:10)
+    at Promise._settlePromises (http://localhost:62631/__cypress/runner/cypress_runner.js:1701:18)
+    at _drainQueueStep (http://localhost:62631/__cypress/runner/cypress_runner.js:2407:12)
+    at _drainQueue (http://localhost:62631/__cypress/runner/cypress_runner.js:2400:9)
+    at Async._drainQueues (http://localhost:62631/__cypress/runner/cypress_runner.js:2416:5)
+    at Async.drainQueues (http://localhost:62631/__cypress/runner/cypress_runner.js:2286:14)
+From Your Spec Code:
+    at Context.eval (cypress/integration/step_definitions/backend/aa_token_generate.cy.js:8:16)</pre>
+                                </div>
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+                        
+
+                        
+                            
+                                <div class="scenario-scroll-bar">
+                                    
+                                </div>
+
+                                
+                                    <pre class="info">{
+    "content": "Advancements in AI are reshaping our world. From healthcare to transportation, AI is driving innovation, automating tasks, and enhancing decision-making. Ethical development is vital to ensure responsible and unbiased AI usage."
+}</pre>
+                                
+                            
+                        
+
+                    
+                
+                        
+                            <div class="scenario-step-container">
+
+                                
+                                    
+                                        <div class="label" data-toggle="tooltip" data-placement="top" title="Step is skipped">
+                                            <i class="fa fa-arrow-circle-right fa-2x skipped-color"></i>
+                                        </div>
+                                    
+                                
+
+                                <div class="text">
+                                    <span class="keyword highlight">Then </span>
+
+                                    
+                                        the API response should have a 200 status code
+                                        
+                                    
+
+                                    
+
+                                </div>
+
+                                
+                                    
+
+                                    
+
+                                    
+                                    
+                                    
+
+                                    
+
+                                    
+
+                                    
+                                
+                            </div>
+
+                        
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+                        
+
+                        
+                            
+                        
+
+                    
+                
+                        
+                            <div class="scenario-step-container">
+
+                                
+                                    
+                                        <div class="label" data-toggle="tooltip" data-placement="top" title="Step is skipped">
+                                            <i class="fa fa-arrow-circle-right fa-2x skipped-color"></i>
+                                        </div>
+                                    
+                                
+
+                                <div class="text">
+                                    <span class="keyword highlight">And </span>
+
+                                    
+                                        the API response should contain generated content and not be empty
+                                        
+                                    
+
+                                    
+
+                                </div>
+
+                                
+                                    
+
+                                    
+
+                                    
+                                    
+                                    
+
+                                    
+
+                                    
+
+                                    
+                                
+                            </div>
+
+                        
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+                        
+
+                        
+                            
+                        
+
+                    
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel" style="height: auto;">
+            <div class="x_title">
+
+                <div class="tags">
+                    
+                        
+                        
+                    
+                </div>
+
+                <h2>Scenario: <small>Successful correction of misspelled grammar and grammatical error</small></h2>
+
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-down"></i></a>
+                    </li>
+
+                    
+
+                    
+
+                    
+                        <li>
+                            <span class="step skipped-background" data-toggle="tooltip" title="Scenario is skipped">1</span>
+                        </li>
+                    
+
+                    
+                        <li>
+                            <span class="step failed-background" data-toggle="tooltip" title="Scenario failed">1</span>
+                        </li>
+                    
+
+                    
+                        <li>
+                            <span class="step passed-background" data-toggle="tooltip" title="Scenario passed">1</span>
+                        </li>
+                    
+
+                    
+
+                    
+                </ul>
+
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="x_content" style="display: none;">
+                <div class="scenario-step-container"></div>
+                    
+                        
+                            <div class="scenario-step-container">
+
+                                
+                                    
+                                        <div class="label" title="Success">
+                                            <i class="fa fa-check-circle fa-2x passed-color" data-toggle="tooltip" data-placement="top" title="Step passed"></i>
+                                        </div>
+                                    
+                                
+
+                                <div class="text">
+                                    <span class="keyword highlight">Given </span>
+
+                                    
+                                        User should get refresh_token and create authToken
+                                        
+                                    
+
+                                    
+
+                                </div>
+
+                                
+                                    
+
+                                    
+
+                                    
+                                    
+                                    
+
+                                    
+
+                                    
+
+                                    
+                                
+                            </div>
+
+                        
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+                        
+
+                        
+                            
+                        
+
+                    
+                
+                        
+                            <div class="scenario-step-container">
+
+                                
+                                    
+                                        <div class="label" data-toggle="tooltip" data-placement="top" title="Step failed">
+                                            <i class="fa fa-exclamation-circle fa-2x failed-color"></i>
+                                        </div>
+                                    
+                                
+
+                                <div class="text">
+                                    <span class="keyword highlight">When </span>
+
+                                    
+                                        the application processes the "I lke to reed buks." with misspelled grammar
+                                        
+                                    
+
+                                    
+
+                                </div>
+
+                                
+                                    
+
+                                    
+                                        <a href="#error2-1-error" data-toggle="collapse">+ Show Error</a>
+                                    
+
+                                    
+                                    
+                                    
+
+                                    
+
+                                    
+
+                                    
+                                
+                            </div>
+
+                        
+                            
+                                <div id="error2-1-error" class="scenario-step-collapse collapse">
+                                    <pre class=info>CypressError: `cy.request()` failed on:
+
+https://rmzwitktjd.execute-api.us-east-1.amazonaws.com/Prod/contentcreation
+
+The response we received from your web server was:
+
+  ) 404: Not Found
+
+This was considered a failure because the status code was not `2xx` or `3xx`.
+
+If you do not want status codes to cause failures pass the option: `failOnStatusCode: false`
+
+-----------------------------------------------------------
+
+The request we sent was:
+
+Method: POST
+URL: https://rmzwitktjd.execute-api.us-east-1.amazonaws.com/Prod/contentcreation
+Headers: {
+  "Connection": "keep-alive",
+  "Authorization": "Bearer eyJraWQiOiJ6ZG0yZ2NvUkltVXBmODFNWk54QnlEN2tRMGpMUXpucnpLVjNpaUd0bTk0PSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI4NGY4NDRlOC0yMDMxLTcwMDktYTJjNy1lYjQzZDA3ZDljNGIiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLnVzLWVhc3QtMS5hbWF6b25hd3MuY29tXC91cy1lYXN0LTFfVWJDN0p0R2xZIiwiY29nbml0bzp1c2VybmFtZSI6Ijg0Zjg0NGU4LTIwMzEtNzAwOS1hMmM3LWViNDNkMDdkOWM0YiIsIm9yaWdpbl9qdGkiOiI5M2QzZGQxZS1kOTI3LTRmMmMtYjc1MC0yMDNlNzUzMjFiZjAiLCJhdWQiOiI2MGh0Nms0azA2OW9pNjk2bWMza2ZscGloOSIsImV2ZW50X2lkIjoiYTQxM2Q2ZDgtMTBiYy00OGQ4LWE0ZjgtMTVhMWE2ZmU4MDM5IiwidG9rZW5fdXNlIjoiaWQiLCJhdXRoX3RpbWUiOjE2OTc0NDU5MjgsImV4cCI6MTY5NzY3OTY0MiwiaWF0IjoxNjk3NTkzMjQyLCJqdGkiOiIyZjc2MWI0Ny0wMWMyLTQ2NjItODQxNy04MTNkNDM5OWU2ODMiLCJlbWFpbCI6InNlbG1hLmJlcmdAYWJleWlzLmNvbSJ9.eVtHyYQHcIeQGnDi9PHQohio71zwQBH6pIWV5AHpRyX3VUjtX8gvXrqIP4DL9JJGtbh8zFYp1wQ-FeNx518vui9vn6zu1vuApAlkT17hTCj2W5MZCZAx5rAwxku2gth6avZ4TX_C73XfHb-VSpM3bg_G5chqNo3VknW3hHn9MtrsylLv2Z7wr7xUC-XlKsM7makaYLJ_gP-N-8E07sS55n0Km3LiVMxVdFUCH6-gheyPH3JTBz4K79HnzUBAln4k9A3Ac7wqSHsTiRaEHh8VCagMiWNGAZ9ECY6qzZBOI-0V2BpK0eLTn8W1fu3uT9oUHrKaank3CtU_eQ_u5kuufQ",
+  "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Cypress/13.2.0 Chrome/114.0.5735.289 Electron/25.8.0 Safari/537.36",
+  "accept": "*/*",
+  "accept-encoding": "gzip, deflate",
+  "content-type": "application/json",
+  "content-length": 33
+}
+Body: {"content":"I lke to reed buks."}
+
+-----------------------------------------------------------
+
+The response we got was:
+
+Status: 404 - Not Found
+Headers: {
+  "content-type": "application/json",
+  "content-length": "57",
+  "connection": "keep-alive",
+  "date": "Wed, 18 Oct 2023 01:40:42 GMT",
+  "x-amzn-requestid": "baba3bf4-28ac-4603-a1d2-4f2302e7b538",
+  "x-amz-apigw-id": "M-WgJFeroAMF1eQ=",
+  "x-amzn-trace-id": "Root=1-652f379a-002ab2c6071677b6416a7dab;Sampled=0;lineage=7c5ac6ec:0",
+  "x-cache": "Error from cloudfront",
+  "via": "1.1 293365d41b590aec3b6811bdb271df64.cloudfront.net (CloudFront)",
+  "x-amz-cf-pop": "YTO50-P3",
+  "x-amz-cf-id": "zV37YeFDgc5VcSr-ajBkVGaODewpOx3hEyPoDylw5aZJdT2M8pMy3Q=="
+}
+Body: {
+  "data": [],
+  "errorDescription": "Package not available"
+}
+
+
+https://on.cypress.io/request
+    at (unknown) (http://localhost:62631/__cypress/runner/cypress_runner.js:133013:72)
+    at tryCatcher (http://localhost:62631/__cypress/runner/cypress_runner.js:1807:23)
+    at Promise._settlePromiseFromHandler (http://localhost:62631/__cypress/runner/cypress_runner.js:1519:31)
+    at Promise._settlePromise (http://localhost:62631/__cypress/runner/cypress_runner.js:1576:18)
+    at Promise._settlePromise0 (http://localhost:62631/__cypress/runner/cypress_runner.js:1621:10)
+    at Promise._settlePromises (http://localhost:62631/__cypress/runner/cypress_runner.js:1701:18)
+    at _drainQueueStep (http://localhost:62631/__cypress/runner/cypress_runner.js:2407:12)
+    at _drainQueue (http://localhost:62631/__cypress/runner/cypress_runner.js:2400:9)
+    at Async._drainQueues (http://localhost:62631/__cypress/runner/cypress_runner.js:2416:5)
+    at Async.drainQueues (http://localhost:62631/__cypress/runner/cypress_runner.js:2286:14)
+From Your Spec Code:
+    at Context.eval (cypress/integration/step_definitions/backend/aa_token_generate.cy.js:8:16)</pre>
+                                </div>
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+                        
+
+                        
+                            
+                        
+
+                    
+                
+                        
+                            <div class="scenario-step-container">
+
+                                
+                                    
+                                        <div class="label" data-toggle="tooltip" data-placement="top" title="Step is skipped">
+                                            <i class="fa fa-arrow-circle-right fa-2x skipped-color"></i>
+                                        </div>
+                                    
+                                
+
+                                <div class="text">
+                                    <span class="keyword highlight">Then </span>
+
+                                    
+                                        API response should be grammatically "I enjoy reading books." and understandable
+                                        
+                                    
+
+                                    
+
+                                </div>
+
+                                
+                                    
+
+                                    
+
+                                    
+                                    
+                                    
+
+                                    
+
+                                    
+
+                                    
+                                
+                            </div>
+
+                        
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+                        
+
+                        
+                            
+                        
+
+                    
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel" style="height: auto;">
+            <div class="x_title">
+
+                <div class="tags">
+                    
+                        
+                        
+                    
+                </div>
+
+                <h2>Scenario: <small>Successful correction of misspelled grammar and grammatical error</small></h2>
+
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-down"></i></a>
+                    </li>
+
+                    
+
+                    
+
+                    
+                        <li>
+                            <span class="step skipped-background" data-toggle="tooltip" title="Scenario is skipped">1</span>
+                        </li>
+                    
+
+                    
+                        <li>
+                            <span class="step failed-background" data-toggle="tooltip" title="Scenario failed">1</span>
+                        </li>
+                    
+
+                    
+                        <li>
+                            <span class="step passed-background" data-toggle="tooltip" title="Scenario passed">1</span>
+                        </li>
+                    
+
+                    
+
+                    
+                </ul>
+
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="x_content" style="display: none;">
+                <div class="scenario-step-container"></div>
+                    
+                        
+                            <div class="scenario-step-container">
+
+                                
+                                    
+                                        <div class="label" title="Success">
+                                            <i class="fa fa-check-circle fa-2x passed-color" data-toggle="tooltip" data-placement="top" title="Step passed"></i>
+                                        </div>
+                                    
+                                
+
+                                <div class="text">
+                                    <span class="keyword highlight">Given </span>
+
+                                    
+                                        User should get refresh_token and create authToken
+                                        
+                                    
+
+                                    
+
+                                </div>
+
+                                
+                                    
+
+                                    
+
+                                    
+                                    
+                                    
+
+                                    
+
+                                    
+
+                                    
+                                
+                            </div>
+
+                        
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+                        
+
+                        
+                            
+                        
+
+                    
+                
+                        
+                            <div class="scenario-step-container">
+
+                                
+                                    
+                                        <div class="label" data-toggle="tooltip" data-placement="top" title="Step failed">
+                                            <i class="fa fa-exclamation-circle fa-2x failed-color"></i>
+                                        </div>
+                                    
+                                
+
+                                <div class="text">
+                                    <span class="keyword highlight">When </span>
+
+                                    
+                                        the application processes the "Heare is a apple on the table." with misspelled grammar
+                                        
+                                    
+
+                                    
+
+                                </div>
+
+                                
+                                    
+
+                                    
+                                        <a href="#error3-1-error" data-toggle="collapse">+ Show Error</a>
+                                    
+
+                                    
+                                    
+                                    
+
+                                    
+
+                                    
+
+                                    
+                                
+                            </div>
+
+                        
+                            
+                                <div id="error3-1-error" class="scenario-step-collapse collapse">
+                                    <pre class=info>CypressError: `cy.request()` failed on:
+
+https://rmzwitktjd.execute-api.us-east-1.amazonaws.com/Prod/contentcreation
+
+The response we received from your web server was:
+
+  ) 404: Not Found
+
+This was considered a failure because the status code was not `2xx` or `3xx`.
+
+If you do not want status codes to cause failures pass the option: `failOnStatusCode: false`
+
+-----------------------------------------------------------
+
+The request we sent was:
+
+Method: POST
+URL: https://rmzwitktjd.execute-api.us-east-1.amazonaws.com/Prod/contentcreation
+Headers: {
+  "Connection": "keep-alive",
+  "Authorization": "Bearer eyJraWQiOiJ6ZG0yZ2NvUkltVXBmODFNWk54QnlEN2tRMGpMUXpucnpLVjNpaUd0bTk0PSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI4NGY4NDRlOC0yMDMxLTcwMDktYTJjNy1lYjQzZDA3ZDljNGIiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLnVzLWVhc3QtMS5hbWF6b25hd3MuY29tXC91cy1lYXN0LTFfVWJDN0p0R2xZIiwiY29nbml0bzp1c2VybmFtZSI6Ijg0Zjg0NGU4LTIwMzEtNzAwOS1hMmM3LWViNDNkMDdkOWM0YiIsIm9yaWdpbl9qdGkiOiI5M2QzZGQxZS1kOTI3LTRmMmMtYjc1MC0yMDNlNzUzMjFiZjAiLCJhdWQiOiI2MGh0Nms0azA2OW9pNjk2bWMza2ZscGloOSIsImV2ZW50X2lkIjoiYTQxM2Q2ZDgtMTBiYy00OGQ4LWE0ZjgtMTVhMWE2ZmU4MDM5IiwidG9rZW5fdXNlIjoiaWQiLCJhdXRoX3RpbWUiOjE2OTc0NDU5MjgsImV4cCI6MTY5NzY3OTY0MywiaWF0IjoxNjk3NTkzMjQzLCJqdGkiOiJjOGIyMzdhYi1jMmM0LTRkOTEtYWUzOS1iYzNhMjFiNDJiMTYiLCJlbWFpbCI6InNlbG1hLmJlcmdAYWJleWlzLmNvbSJ9.H7l3fyxBiJ3YEi0ErXk7bHAHSSRKMdj8jOMKDfH2J6CFhAz5R9nnP5OGPblYm3XusOAgEjhf-k8UHTDv1fZXxGWpxx0qPGOGyHZH-Yiqu5_hHcFNSUIkinXV3H0mUP1-Rn13S2oQyUf7eHyI3Ut_0flHq6JztsLcFykcX-F24bNPsgmMtibYalQ2OwejaP6EPQ5ZvTuWD-_h6fp9BxTkIn-6ABpFL_0V1Jap_nKkvhBvzfLdMpXV4nt6Zoc5ahkn6OutUlP_RFb_A8jLXMl2uuNyuWJMT3uU0DJkTPc181baCXFBu2PCznR2sHIVqltEAf6sOR-zGXQ_Bq7JZl6I2w",
+  "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Cypress/13.2.0 Chrome/114.0.5735.289 Electron/25.8.0 Safari/537.36",
+  "accept": "*/*",
+  "accept-encoding": "gzip, deflate",
+  "content-type": "application/json",
+  "content-length": 44
+}
+Body: {"content":"Heare is a apple on the table."}
+
+-----------------------------------------------------------
+
+The response we got was:
+
+Status: 404 - Not Found
+Headers: {
+  "content-type": "application/json",
+  "content-length": "57",
+  "connection": "keep-alive",
+  "date": "Wed, 18 Oct 2023 01:40:43 GMT",
+  "x-amzn-requestid": "8553f5b4-b24f-45fb-8c3d-bf299d03d9e2",
+  "x-amz-apigw-id": "M-WgSHgToAMF-Sg=",
+  "x-amzn-trace-id": "Root=1-652f379b-4b031ac670bbdfa623a9c236;Sampled=0;lineage=7c5ac6ec:0",
+  "x-cache": "Error from cloudfront",
+  "via": "1.1 293365d41b590aec3b6811bdb271df64.cloudfront.net (CloudFront)",
+  "x-amz-cf-pop": "YTO50-P3",
+  "x-amz-cf-id": "ez1C3kZuQDCuETWGj76UhWufRw0QlYW1Vfk2Ib8atvZ_k2gGICe3PQ=="
+}
+Body: {
+  "data": [],
+  "errorDescription": "Package not available"
+}
+
+
+https://on.cypress.io/request
+    at (unknown) (http://localhost:62631/__cypress/runner/cypress_runner.js:133013:72)
+    at tryCatcher (http://localhost:62631/__cypress/runner/cypress_runner.js:1807:23)
+    at Promise._settlePromiseFromHandler (http://localhost:62631/__cypress/runner/cypress_runner.js:1519:31)
+    at Promise._settlePromise (http://localhost:62631/__cypress/runner/cypress_runner.js:1576:18)
+    at Promise._settlePromise0 (http://localhost:62631/__cypress/runner/cypress_runner.js:1621:10)
+    at Promise._settlePromises (http://localhost:62631/__cypress/runner/cypress_runner.js:1701:18)
+    at _drainQueueStep (http://localhost:62631/__cypress/runner/cypress_runner.js:2407:12)
+    at _drainQueue (http://localhost:62631/__cypress/runner/cypress_runner.js:2400:9)
+    at Async._drainQueues (http://localhost:62631/__cypress/runner/cypress_runner.js:2416:5)
+    at Async.drainQueues (http://localhost:62631/__cypress/runner/cypress_runner.js:2286:14)
+From Your Spec Code:
+    at Context.eval (cypress/integration/step_definitions/backend/aa_token_generate.cy.js:8:16)</pre>
+                                </div>
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+                        
+
+                        
+                            
+                        
+
+                    
+                
+                        
+                            <div class="scenario-step-container">
+
+                                
+                                    
+                                        <div class="label" data-toggle="tooltip" data-placement="top" title="Step is skipped">
+                                            <i class="fa fa-arrow-circle-right fa-2x skipped-color"></i>
+                                        </div>
+                                    
+                                
+
+                                <div class="text">
+                                    <span class="keyword highlight">Then </span>
+
+                                    
+                                        API response should be grammatically "Here is an apple on the table." and understandable
+                                        
+                                    
+
+                                    
+
+                                </div>
+
+                                
+                                    
+
+                                    
+
+                                    
+                                    
+                                    
+
+                                    
+
+                                    
+
+                                    
+                                
+                            </div>
+
+                        
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+                        
+
+                        
+                            
+                        
+
+                    
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel" style="height: auto;">
+            <div class="x_title">
+
+                <div class="tags">
+                    
+                        
+                        
+                    
+                </div>
+
+                <h2>Scenario: <small>Successful correction of misspelled grammar and grammatical error</small></h2>
+
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-down"></i></a>
+                    </li>
+
+                    
+
+                    
+
+                    
+                        <li>
+                            <span class="step skipped-background" data-toggle="tooltip" title="Scenario is skipped">1</span>
+                        </li>
+                    
+
+                    
+                        <li>
+                            <span class="step failed-background" data-toggle="tooltip" title="Scenario failed">1</span>
+                        </li>
+                    
+
+                    
+                        <li>
+                            <span class="step passed-background" data-toggle="tooltip" title="Scenario passed">1</span>
+                        </li>
+                    
+
+                    
+
+                    
+                </ul>
+
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="x_content" style="display: none;">
+                <div class="scenario-step-container"></div>
+                    
+                        
+                            <div class="scenario-step-container">
+
+                                
+                                    
+                                        <div class="label" title="Success">
+                                            <i class="fa fa-check-circle fa-2x passed-color" data-toggle="tooltip" data-placement="top" title="Step passed"></i>
+                                        </div>
+                                    
+                                
+
+                                <div class="text">
+                                    <span class="keyword highlight">Given </span>
+
+                                    
+                                        User should get refresh_token and create authToken
+                                        
+                                    
+
+                                    
+
+                                </div>
+
+                                
+                                    
+
+                                    
+
+                                    
+                                    
+                                    
+
+                                    
+
+                                    
+
+                                    
+                                
+                            </div>
+
+                        
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+                        
+
+                        
+                            
+                        
+
+                    
+                
+                        
+                            <div class="scenario-step-container">
+
+                                
+                                    
+                                        <div class="label" data-toggle="tooltip" data-placement="top" title="Step failed">
+                                            <i class="fa fa-exclamation-circle fa-2x failed-color"></i>
+                                        </div>
+                                    
+                                
+
+                                <div class="text">
+                                    <span class="keyword highlight">When </span>
+
+                                    
+                                        the application processes the "He go to the store yesterday." with misspelled grammar
+                                        
+                                    
+
+                                    
+
+                                </div>
+
+                                
+                                    
+
+                                    
+                                        <a href="#error4-1-error" data-toggle="collapse">+ Show Error</a>
+                                    
+
+                                    
+                                    
+                                    
+
+                                    
+
+                                    
+
+                                    
+                                
+                            </div>
+
+                        
+                            
+                                <div id="error4-1-error" class="scenario-step-collapse collapse">
+                                    <pre class=info>CypressError: `cy.request()` failed on:
+
+https://rmzwitktjd.execute-api.us-east-1.amazonaws.com/Prod/contentcreation
+
+The response we received from your web server was:
+
+  ) 404: Not Found
+
+This was considered a failure because the status code was not `2xx` or `3xx`.
+
+If you do not want status codes to cause failures pass the option: `failOnStatusCode: false`
+
+-----------------------------------------------------------
+
+The request we sent was:
+
+Method: POST
+URL: https://rmzwitktjd.execute-api.us-east-1.amazonaws.com/Prod/contentcreation
+Headers: {
+  "Connection": "keep-alive",
+  "Authorization": "Bearer eyJraWQiOiJ6ZG0yZ2NvUkltVXBmODFNWk54QnlEN2tRMGpMUXpucnpLVjNpaUd0bTk0PSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI4NGY4NDRlOC0yMDMxLTcwMDktYTJjNy1lYjQzZDA3ZDljNGIiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLnVzLWVhc3QtMS5hbWF6b25hd3MuY29tXC91cy1lYXN0LTFfVWJDN0p0R2xZIiwiY29nbml0bzp1c2VybmFtZSI6Ijg0Zjg0NGU4LTIwMzEtNzAwOS1hMmM3LWViNDNkMDdkOWM0YiIsIm9yaWdpbl9qdGkiOiI5M2QzZGQxZS1kOTI3LTRmMmMtYjc1MC0yMDNlNzUzMjFiZjAiLCJhdWQiOiI2MGh0Nms0azA2OW9pNjk2bWMza2ZscGloOSIsImV2ZW50X2lkIjoiYTQxM2Q2ZDgtMTBiYy00OGQ4LWE0ZjgtMTVhMWE2ZmU4MDM5IiwidG9rZW5fdXNlIjoiaWQiLCJhdXRoX3RpbWUiOjE2OTc0NDU5MjgsImV4cCI6MTY5NzY3OTY0MywiaWF0IjoxNjk3NTkzMjQzLCJqdGkiOiJmYmQxMDc2Mi0zMWRmLTRkODEtOGUzYy0yYzU5OGE2NTk1MDIiLCJlbWFpbCI6InNlbG1hLmJlcmdAYWJleWlzLmNvbSJ9.aGwSrl4xxO6ipvJ_MvmM3DtygZqmPb9jMxoUqDYoK-rVV0GfQWkoJKt71SBOLa2zzgO-hDmBNafo_5TCZSzXehOkeCeFS1AdJ7uKBkZXWT5gmoNl9lBUvtiS3uuaivv4ka6q8g4v6qWuajq8jLIwj0_uqSwIj3V2H4Zw9ke_ZE6DYgF1hq1UY9Tpi-qZ74oWcPNLkmy88jOgz-_TcEs7SkK0StkqFfiAum0QZuC68vlkq_o9DwKd416RiJY4DXXVblHUrg1AThloCb1Auw1pvjZ0-ikna9Lznk5tQC6Vw2F7cRAy_0UofAQHceTsWSkckKjohxaCY-R3S4lL8RS_wA",
+  "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Cypress/13.2.0 Chrome/114.0.5735.289 Electron/25.8.0 Safari/537.36",
+  "accept": "*/*",
+  "accept-encoding": "gzip, deflate",
+  "content-type": "application/json",
+  "content-length": 43
+}
+Body: {"content":"He go to the store yesterday."}
+
+-----------------------------------------------------------
+
+The response we got was:
+
+Status: 404 - Not Found
+Headers: {
+  "content-type": "application/json",
+  "content-length": "57",
+  "connection": "keep-alive",
+  "date": "Wed, 18 Oct 2023 01:40:44 GMT",
+  "x-amzn-requestid": "4d2d070b-7376-499f-a7f6-51b5fb24a717",
+  "x-amz-apigw-id": "M-WgaHEooAMF0qg=",
+  "x-amzn-trace-id": "Root=1-652f379b-50f7be3206800cf66b51f22e;Sampled=0;lineage=7c5ac6ec:0",
+  "x-cache": "Error from cloudfront",
+  "via": "1.1 293365d41b590aec3b6811bdb271df64.cloudfront.net (CloudFront)",
+  "x-amz-cf-pop": "YTO50-P3",
+  "x-amz-cf-id": "Wvk_o38fCiQB4sgxTDaL21p_rNzUK62cNCgQVVOSkkeLiRFtqw_hWw=="
+}
+Body: {
+  "data": [],
+  "errorDescription": "Package not available"
+}
+
+
+https://on.cypress.io/request
+    at (unknown) (http://localhost:62631/__cypress/runner/cypress_runner.js:133013:72)
+    at tryCatcher (http://localhost:62631/__cypress/runner/cypress_runner.js:1807:23)
+    at Promise._settlePromiseFromHandler (http://localhost:62631/__cypress/runner/cypress_runner.js:1519:31)
+    at Promise._settlePromise (http://localhost:62631/__cypress/runner/cypress_runner.js:1576:18)
+    at Promise._settlePromise0 (http://localhost:62631/__cypress/runner/cypress_runner.js:1621:10)
+    at Promise._settlePromises (http://localhost:62631/__cypress/runner/cypress_runner.js:1701:18)
+    at _drainQueueStep (http://localhost:62631/__cypress/runner/cypress_runner.js:2407:12)
+    at _drainQueue (http://localhost:62631/__cypress/runner/cypress_runner.js:2400:9)
+    at Async._drainQueues (http://localhost:62631/__cypress/runner/cypress_runner.js:2416:5)
+    at Async.drainQueues (http://localhost:62631/__cypress/runner/cypress_runner.js:2286:14)
+From Your Spec Code:
+    at Context.eval (cypress/integration/step_definitions/backend/aa_token_generate.cy.js:8:16)</pre>
+                                </div>
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+                        
+
+                        
+                            
+                        
+
+                    
+                
+                        
+                            <div class="scenario-step-container">
+
+                                
+                                    
+                                        <div class="label" data-toggle="tooltip" data-placement="top" title="Step is skipped">
+                                            <i class="fa fa-arrow-circle-right fa-2x skipped-color"></i>
+                                        </div>
+                                    
+                                
+
+                                <div class="text">
+                                    <span class="keyword highlight">Then </span>
+
+                                    
+                                        API response should be grammatically "He went to the store yesterday." and understandable
+                                        
+                                    
+
+                                    
+
+                                </div>
+
+                                
+                                    
+
+                                    
+
+                                    
+                                    
+                                    
+
+                                    
+
+                                    
+
+                                    
+                                
+                            </div>
+
+                        
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+                        
+
+                        
+                            
+                        
+
+                    
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel" style="height: auto;">
+            <div class="x_title">
+
+                <div class="tags">
+                    
+                        
+                        
+                    
+                </div>
+
+                <h2>Scenario: <small>Successful correction of misspelled grammar and grammatical error</small></h2>
+
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-down"></i></a>
+                    </li>
+
+                    
+
+                    
+
+                    
+                        <li>
+                            <span class="step skipped-background" data-toggle="tooltip" title="Scenario is skipped">1</span>
+                        </li>
+                    
+
+                    
+                        <li>
+                            <span class="step failed-background" data-toggle="tooltip" title="Scenario failed">1</span>
+                        </li>
+                    
+
+                    
+                        <li>
+                            <span class="step passed-background" data-toggle="tooltip" title="Scenario passed">1</span>
+                        </li>
+                    
+
+                    
+
+                    
+                </ul>
+
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="x_content" style="display: none;">
+                <div class="scenario-step-container"></div>
+                    
+                        
+                            <div class="scenario-step-container">
+
+                                
+                                    
+                                        <div class="label" title="Success">
+                                            <i class="fa fa-check-circle fa-2x passed-color" data-toggle="tooltip" data-placement="top" title="Step passed"></i>
+                                        </div>
+                                    
+                                
+
+                                <div class="text">
+                                    <span class="keyword highlight">Given </span>
+
+                                    
+                                        User should get refresh_token and create authToken
+                                        
+                                    
+
+                                    
+
+                                </div>
+
+                                
+                                    
+
+                                    
+
+                                    
+                                    
+                                    
+
+                                    
+
+                                    
+
+                                    
+                                
+                            </div>
+
+                        
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+                        
+
+                        
+                            
+                        
+
+                    
+                
+                        
+                            <div class="scenario-step-container">
+
+                                
+                                    
+                                        <div class="label" data-toggle="tooltip" data-placement="top" title="Step failed">
+                                            <i class="fa fa-exclamation-circle fa-2x failed-color"></i>
+                                        </div>
+                                    
+                                
+
+                                <div class="text">
+                                    <span class="keyword highlight">When </span>
+
+                                    
+                                        the application processes the "They was playing in the garden." with misspelled grammar
+                                        
+                                    
+
+                                    
+
+                                </div>
+
+                                
+                                    
+
+                                    
+                                        <a href="#error5-1-error" data-toggle="collapse">+ Show Error</a>
+                                    
+
+                                    
+                                    
+                                    
+
+                                    
+
+                                    
+
+                                    
+                                
+                            </div>
+
+                        
+                            
+                                <div id="error5-1-error" class="scenario-step-collapse collapse">
+                                    <pre class=info>CypressError: `cy.request()` failed on:
+
+https://rmzwitktjd.execute-api.us-east-1.amazonaws.com/Prod/contentcreation
+
+The response we received from your web server was:
+
+  ) 404: Not Found
+
+This was considered a failure because the status code was not `2xx` or `3xx`.
+
+If you do not want status codes to cause failures pass the option: `failOnStatusCode: false`
+
+-----------------------------------------------------------
+
+The request we sent was:
+
+Method: POST
+URL: https://rmzwitktjd.execute-api.us-east-1.amazonaws.com/Prod/contentcreation
+Headers: {
+  "Connection": "keep-alive",
+  "Authorization": "Bearer eyJraWQiOiJ6ZG0yZ2NvUkltVXBmODFNWk54QnlEN2tRMGpMUXpucnpLVjNpaUd0bTk0PSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI4NGY4NDRlOC0yMDMxLTcwMDktYTJjNy1lYjQzZDA3ZDljNGIiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLnVzLWVhc3QtMS5hbWF6b25hd3MuY29tXC91cy1lYXN0LTFfVWJDN0p0R2xZIiwiY29nbml0bzp1c2VybmFtZSI6Ijg0Zjg0NGU4LTIwMzEtNzAwOS1hMmM3LWViNDNkMDdkOWM0YiIsIm9yaWdpbl9qdGkiOiI5M2QzZGQxZS1kOTI3LTRmMmMtYjc1MC0yMDNlNzUzMjFiZjAiLCJhdWQiOiI2MGh0Nms0azA2OW9pNjk2bWMza2ZscGloOSIsImV2ZW50X2lkIjoiYTQxM2Q2ZDgtMTBiYy00OGQ4LWE0ZjgtMTVhMWE2ZmU4MDM5IiwidG9rZW5fdXNlIjoiaWQiLCJhdXRoX3RpbWUiOjE2OTc0NDU5MjgsImV4cCI6MTY5NzY3OTY0NCwiaWF0IjoxNjk3NTkzMjQ0LCJqdGkiOiI3Y2FmMjdiYi02Y2Y4LTRjYzQtOTRmMi1lNDMzYjRhY2Q4ZjAiLCJlbWFpbCI6InNlbG1hLmJlcmdAYWJleWlzLmNvbSJ9.j5lmPipt1a2-j_Be7cLblkNQ5DUVH4oQ9qZfFlV02Fj0ZXsVihkJTjjmGDnIfeIo-KjkkFi_zHwti759yHX41ND1SjxehWNBPhuPlmKPXpOi68jR5zDELvYI1TA93i7rD1kyvD8hGB5Ie_ckYAixo9Pw-RMo1FveGuHS9_arNW0TpNs992mDHKsE-w8fHqTCDmkxshKeHTHpSH26ZHuCwuiOCbIsfWWRT7GAQvU00vMOZXL4F_jIhgR2RuF5UY8fW45JeuHZ5kEMbg_fArF_J9JDSPxB7uMGxaGQCugYeih2mfbL0o7Hi2cnigF1UdLaPdEfpsEaR9XpCCdIsYyB2Q",
+  "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Cypress/13.2.0 Chrome/114.0.5735.289 Electron/25.8.0 Safari/537.36",
+  "accept": "*/*",
+  "accept-encoding": "gzip, deflate",
+  "content-type": "application/json",
+  "content-length": 45
+}
+Body: {"content":"They was playing in the garden."}
+
+-----------------------------------------------------------
+
+The response we got was:
+
+Status: 404 - Not Found
+Headers: {
+  "content-type": "application/json",
+  "content-length": "57",
+  "connection": "keep-alive",
+  "date": "Wed, 18 Oct 2023 01:40:44 GMT",
+  "x-amzn-requestid": "16aaa46d-b507-4d7e-812e-344bb3aa17b9",
+  "x-amz-apigw-id": "M-WgiFILoAMFiMg=",
+  "x-amzn-trace-id": "Root=1-652f379c-0fe04907363afb676dda1ad7;Sampled=0;lineage=7c5ac6ec:0",
+  "x-cache": "Error from cloudfront",
+  "via": "1.1 293365d41b590aec3b6811bdb271df64.cloudfront.net (CloudFront)",
+  "x-amz-cf-pop": "YTO50-P3",
+  "x-amz-cf-id": "25P2OtL7n8W7U0iZxW_1tRZR8Fig69uCfwYvMNE0K6piqDQAyPWdcg=="
+}
+Body: {
+  "data": [],
+  "errorDescription": "Package not available"
+}
+
+
+https://on.cypress.io/request
+    at (unknown) (http://localhost:62631/__cypress/runner/cypress_runner.js:133013:72)
+    at tryCatcher (http://localhost:62631/__cypress/runner/cypress_runner.js:1807:23)
+    at Promise._settlePromiseFromHandler (http://localhost:62631/__cypress/runner/cypress_runner.js:1519:31)
+    at Promise._settlePromise (http://localhost:62631/__cypress/runner/cypress_runner.js:1576:18)
+    at Promise._settlePromise0 (http://localhost:62631/__cypress/runner/cypress_runner.js:1621:10)
+    at Promise._settlePromises (http://localhost:62631/__cypress/runner/cypress_runner.js:1701:18)
+    at _drainQueueStep (http://localhost:62631/__cypress/runner/cypress_runner.js:2407:12)
+    at _drainQueue (http://localhost:62631/__cypress/runner/cypress_runner.js:2400:9)
+    at Async._drainQueues (http://localhost:62631/__cypress/runner/cypress_runner.js:2416:5)
+    at Async.drainQueues (http://localhost:62631/__cypress/runner/cypress_runner.js:2286:14)
+From Your Spec Code:
+    at Context.eval (cypress/integration/step_definitions/backend/aa_token_generate.cy.js:8:16)</pre>
+                                </div>
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+                        
+
+                        
+                            
+                        
+
+                    
+                
+                        
+                            <div class="scenario-step-container">
+
+                                
+                                    
+                                        <div class="label" data-toggle="tooltip" data-placement="top" title="Step is skipped">
+                                            <i class="fa fa-arrow-circle-right fa-2x skipped-color"></i>
+                                        </div>
+                                    
+                                
+
+                                <div class="text">
+                                    <span class="keyword highlight">Then </span>
+
+                                    
+                                        API response should be grammatically "They were playing in the garden." and understandable
+                                        
+                                    
+
+                                    
+
+                                </div>
+
+                                
+                                    
+
+                                    
+
+                                    
+                                    
+                                    
+
+                                    
+
+                                    
+
+                                    
+                                
+                            </div>
+
+                        
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+                        
+
+                        
+                            
+                        
+
+                    
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel" style="height: auto;">
+            <div class="x_title">
+
+                <div class="tags">
+                    
+                        
+                        
+                    
+                </div>
+
+                <h2>Scenario: <small>Successful correction of misspelled grammar and grammatical error</small></h2>
+
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-down"></i></a>
+                    </li>
+
+                    
+
+                    
+
+                    
+                        <li>
+                            <span class="step skipped-background" data-toggle="tooltip" title="Scenario is skipped">1</span>
+                        </li>
+                    
+
+                    
+                        <li>
+                            <span class="step failed-background" data-toggle="tooltip" title="Scenario failed">1</span>
+                        </li>
+                    
+
+                    
+                        <li>
+                            <span class="step passed-background" data-toggle="tooltip" title="Scenario passed">1</span>
+                        </li>
+                    
+
+                    
+
+                    
+                </ul>
+
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="x_content" style="display: none;">
+                <div class="scenario-step-container"></div>
+                    
+                        
+                            <div class="scenario-step-container">
+
+                                
+                                    
+                                        <div class="label" title="Success">
+                                            <i class="fa fa-check-circle fa-2x passed-color" data-toggle="tooltip" data-placement="top" title="Step passed"></i>
+                                        </div>
+                                    
+                                
+
+                                <div class="text">
+                                    <span class="keyword highlight">Given </span>
+
+                                    
+                                        User should get refresh_token and create authToken
+                                        
+                                    
+
+                                    
+
+                                </div>
+
+                                
+                                    
+
+                                    
+
+                                    
+                                    
+                                    
+
+                                    
+
+                                    
+
+                                    
+                                
+                            </div>
+
+                        
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+                        
+
+                        
+                            
+                        
+
+                    
+                
+                        
+                            <div class="scenario-step-container">
+
+                                
+                                    
+                                        <div class="label" data-toggle="tooltip" data-placement="top" title="Step failed">
+                                            <i class="fa fa-exclamation-circle fa-2x failed-color"></i>
+                                        </div>
+                                    
+                                
+
+                                <div class="text">
+                                    <span class="keyword highlight">When </span>
+
+                                    
+                                        the application processes the "The book on the table are interesting." with misspelled grammar
+                                        
+                                    
+
+                                    
+
+                                </div>
+
+                                
+                                    
+
+                                    
+                                        <a href="#error6-1-error" data-toggle="collapse">+ Show Error</a>
+                                    
+
+                                    
+                                    
+                                    
+
+                                    
+
+                                    
+
+                                    
+                                
+                            </div>
+
+                        
+                            
+                                <div id="error6-1-error" class="scenario-step-collapse collapse">
+                                    <pre class=info>CypressError: `cy.request()` failed on:
+
+https://rmzwitktjd.execute-api.us-east-1.amazonaws.com/Prod/contentcreation
+
+The response we received from your web server was:
+
+  ) 404: Not Found
+
+This was considered a failure because the status code was not `2xx` or `3xx`.
+
+If you do not want status codes to cause failures pass the option: `failOnStatusCode: false`
+
+-----------------------------------------------------------
+
+The request we sent was:
+
+Method: POST
+URL: https://rmzwitktjd.execute-api.us-east-1.amazonaws.com/Prod/contentcreation
+Headers: {
+  "Connection": "keep-alive",
+  "Authorization": "Bearer eyJraWQiOiJ6ZG0yZ2NvUkltVXBmODFNWk54QnlEN2tRMGpMUXpucnpLVjNpaUd0bTk0PSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI4NGY4NDRlOC0yMDMxLTcwMDktYTJjNy1lYjQzZDA3ZDljNGIiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLnVzLWVhc3QtMS5hbWF6b25hd3MuY29tXC91cy1lYXN0LTFfVWJDN0p0R2xZIiwiY29nbml0bzp1c2VybmFtZSI6Ijg0Zjg0NGU4LTIwMzEtNzAwOS1hMmM3LWViNDNkMDdkOWM0YiIsIm9yaWdpbl9qdGkiOiI5M2QzZGQxZS1kOTI3LTRmMmMtYjc1MC0yMDNlNzUzMjFiZjAiLCJhdWQiOiI2MGh0Nms0azA2OW9pNjk2bWMza2ZscGloOSIsImV2ZW50X2lkIjoiYTQxM2Q2ZDgtMTBiYy00OGQ4LWE0ZjgtMTVhMWE2ZmU4MDM5IiwidG9rZW5fdXNlIjoiaWQiLCJhdXRoX3RpbWUiOjE2OTc0NDU5MjgsImV4cCI6MTY5NzY3OTY0NSwiaWF0IjoxNjk3NTkzMjQ1LCJqdGkiOiIxNmJkNTY1OS1kZWQwLTQxNmItYjg2Yy00OTViNzJkNTgxOTciLCJlbWFpbCI6InNlbG1hLmJlcmdAYWJleWlzLmNvbSJ9.ngT04Ym5ZgCnmbMdzTsq8QtbYmdSpohZeHQcUOKE8EvXgCAfSOICkrCzRNwyzJ6lCcryb9zQ9shKeXMMt5vv0NP15DbFA_TABuU1aH33nPT9JSI_AGQB5u3iz6BWMnKtw9tRr1aaVKi8yNY-76Z5zWu0PFvwTr3IgqU7ZbwF4buVhaqOV9FOr4M3qe63JnWw3CKXZsESQwdLmK1VhJvihiyDv8ZvBhL-3Dmwk9fEMuEiVAoJ1KBt8M4EyAODKM0yIkaOLfVxQFkviIY44TtFZ2M0dddb8YOYnunJrjExtJhfbJ-ng6WxauLVlFhkajd5yfrwWwXCaqbzPwu1vnZOgw",
+  "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Cypress/13.2.0 Chrome/114.0.5735.289 Electron/25.8.0 Safari/537.36",
+  "accept": "*/*",
+  "accept-encoding": "gzip, deflate",
+  "content-type": "application/json",
+  "content-length": 52
+}
+Body: {"content":"The book on the table are interesting."}
+
+-----------------------------------------------------------
+
+The response we got was:
+
+Status: 404 - Not Found
+Headers: {
+  "content-type": "application/json",
+  "content-length": "57",
+  "connection": "keep-alive",
+  "date": "Wed, 18 Oct 2023 01:40:45 GMT",
+  "x-amzn-requestid": "72a68081-48ca-4bb9-bb96-62e2c8d7d520",
+  "x-amz-apigw-id": "M-WgrEL4IAMF5zw=",
+  "x-amzn-trace-id": "Root=1-652f379d-3a4fd57a78a227b018dbeeb7;Sampled=0;lineage=7c5ac6ec:0",
+  "x-cache": "Error from cloudfront",
+  "via": "1.1 293365d41b590aec3b6811bdb271df64.cloudfront.net (CloudFront)",
+  "x-amz-cf-pop": "YTO50-P3",
+  "x-amz-cf-id": "0aK90OSMCnYaRCx9_Myo5W2X5djWb7X97YbC_WWAbos82LPwnEEg8g=="
+}
+Body: {
+  "data": [],
+  "errorDescription": "Package not available"
+}
+
+
+https://on.cypress.io/request
+    at (unknown) (http://localhost:62631/__cypress/runner/cypress_runner.js:133013:72)
+    at tryCatcher (http://localhost:62631/__cypress/runner/cypress_runner.js:1807:23)
+    at Promise._settlePromiseFromHandler (http://localhost:62631/__cypress/runner/cypress_runner.js:1519:31)
+    at Promise._settlePromise (http://localhost:62631/__cypress/runner/cypress_runner.js:1576:18)
+    at Promise._settlePromise0 (http://localhost:62631/__cypress/runner/cypress_runner.js:1621:10)
+    at Promise._settlePromises (http://localhost:62631/__cypress/runner/cypress_runner.js:1701:18)
+    at _drainQueueStep (http://localhost:62631/__cypress/runner/cypress_runner.js:2407:12)
+    at _drainQueue (http://localhost:62631/__cypress/runner/cypress_runner.js:2400:9)
+    at Async._drainQueues (http://localhost:62631/__cypress/runner/cypress_runner.js:2416:5)
+    at Async.drainQueues (http://localhost:62631/__cypress/runner/cypress_runner.js:2286:14)
+From Your Spec Code:
+    at Context.eval (cypress/integration/step_definitions/backend/aa_token_generate.cy.js:8:16)</pre>
+                                </div>
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+                        
+
+                        
+                            
+                        
+
+                    
+                
+                        
+                            <div class="scenario-step-container">
+
+                                
+                                    
+                                        <div class="label" data-toggle="tooltip" data-placement="top" title="Step is skipped">
+                                            <i class="fa fa-arrow-circle-right fa-2x skipped-color"></i>
+                                        </div>
+                                    
+                                
+
+                                <div class="text">
+                                    <span class="keyword highlight">Then </span>
+
+                                    
+                                        API response should be grammatically "The book on the table is interesting." and understandable
+                                        
+                                    
+
+                                    
+
+                                </div>
+
+                                
+                                    
+
+                                    
+
+                                    
+                                    
+                                    
+
+                                    
+
+                                    
+
+                                    
+                                
+                            </div>
+
+                        
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+                        
+
+                        
+                            
+                        
+
+                    
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel" style="height: auto;">
+            <div class="x_title">
+
+                <div class="tags">
+                    
+                        
+                        
+                    
+                </div>
+
+                <h2>Scenario: <small>Successful correction of misspelled grammar and grammatical error</small></h2>
+
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-down"></i></a>
+                    </li>
+
+                    
+
+                    
+
+                    
+                        <li>
+                            <span class="step skipped-background" data-toggle="tooltip" title="Scenario is skipped">1</span>
+                        </li>
+                    
+
+                    
+                        <li>
+                            <span class="step failed-background" data-toggle="tooltip" title="Scenario failed">1</span>
+                        </li>
+                    
+
+                    
+                        <li>
+                            <span class="step passed-background" data-toggle="tooltip" title="Scenario passed">1</span>
+                        </li>
+                    
+
+                    
+
+                    
+                </ul>
+
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="x_content" style="display: none;">
+                <div class="scenario-step-container"></div>
+                    
+                        
+                            <div class="scenario-step-container">
+
+                                
+                                    
+                                        <div class="label" title="Success">
+                                            <i class="fa fa-check-circle fa-2x passed-color" data-toggle="tooltip" data-placement="top" title="Step passed"></i>
+                                        </div>
+                                    
+                                
+
+                                <div class="text">
+                                    <span class="keyword highlight">Given </span>
+
+                                    
+                                        User should get refresh_token and create authToken
+                                        
+                                    
+
+                                    
+
+                                </div>
+
+                                
+                                    
+
+                                    
+
+                                    
+                                    
+                                    
+
+                                    
+
+                                    
+
+                                    
+                                
+                            </div>
+
+                        
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+                        
+
+                        
+                            
+                        
+
+                    
+                
+                        
+                            <div class="scenario-step-container">
+
+                                
+                                    
+                                        <div class="label" data-toggle="tooltip" data-placement="top" title="Step failed">
+                                            <i class="fa fa-exclamation-circle fa-2x failed-color"></i>
+                                        </div>
+                                    
+                                
+
+                                <div class="text">
+                                    <span class="keyword highlight">When </span>
+
+                                    
+                                        the application processes the "She is teacher." with misspelled grammar
+                                        
+                                    
+
+                                    
+
+                                </div>
+
+                                
+                                    
+
+                                    
+                                        <a href="#error7-1-error" data-toggle="collapse">+ Show Error</a>
+                                    
+
+                                    
+                                    
+                                    
+
+                                    
+
+                                    
+
+                                    
+                                
+                            </div>
+
+                        
+                            
+                                <div id="error7-1-error" class="scenario-step-collapse collapse">
+                                    <pre class=info>CypressError: `cy.request()` failed on:
+
+https://rmzwitktjd.execute-api.us-east-1.amazonaws.com/Prod/contentcreation
+
+The response we received from your web server was:
+
+  ) 404: Not Found
+
+This was considered a failure because the status code was not `2xx` or `3xx`.
+
+If you do not want status codes to cause failures pass the option: `failOnStatusCode: false`
+
+-----------------------------------------------------------
+
+The request we sent was:
+
+Method: POST
+URL: https://rmzwitktjd.execute-api.us-east-1.amazonaws.com/Prod/contentcreation
+Headers: {
+  "Connection": "keep-alive",
+  "Authorization": "Bearer eyJraWQiOiJ6ZG0yZ2NvUkltVXBmODFNWk54QnlEN2tRMGpMUXpucnpLVjNpaUd0bTk0PSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI4NGY4NDRlOC0yMDMxLTcwMDktYTJjNy1lYjQzZDA3ZDljNGIiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiaXNzIjoiaHR0cHM6XC9cL2NvZ25pdG8taWRwLnVzLWVhc3QtMS5hbWF6b25hd3MuY29tXC91cy1lYXN0LTFfVWJDN0p0R2xZIiwiY29nbml0bzp1c2VybmFtZSI6Ijg0Zjg0NGU4LTIwMzEtNzAwOS1hMmM3LWViNDNkMDdkOWM0YiIsIm9yaWdpbl9qdGkiOiI5M2QzZGQxZS1kOTI3LTRmMmMtYjc1MC0yMDNlNzUzMjFiZjAiLCJhdWQiOiI2MGh0Nms0azA2OW9pNjk2bWMza2ZscGloOSIsImV2ZW50X2lkIjoiYTQxM2Q2ZDgtMTBiYy00OGQ4LWE0ZjgtMTVhMWE2ZmU4MDM5IiwidG9rZW5fdXNlIjoiaWQiLCJhdXRoX3RpbWUiOjE2OTc0NDU5MjgsImV4cCI6MTY5NzY3OTY0NiwiaWF0IjoxNjk3NTkzMjQ2LCJqdGkiOiJjMDA0NzZjMS0wMzZlLTQxMTQtYjc1ZS05ZjM5YmM3N2Q0NWUiLCJlbWFpbCI6InNlbG1hLmJlcmdAYWJleWlzLmNvbSJ9.Zn4oOHVHbsQlK8QsyX2U_tq-psd78McdlQUve4L7qAvS6-04YAu_qbI_AkOM-OJYK8sAFb-SpbYZVZ1zYnsEGmLt24hppdaJbMWwJlSFOK1ZQJAIFkTRXr1HFUxr8kVxNVa2Xdq1MSh_W0UrQs3tYC-9L7D-X_oqyx4p4SikcHqIsBSnIQrD0fGKxaWJgp4ekXjniI1p-tLkjukVYFeFDnd1Csw_r7dgSdXSlhmnqSns_dU8Na4YjhZeD9Y5WS0jpigHl1wsUlcnk78VPykme0LLdJe6gO4co6rH41gObYXfyBIVT46gsaaHfUmtpIjxDElpv8aROJqnkFkKx68MnQ",
+  "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Cypress/13.2.0 Chrome/114.0.5735.289 Electron/25.8.0 Safari/537.36",
+  "accept": "*/*",
+  "accept-encoding": "gzip, deflate",
+  "content-type": "application/json",
+  "content-length": 29
+}
+Body: {"content":"She is teacher."}
+
+-----------------------------------------------------------
+
+The response we got was:
+
+Status: 404 - Not Found
+Headers: {
+  "content-type": "application/json",
+  "content-length": "57",
+  "connection": "keep-alive",
+  "date": "Wed, 18 Oct 2023 01:40:46 GMT",
+  "x-amzn-requestid": "f480a109-b9fc-4568-8e26-aaa46b694ee8",
+  "x-amz-apigw-id": "M-Wg1E5xoAMF7AQ=",
+  "x-amzn-trace-id": "Root=1-652f379e-237a784b25e3579b4522823a;Sampled=0;lineage=7c5ac6ec:0",
+  "x-cache": "Error from cloudfront",
+  "via": "1.1 293365d41b590aec3b6811bdb271df64.cloudfront.net (CloudFront)",
+  "x-amz-cf-pop": "YTO50-P3",
+  "x-amz-cf-id": "wvuIdB2gkAqMZtzx1YkkhqqxLHoiH-Ln_gpyZBwLztEGZk1AiyFqQw=="
+}
+Body: {
+  "data": [],
+  "errorDescription": "Package not available"
+}
+
+
+https://on.cypress.io/request
+    at (unknown) (http://localhost:62631/__cypress/runner/cypress_runner.js:133013:72)
+    at tryCatcher (http://localhost:62631/__cypress/runner/cypress_runner.js:1807:23)
+    at Promise._settlePromiseFromHandler (http://localhost:62631/__cypress/runner/cypress_runner.js:1519:31)
+    at Promise._settlePromise (http://localhost:62631/__cypress/runner/cypress_runner.js:1576:18)
+    at Promise._settlePromise0 (http://localhost:62631/__cypress/runner/cypress_runner.js:1621:10)
+    at Promise._settlePromises (http://localhost:62631/__cypress/runner/cypress_runner.js:1701:18)
+    at _drainQueueStep (http://localhost:62631/__cypress/runner/cypress_runner.js:2407:12)
+    at _drainQueue (http://localhost:62631/__cypress/runner/cypress_runner.js:2400:9)
+    at Async._drainQueues (http://localhost:62631/__cypress/runner/cypress_runner.js:2416:5)
+    at Async.drainQueues (http://localhost:62631/__cypress/runner/cypress_runner.js:2286:14)
+From Your Spec Code:
+    at Context.eval (cypress/integration/step_definitions/backend/aa_token_generate.cy.js:8:16)</pre>
+                                </div>
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+                        
+
+                        
+                            
+                        
+
+                    
+                
+                        
+                            <div class="scenario-step-container">
+
+                                
+                                    
+                                        <div class="label" data-toggle="tooltip" data-placement="top" title="Step is skipped">
+                                            <i class="fa fa-arrow-circle-right fa-2x skipped-color"></i>
+                                        </div>
+                                    
+                                
+
+                                <div class="text">
+                                    <span class="keyword highlight">Then </span>
+
+                                    
+                                        API response should be grammatically "She is a teacher." and understandable
+                                        
+                                    
+
+                                    
+
+                                </div>
+
+                                
+                                    
+
+                                    
+
+                                    
+                                    
+                                    
+
+                                    
+
+                                    
+
+                                    
+                                
+                            </div>
+
+                        
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+                        
+
+                        
+                            
+                        
+
+                    
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel" style="height: auto;">
+            <div class="x_title">
+
+                <div class="tags">
+                    
+                        
+                        
+                    
+                </div>
+
+                <h2>Scenario: <small>User should verify error message when there is no user with that subscriptionId</small></h2>
+
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-down"></i></a>
+                    </li>
+
+                    
+
+                    
+
+                    
+
+                    
+
+                    
+                        <li>
+                            <span class="step passed-background" data-toggle="tooltip" title="Scenario passed">3</span>
+                        </li>
+                    
+
+                    
+
+                    
+                </ul>
+
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="x_content" style="display: none;">
+                <div class="scenario-step-container"></div>
+                    
+                        
+                            <div class="scenario-step-container">
+
+                                
+                                    
+                                        <div class="label" title="Success">
+                                            <i class="fa fa-check-circle fa-2x passed-color" data-toggle="tooltip" data-placement="top" title="Step passed"></i>
+                                        </div>
+                                    
+                                
+
+                                <div class="text">
+                                    <span class="keyword highlight">Given </span>
+
+                                    
+                                        User should get refresh_token and create authToken
+                                        
+                                    
+
+                                    
+
+                                </div>
+
+                                
+                                    
+
+                                    
+
+                                    
+                                    
+                                    
+
+                                    
+
+                                    
+
+                                    
+                                
+                            </div>
+
+                        
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+                        
+
+                        
+                            
+                        
+
+                    
+                
+                        
+                            <div class="scenario-step-container">
+
+                                
+                                    
+                                        <div class="label" title="Success">
+                                            <i class="fa fa-check-circle fa-2x passed-color" data-toggle="tooltip" data-placement="top" title="Step passed"></i>
+                                        </div>
+                                    
+                                
+
+                                <div class="text">
+                                    <span class="keyword highlight">When </span>
+
+                                    
+                                        I send a POST request to delete_usersubscription
+                                        
+                                    
+
+                                    
+
+                                </div>
+
+                                
+                                    
+
+                                    
+
+                                    
+                                    
+                                    
+
+                                    
+
+                                    
+
+                                    
+                                
+                            </div>
+
+                        
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+                        
+
+                        
+                            
+                        
+
+                    
+                
+                        
+                            <div class="scenario-step-container">
+
+                                
+                                    
+                                        <div class="label" title="Success">
+                                            <i class="fa fa-check-circle fa-2x passed-color" data-toggle="tooltip" data-placement="top" title="Step passed"></i>
+                                        </div>
+                                    
+                                
+
+                                <div class="text">
+                                    <span class="keyword highlight">Then </span>
+
+                                    
+                                        I verify error message "No such subscription"
+                                        
+                                    
+
+                                    
+
+                                </div>
+
+                                
+                                    
+
+                                    
+
+                                    
+                                    
+                                    
+
+                                    
+
+                                    
+
+                                    
+                                
+                            </div>
+
+                        
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+
+                            
+                        
+
+                        
+                            
+                        
+
+                    
+                
+            </div>
+        </div>
+    </div>
+
+
+        </div>
+    </div>
+
+    
+        <div class="created-by">
+            <p>Created by wswebcreation. Find me on:</p>
+            <a href="http://www.wswebcreation.nl/" target="_blank"><i class="fa fa-rss-square fa-2x"></i></a>
+            <a href="https://github.com/wswebcreation/" target="_blank"><i class="fa fa-github-square fa-2x"></i></a>
+            <a href="http://nl.linkedin.com/in/wimselles" target="_blank"><i class="fa fa-linkedin-square fa-2x"></i></a>
+            <a href="http://stackoverflow.com/users/5911978/wswebcreation" target="_blank"><i class="fa fa-stack-overflow fa-2x"></i></a>
+        </div>
+    
+
+    
+        <script src="../assets/js/jquery-3.2.1.min.js"></script>
+        <script src="../assets/js/bootstrap.min.js"></script>
+        <script src="../assets/js/Chart.min.js"></script>
+    
+
+    <!-- Custom -->
+    <script>
+        var hideResult;
+        var showAll;
+        $(document).ready(function () {
+
+            var scenarioOptions = {
+                legend: false,
+                responsive: false
+            };
+
+            var getColor = function(selector, defaultColor) {
+                if (document.querySelector(selector)) {
+                    return getComputedStyle(document.querySelector(selector)).color
+                }
+                return defaultColor
+            }
+
+            new Chart(document.getElementById("scenario-chart"), {
+                type: 'doughnut',
+                tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+                data: {
+                    labels: [
+                        "Passed",
+                        "Failed",
+                        "Pending",
+                        "Skipped",
+                        "Ambiguous",
+                        "Not defined"
+                    ],
+                    datasets: [{
+                        data: [
+                            2,
+                            7,
+                            0,
+                            0,
+                            0,
+                            0
+                        ],
+                        backgroundColor: [
+                            getColor(".passed-color", "#26B99A"),
+                            getColor(".failed-color", "#E74C3C"),
+                            getColor(".pending-color", "#FFD119"),
+                            getColor(".skipped-color", "#3498DB"),
+                            getColor(".ambiguous-color", "#b73122"),
+                            getColor(".not-defined-color", "#F39C12")
+                        ]
+                    }]
+                },
+                options: scenarioOptions
+            });
+
+            $('.x_title').on('click', function () {
+    var $BOX_PANEL = $(this).closest('.x_panel'),
+        $ICON = $(this).find('.collapse-link i'),
+        $BOX_CONTENT = $BOX_PANEL.find('.x_content');
+
+    // fix for some div with hardcoded fix class
+    if ($BOX_PANEL.attr('style')) {
+        $BOX_CONTENT.slideToggle(200, function () {
+            $BOX_PANEL.removeAttr('style');
+        });
+    } else {
+        $BOX_CONTENT.slideToggle(200);
+        $BOX_PANEL.css('height', 'auto');
+    }
+
+    $ICON.toggleClass('fa-chevron-up fa-chevron-down');
+});
+
+$('body').tooltip({
+    selector: '[data-toggle="tooltip"]'
+});
+
+hideResult = (resultId) => {
+    $('span[class*=step]').closest('div.x_panel[style]').hide();
+    $('span[class*=' + resultId + ']').closest('div.x_panel[style]').show();
+}
+
+showAll = () => {
+    $('span[class*=step]').closest('div.x_panel[style]').show();
+}
+
+$(document).ready(() => {
+    const status = ['passed', 'failed', 'pending', 'skipped', 'ambiguous', 'not-defined']
+    status.forEach(value => {
+        var menuItem = $('span[class*=' + value + '-background]');
+        if (menuItem.length === 0) {
+            $('#' + value).parent().addClass('disabled');
+        }
+    })
+});
+
+        });
+    </script>
+</body>
+</html>
