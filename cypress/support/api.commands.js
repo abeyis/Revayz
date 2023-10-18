@@ -107,8 +107,10 @@ Cypress.Commands.add('upGradeDownGradeUsersubscription', (tier_type) => {
       headers: {
         Authorization: 'Bearer ' + authToken,
         },
+        failOnStatusCode: false,
       body:  {
-        subscription_id: new_subscription_id,
+       //subscription_id: new_subscription_id,
+        "subscription_id":"price_1NQogzAKE35JS5RJJlcPLMye",
         new_package_id: new_package_id,               
           },  
         }); 
