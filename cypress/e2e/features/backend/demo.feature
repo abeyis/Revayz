@@ -1,8 +1,10 @@
 Feature:This feature is created for demo
 
+
     Background: User gets refresh_token
         Given User should get refresh_token and create authToken
 
+    @demo
     Scenario: Successful Subscription GET request
         When user sends GET Subscription request
         Then user should receive a response with status code 200
@@ -11,7 +13,7 @@ Feature:This feature is created for demo
             | Free Tier | 400                            | 837871                         | $        | 50           | 0     | free         |
             | Tier 1    | 400                            | price_1NyveXGRkOBpNhaCKR23bLoD | $        | 500          | 4.99  | tier_1       |
             | Tier 2    | 800                            | price_1NyvhhGRkOBpNhaCbeUTjqoE | $        | 5000         | 9.99  | tier_2       |
-
+    @demo
     Scenario: Successful content generation POST request with 400 characters
         When a POST request is made with the following 400 characters:
             """
@@ -22,6 +24,7 @@ Feature:This feature is created for demo
         Then the API response should have a 200 status code
         And the API response should contain generated content and not be empty
 
+    @demo
     Scenario Outline: Successful correction of misspelled grammar and grammatical error
         When the application processes the <Input Sentence> with misspelled grammar
         Then API response should be grammatically <Corrected Sentence> and understandable
@@ -35,11 +38,13 @@ Feature:This feature is created for demo
             | "The book on the table are interesting." | "The book on the table is interesting." |
             | "She is teacher."                        | "She is a teacher."                     |
 
+    @demo
     Scenario:User should verify error message when there is no user with that subscriptionId
         When I send a POST request to delete_usersubscription
         Then I verify error message "No such subscription"
 
 #This scenario fails with error "No such subscription" as we can't get subscription id from userSubscription endpoint
+   # @demo
     # Scenario Outline: Upgrade or downgrade usersubscription to any tier
     #     When User send request to upgrade or downgrade usersubscription to "<tier_type>"
     #     Then User verify credits with the new plan "<tier_type>"
